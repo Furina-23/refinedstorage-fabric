@@ -20,7 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.data.ModelData;
-import net.minecraftforge.fluids.FluidStack;
+import com.refinedmods.refinedstorage.transfer.FluidStack;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 

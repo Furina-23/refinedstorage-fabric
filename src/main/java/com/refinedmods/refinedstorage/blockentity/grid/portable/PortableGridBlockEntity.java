@@ -68,10 +68,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.EnergyStorage;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.items.IItemHandlerModifiable;
+import com.refinedmods.refinedstorage.transfer.energy.EnergyStorage;
+import com.refinedmods.refinedstorage.transfer.energy.IEnergyStorage;
+import com.refinedmods.refinedstorage.transfer.FluidStack;
+import com.refinedmods.refinedstorage.transfer.item.IItemHandlerModifiable;
 import net.minecraftforge.server.ServerLifecycleHooks;
 
 import javax.annotation.Nonnull;

@@ -13,8 +13,8 @@ import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.data.ModelProperty;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.ItemStackHandler;
+import com.refinedmods.refinedstorage.transfer.item.IItemHandlerModifiable;
+import com.refinedmods.refinedstorage.transfer.item.ItemStackHandler;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;

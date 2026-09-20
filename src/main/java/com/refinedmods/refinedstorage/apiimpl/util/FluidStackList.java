@@ -6,7 +6,7 @@ import com.refinedmods.refinedstorage.api.util.StackListEntry;
 import com.refinedmods.refinedstorage.api.util.StackListResult;
 import com.refinedmods.refinedstorage.apiimpl.API;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.fluids.FluidStack;
+import com.refinedmods.refinedstorage.transfer.FluidStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

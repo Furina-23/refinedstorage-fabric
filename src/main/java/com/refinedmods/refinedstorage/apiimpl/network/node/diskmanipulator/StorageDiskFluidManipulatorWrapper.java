@@ -11,7 +11,7 @@ import com.refinedmods.refinedstorage.util.StackUtils;
 import com.refinedmods.refinedstorage.util.LevelUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.fluids.FluidStack;
+import com.refinedmods.refinedstorage.transfer.FluidStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

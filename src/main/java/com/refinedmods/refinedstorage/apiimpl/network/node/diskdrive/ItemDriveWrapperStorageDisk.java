@@ -10,7 +10,7 @@ import com.refinedmods.refinedstorage.blockentity.config.IWhitelistBlacklist;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.ItemHandlerHelper;
+import com.refinedmods.refinedstorage.transfer.item.ItemHandlerHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

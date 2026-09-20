@@ -3,7 +3,7 @@ package com.refinedmods.refinedstorage.container.transfer;
 import com.refinedmods.refinedstorage.inventory.fluid.FluidInventory;
 import com.refinedmods.refinedstorage.blockentity.config.IType;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandlerModifiable;
+import com.refinedmods.refinedstorage.transfer.item.IItemHandlerModifiable;
 
 import java.util.function.Supplier;
 

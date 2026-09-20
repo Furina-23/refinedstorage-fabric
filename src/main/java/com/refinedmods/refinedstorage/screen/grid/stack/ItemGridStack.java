@@ -13,7 +13,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.registries.ForgeRegistries;
+import com.refinedmods.refinedstorage.registry.ForgeRegistries;
 import net.minecraftforge.registries.tags.IReverseTag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

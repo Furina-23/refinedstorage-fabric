@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import com.refinedmods.refinedstorage.registry.ForgeRegistries;
 
 public class BlockModelGenerator extends BlockStateProvider {
     private static final ResourceLocation BOTTOM = new ResourceLocation(RS.ID, "block/bottom");

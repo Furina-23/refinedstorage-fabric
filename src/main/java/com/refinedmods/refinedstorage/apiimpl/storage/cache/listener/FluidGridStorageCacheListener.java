@@ -8,7 +8,7 @@ import com.refinedmods.refinedstorage.api.util.StackListResult;
 import com.refinedmods.refinedstorage.network.grid.GridFluidDeltaMessage;
 import com.refinedmods.refinedstorage.network.grid.GridFluidUpdateMessage;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.fluids.FluidStack;
+import com.refinedmods.refinedstorage.transfer.FluidStack;
 
 import java.util.ArrayList;
 import java.util.List;

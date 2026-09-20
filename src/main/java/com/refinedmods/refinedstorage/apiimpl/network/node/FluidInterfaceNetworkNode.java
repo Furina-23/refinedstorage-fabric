@@ -23,11 +23,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
-import net.minecraftforge.items.IItemHandler;
+import com.refinedmods.refinedstorage.transfer.FluidType;
+import com.refinedmods.refinedstorage.transfer.FluidStack;
+import com.refinedmods.refinedstorage.transfer.fluid.IFluidHandler;
+import com.refinedmods.refinedstorage.transfer.fluid.FluidTank;
+import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import org.apache.commons.lang3.tuple.Pair;
 

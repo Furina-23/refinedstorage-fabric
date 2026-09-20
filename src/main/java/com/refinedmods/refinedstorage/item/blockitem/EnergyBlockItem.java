@@ -12,7 +12,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.IEnergyStorage;
+import com.refinedmods.refinedstorage.transfer.energy.IEnergyStorage;
 
 import javax.annotation.Nullable;
 import java.util.List;

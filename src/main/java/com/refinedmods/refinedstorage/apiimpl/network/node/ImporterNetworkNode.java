@@ -24,11 +24,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
+import com.refinedmods.refinedstorage.transfer.FluidStack;
+import com.refinedmods.refinedstorage.transfer.FluidType;
+import com.refinedmods.refinedstorage.transfer.fluid.IFluidHandler;
+import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
+import com.refinedmods.refinedstorage.transfer.item.IItemHandlerModifiable;
 
 public class ImporterNetworkNode extends NetworkNode implements IComparable, IWhitelistBlacklist, IType, ICoverable {
     public static final ResourceLocation ID = new ResourceLocation(RS.ID, "importer");

@@ -2,7 +2,7 @@ package com.refinedmods.refinedstorage.container.slot;
 
 import com.refinedmods.refinedstorage.apiimpl.network.node.CrafterManagerNetworkNode;
 import com.refinedmods.refinedstorage.screen.IScreenInfoProvider;
-import net.minecraftforge.items.IItemHandler;
+import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
 
 public class CrafterManagerSlot extends BaseSlot {
     private final boolean visible;

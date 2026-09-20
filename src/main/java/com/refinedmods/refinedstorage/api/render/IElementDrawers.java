@@ -1,7 +1,7 @@
 package com.refinedmods.refinedstorage.api.render;
 
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
+import com.refinedmods.refinedstorage.transfer.FluidStack;
 
 /**
  * Interface specifying default element drawers.

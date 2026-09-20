@@ -35,12 +35,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
+import com.refinedmods.refinedstorage.transfer.FluidStack;
+import com.refinedmods.refinedstorage.transfer.FluidType;
 import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
+import com.refinedmods.refinedstorage.transfer.fluid.IFluidHandler;
+import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
+import com.refinedmods.refinedstorage.transfer.item.IItemHandlerModifiable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

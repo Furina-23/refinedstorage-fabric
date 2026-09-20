@@ -16,7 +16,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.registries.ForgeRegistries;
+import com.refinedmods.refinedstorage.registry.ForgeRegistries;
 
 public class UpgradeWithEnchantedBookRecipe extends ShapedRecipe {
     private final EnchantmentInstance enchant;

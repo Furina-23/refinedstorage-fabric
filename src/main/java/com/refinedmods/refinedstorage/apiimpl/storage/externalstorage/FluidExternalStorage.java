@@ -6,8 +6,8 @@ import com.refinedmods.refinedstorage.api.storage.externalstorage.IExternalStora
 import com.refinedmods.refinedstorage.api.storage.externalstorage.IExternalStorageContext;
 import com.refinedmods.refinedstorage.api.util.Action;
 import com.refinedmods.refinedstorage.util.StackUtils;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import com.refinedmods.refinedstorage.transfer.FluidStack;
+import com.refinedmods.refinedstorage.transfer.fluid.IFluidHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

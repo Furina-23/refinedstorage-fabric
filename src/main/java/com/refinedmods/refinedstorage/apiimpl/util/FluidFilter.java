@@ -1,7 +1,7 @@
 package com.refinedmods.refinedstorage.apiimpl.util;
 
 import com.refinedmods.refinedstorage.api.util.IFilter;
-import net.minecraftforge.fluids.FluidStack;
+import com.refinedmods.refinedstorage.transfer.FluidStack;
 
 public class FluidFilter implements IFilter {
     private final FluidStack stack;

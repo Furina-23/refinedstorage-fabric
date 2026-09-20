@@ -1,7 +1,7 @@
 package com.refinedmods.refinedstorage.api.util;
 
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
+import com.refinedmods.refinedstorage.transfer.FluidStack;
 
 import javax.annotation.Nonnull;
 

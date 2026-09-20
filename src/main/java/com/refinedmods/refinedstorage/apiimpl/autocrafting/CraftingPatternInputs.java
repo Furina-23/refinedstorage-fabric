@@ -2,7 +2,7 @@ package com.refinedmods.refinedstorage.apiimpl.autocrafting;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
+import com.refinedmods.refinedstorage.transfer.FluidStack;
 
 import java.util.List;
 

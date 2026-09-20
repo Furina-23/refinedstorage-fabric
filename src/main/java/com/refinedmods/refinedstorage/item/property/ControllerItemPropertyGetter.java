@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.energy.IEnergyStorage;
+import com.refinedmods.refinedstorage.transfer.energy.IEnergyStorage;
 
 import javax.annotation.Nullable;
 

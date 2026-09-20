@@ -9,10 +9,9 @@ import com.refinedmods.refinedstorage.item.blockitem.PortableGridBlockItem;
 import com.refinedmods.refinedstorage.util.ColorMap;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import com.refinedmods.refinedstorage.registry.DeferredRegister;
+import com.refinedmods.refinedstorage.registry.ForgeRegistries;
+import com.refinedmods.refinedstorage.registry.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -104,6 +103,6 @@ public final class RSBlocks {
     }
 
     public static void register() {
-        BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        BLOCKS.register();
     }
 }

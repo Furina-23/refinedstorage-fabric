@@ -12,9 +12,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fluids.FluidStack;
+import com.refinedmods.refinedstorage.transfer.FluidStack;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -54,7 +52,6 @@ public class FluidCraftingMonitorElement implements ICraftingMonitorElement {
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
     public void draw(GuiGraphics graphics, int x, int y, IElementDrawers drawers) {
         if (missing > 0) {
             drawers.getOverlayDrawer().draw(graphics, x, y, COLOR_MISSING);

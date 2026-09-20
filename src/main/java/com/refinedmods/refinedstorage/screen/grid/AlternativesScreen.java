@@ -21,9 +21,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.registries.ForgeRegistries;
+import com.refinedmods.refinedstorage.transfer.FluidStack;
+import com.refinedmods.refinedstorage.transfer.FluidType;
+import com.refinedmods.refinedstorage.registry.ForgeRegistries;
 import net.minecraftforge.registries.tags.IReverseTag;
 import org.lwjgl.glfw.GLFW;
 

@@ -6,8 +6,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,7 +20,6 @@ public interface ICraftingMonitorElement {
      * @param y        position on the y axis to render
      * @param drawers  the drawers that this element can use
      */
-    @OnlyIn(Dist.CLIENT)
     void draw(GuiGraphics graphics, int x, int y, IElementDrawers drawers);
 
     /**

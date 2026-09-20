@@ -22,12 +22,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.ItemHandlerHelper;
+import com.refinedmods.refinedstorage.transfer.FluidStack;
+import com.refinedmods.refinedstorage.transfer.FluidType;
+import com.refinedmods.refinedstorage.transfer.fluid.IFluidHandler;
+import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
+import com.refinedmods.refinedstorage.transfer.item.IItemHandlerModifiable;
+import com.refinedmods.refinedstorage.transfer.item.ItemHandlerHelper;
 
 public class ExporterNetworkNode extends NetworkNode implements IComparable, IType, ICoverable {
     public static final ResourceLocation ID = new ResourceLocation(RS.ID, "exporter");

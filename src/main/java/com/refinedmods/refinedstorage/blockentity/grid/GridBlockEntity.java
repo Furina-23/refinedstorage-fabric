@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
+import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

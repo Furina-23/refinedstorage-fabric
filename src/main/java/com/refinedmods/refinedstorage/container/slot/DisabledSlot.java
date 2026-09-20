@@ -1,7 +1,7 @@
 package com.refinedmods.refinedstorage.container.slot;
 
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
+import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
 
 import javax.annotation.Nonnull;
 

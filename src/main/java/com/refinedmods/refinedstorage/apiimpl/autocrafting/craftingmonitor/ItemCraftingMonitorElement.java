@@ -14,8 +14,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -54,7 +52,6 @@ public class ItemCraftingMonitorElement implements ICraftingMonitorElement {
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
     public void draw(GuiGraphics graphics, int x, int y, IElementDrawers drawers) {
         if (missing > 0) {
             drawers.getOverlayDrawer().draw(graphics, x, y, COLOR_MISSING);

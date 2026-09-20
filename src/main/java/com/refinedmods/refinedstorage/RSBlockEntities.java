@@ -13,9 +13,9 @@ import com.refinedmods.refinedstorage.blockentity.grid.portable.PortableGridBloc
 import com.refinedmods.refinedstorage.item.blockitem.PortableGridBlockItem;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import com.refinedmods.refinedstorage.registry.DeferredRegister;
+import com.refinedmods.refinedstorage.registry.ForgeRegistries;
+import com.refinedmods.refinedstorage.registry.RegistryObject;
 
 public final class RSBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, RS.ID);
@@ -96,6 +96,10 @@ public final class RSBlockEntities {
         REGISTRY.register("crafter_manager", () -> registerSynchronizationParameters(CrafterManagerBlockEntity.SPEC, BlockEntityType.Builder.of(CrafterManagerBlockEntity::new, RSBlocks.CRAFTER_MANAGER.getBlocks()).build(null)));
     public static final RegistryObject<BlockEntityType<CraftingMonitorBlockEntity>> CRAFTING_MONITOR =
         REGISTRY.register("crafting_monitor", () -> registerSynchronizationParameters(CraftingMonitorBlockEntity.SPEC, BlockEntityType.Builder.of(CraftingMonitorBlockEntity::new, RSBlocks.CRAFTING_MONITOR.getBlocks()).build(null)));
+
+    public static void register() {
+        REGISTRY.register();
+    }
 
     private static <T extends BlockEntity> BlockEntityType<T> registerSynchronizationParameters(BlockEntitySynchronizationSpec spec, BlockEntityType<T> t) {
         spec.getParameters().forEach(BlockEntitySynchronizationManager::registerParameter);

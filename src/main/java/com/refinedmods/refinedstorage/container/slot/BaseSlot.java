@@ -1,6 +1,6 @@
 package com.refinedmods.refinedstorage.container.slot;
 
-import net.minecraftforge.items.IItemHandler;
+import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 import java.util.function.BooleanSupplier;

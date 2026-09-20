@@ -9,7 +9,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import com.refinedmods.refinedstorage.registry.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;

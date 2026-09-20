@@ -14,10 +14,9 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import com.refinedmods.refinedstorage.registry.DeferredRegister;
+import com.refinedmods.refinedstorage.registry.ForgeRegistries;
+import com.refinedmods.refinedstorage.registry.RegistryObject;
 
 import java.util.*;
 
@@ -223,6 +222,6 @@ public final class RSItems {
     }
 
     public static void register() {
-        ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ITEMS.register();
     }
 }

@@ -3,7 +3,7 @@ package com.refinedmods.refinedstorage.inventory.fluid;
 import com.refinedmods.refinedstorage.item.FilterItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
+import com.refinedmods.refinedstorage.transfer.FluidStack;
 
 public class ConfiguredIconInFluidFilterItemHandler extends FluidInventory {
     public ConfiguredIconInFluidFilterItemHandler(ItemStack stack) {

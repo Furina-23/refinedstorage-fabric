@@ -3,8 +3,8 @@ package com.refinedmods.refinedstorage.apiimpl.storage.externalstorage;
 import com.refinedmods.refinedstorage.api.network.INetwork;
 import com.refinedmods.refinedstorage.api.util.IComparer;
 import com.refinedmods.refinedstorage.apiimpl.API;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import com.refinedmods.refinedstorage.transfer.FluidStack;
+import com.refinedmods.refinedstorage.transfer.fluid.IFluidHandler;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;

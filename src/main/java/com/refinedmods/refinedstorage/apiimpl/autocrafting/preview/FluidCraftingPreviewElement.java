@@ -11,9 +11,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fluids.FluidStack;
+import com.refinedmods.refinedstorage.transfer.FluidStack;
 
 public class FluidCraftingPreviewElement implements ICraftingPreviewElement {
     public static final ResourceLocation ID = new ResourceLocation(RS.ID, "fluid");
@@ -57,7 +55,6 @@ public class FluidCraftingPreviewElement implements ICraftingPreviewElement {
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
     public void draw(GuiGraphics graphics, int x, int y, IElementDrawers drawers) {
         if (missing) {
             drawers.getOverlayDrawer().draw(graphics, x, y, 0xFFF2DEDE);

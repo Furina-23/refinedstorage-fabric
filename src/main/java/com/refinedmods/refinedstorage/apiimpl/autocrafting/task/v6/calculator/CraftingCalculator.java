@@ -20,8 +20,8 @@ import com.refinedmods.refinedstorage.apiimpl.autocrafting.task.v6.preview.Craft
 import com.refinedmods.refinedstorage.apiimpl.autocrafting.task.v6.preview.CraftingPreviewInfo;
 import com.refinedmods.refinedstorage.util.StackUtils;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.items.ItemHandlerHelper;
+import com.refinedmods.refinedstorage.transfer.FluidStack;
+import com.refinedmods.refinedstorage.transfer.item.ItemHandlerHelper;
 
 import javax.annotation.Nullable;
 import java.util.HashSet;

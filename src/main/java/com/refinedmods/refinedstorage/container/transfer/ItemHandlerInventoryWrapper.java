@@ -1,8 +1,8 @@
 package com.refinedmods.refinedstorage.container.transfer;
 
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
+import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
+import com.refinedmods.refinedstorage.transfer.item.ItemHandlerHelper;
 
 import java.util.Objects;
 

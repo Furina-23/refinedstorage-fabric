@@ -16,7 +16,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.energy.IEnergyStorage;
+import com.refinedmods.refinedstorage.transfer.energy.IEnergyStorage;
 import net.minecraftforge.network.NetworkHooks;
 
 public class WirelessCraftingMonitorNetworkItem implements INetworkItem {

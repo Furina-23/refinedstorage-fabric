@@ -7,7 +7,7 @@ import com.refinedmods.refinedstorage.inventory.fluid.FluidInventory;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.IItemHandlerModifiable;
+import com.refinedmods.refinedstorage.transfer.item.IItemHandlerModifiable;
 
 import javax.annotation.Nullable;
 

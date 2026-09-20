@@ -1,65 +1,56 @@
-apply from: "https://raw.githubusercontent.com/refinedmods/refinedarchitect/v0.7.1/helper.gradle"
-
-// TODO: remove in 1.21
-ext {
-    forgeVersion = "47.1.0"
-}
-
-repositories {
-    maven {
-        name = 'JEI'
-        url = "https://maven.blamejared.com/"
-    }
-    maven {
-        url "https://www.cursemaven.com"
-        content {
-            includeGroup "curse.maven"
-        }
-    }
-    maven {
-        name = 'Curios'
-        url = "https://maven.theillusivec4.top/"
-    }
+plugins {
+    id 'fabric-loom' version '1.6.12'
+    id 'maven-publish'
 }
 
 group = 'com.refinedmods'
+version = project.findProperty('mod_version') ?: '1.12.4-fabric.1'
 
-forgeProject("refinedstorage")
-
-archivesBaseName = 'refinedstorage'
-
-enablePublishing()
-enableCurseForge(243076)
-enableModrinth("KDvYkUg3")
-enableJavadoc()
-enableSonarQube("refinedmods_refinedstorage")
-
-dependencies {
-    compileOnly fg.deobf("mezz.jei:jei-1.20.1-common-api:15.2.0.22")
-    compileOnly fg.deobf("mezz.jei:jei-1.20.1-forge-api:15.2.0.22")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:15.2.0.22")
-
-    compileOnly fg.deobf('curse.maven:mouse-tweaks-60089:4581240')
-
-    compileOnly fg.deobf('curse.maven:crafting-tweaks-233071:4596466')
-
-    implementation fg.deobf("top.theillusivec4.curios:curios-forge:5.2.0-beta.3+1.20.1")
+base {
+    archivesName = 'refinedstorage'
 }
 
-// TODO: remove in 1.21
-minecraft {
-    runs {
-        server {
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
-        }
-        client {
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
-        }
-        data {
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
+repositories {
+    maven { url = 'https://maven.fabricmc.net/' }
+    mavenCentral()
+}
+
+dependencies {
+    minecraft 'com.mojang:minecraft:1.20.1'
+    mappings loom.officialMojangMappings()
+    modImplementation 'net.fabricmc:fabric-loader:0.19.5'
+    modImplementation 'net.fabricmc.fabric-api:fabric-api:0.92.12+1.20.1'
+    compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
+}
+
+processResources {
+    inputs.property 'version', project.version
+
+    filesMatching('fabric.mod.json') {
+        expand 'version': project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 17
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+    withSourcesJar()
+}
+
+jar {
+    from('LICENSE.md') {
+        rename { "${it}_refinedstorage" }
+    }
+}
+
+publishing {
+    publications {
+        create('mavenJava', MavenPublication) {
+            from components.java
         }
     }
 }

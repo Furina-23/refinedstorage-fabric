@@ -4,8 +4,6 @@ import com.refinedmods.refinedstorage.api.render.IElementDrawers;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * Represents a crafting preview element.
@@ -17,7 +15,6 @@ public interface ICraftingPreviewElement {
      * @param y        position on the y axis to render
      * @param drawers  the drawers this element can use
      */
-    @OnlyIn(Dist.CLIENT)
     void draw(GuiGraphics graphics, int x, int y, IElementDrawers drawers);
 
     /**

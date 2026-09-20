@@ -7,7 +7,7 @@ import com.refinedmods.refinedstorage.network.grid.PortableGridFluidDeltaMessage
 import com.refinedmods.refinedstorage.network.grid.PortableGridFluidUpdateMessage;
 import com.refinedmods.refinedstorage.blockentity.grid.portable.IPortableGrid;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.fluids.FluidStack;
+import com.refinedmods.refinedstorage.transfer.FluidStack;
 
 import java.util.ArrayList;
 import java.util.List;

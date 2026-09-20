@@ -2,7 +2,7 @@ package com.refinedmods.refinedstorage.energy;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.energy.EnergyStorage;
+import com.refinedmods.refinedstorage.transfer.energy.EnergyStorage;
 
 public class ItemEnergyStorage extends EnergyStorage {
     private static final String NBT_ENERGY = "Energy";

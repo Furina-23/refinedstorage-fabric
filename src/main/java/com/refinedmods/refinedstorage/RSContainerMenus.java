@@ -5,9 +5,9 @@ import com.refinedmods.refinedstorage.container.*;
 import com.refinedmods.refinedstorage.container.factory.*;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import com.refinedmods.refinedstorage.registry.DeferredRegister;
+import com.refinedmods.refinedstorage.registry.ForgeRegistries;
+import com.refinedmods.refinedstorage.registry.RegistryObject;
 
 public final class RSContainerMenus {
     public static final DeferredRegister<MenuType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.MENU_TYPES, RS.ID);
@@ -36,6 +36,10 @@ public final class RSContainerMenus {
     public static final RegistryObject<MenuType<CrafterManagerContainerMenu>> CRAFTER_MANAGER = REGISTRY.register("crafter_manager", () -> IForgeMenuType.create(new CrafterManagerContainerFactory()));
     public static final RegistryObject<MenuType<CraftingMonitorContainerMenu>> CRAFTING_MONITOR = REGISTRY.register("crafting_monitor", () -> IForgeMenuType.create(new CraftingMonitorContainerFactory()));
     public static final RegistryObject<MenuType<CraftingMonitorContainerMenu>> WIRELESS_CRAFTING_MONITOR = REGISTRY.register("wireless_crafting_monitor", () -> IForgeMenuType.create(new WirelessCraftingMonitorContainerFactory()));
+
+    public static void register() {
+        REGISTRY.register();
+    }
 
     private RSContainerMenus() {
     }
