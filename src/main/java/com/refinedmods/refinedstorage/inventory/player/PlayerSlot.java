@@ -7,12 +7,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.util.LazyOptional;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
-import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
-
-import java.util.Optional;
 
 public class PlayerSlot {
     int slot;
@@ -43,19 +37,10 @@ public class PlayerSlot {
     }
 
     public ItemStack getStackFromSlot(Player player) {
-        if (curioSlot == null || !CuriosIntegration.isLoaded()) {
-            return player.getInventory().getItem(slot);
-        }
-
-        LazyOptional<ICuriosItemHandler> curiosHandler = CuriosApi.getCuriosHelper().getCuriosHandler(player);
-
-        Optional<ICurioStacksHandler> stacksHandler = curiosHandler.resolve().flatMap((handler ->
-            handler.getStacksHandler(curioSlot)
-        ));
-
-        Optional<ItemStack> stack = stacksHandler.map(handler -> handler.getStacks().getStackInSlot(slot));
-
-        return stack.orElse(ItemStack.EMPTY);
+        // Curios is an optional Forge integration and is unavailable on the
+        // Fabric baseline. Curio slots therefore remain empty until a Fabric
+        // accessory API adapter is provided.
+        return curioSlot == null ? player.getInventory().getItem(slot) : ItemStack.EMPTY;
     }
 
     public void writePlayerSlot(FriendlyByteBuf buffer) {

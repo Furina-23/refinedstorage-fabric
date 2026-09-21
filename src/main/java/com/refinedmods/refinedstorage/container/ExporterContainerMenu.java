@@ -40,7 +40,7 @@ public class ExporterContainerMenu extends BaseContainerMenu {
 
     public void initSlots() {
         this.slots.clear();
-        this.lastSlots.clear();
+        ((com.refinedmods.refinedstorage.mixin.AbstractContainerMenuAccessor) this).refinedstorage$getLastSlots().clear();
 
         this.transferManager.clearTransfers();
 

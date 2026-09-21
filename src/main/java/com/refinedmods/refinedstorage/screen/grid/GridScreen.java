@@ -46,13 +46,11 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.ForgeHooksClient;
 import org.lwjgl.glfw.GLFW;
-import yalter.mousetweaks.api.MouseTweaksDisableWheelTweak;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-@MouseTweaksDisableWheelTweak
 public class GridScreen extends BaseScreen<GridContainerMenu> implements IScreenInfoProvider {
     private static final ResourceLocation PORTABLE_GRID_TEXTURE = new ResourceLocation(RS.ID, "textures/gui/portable_grid.png");
     private static final ResourceLocation CRAFTING_GRID_TEXTURE = new ResourceLocation(RS.ID, "textures/gui/crafting_grid.png");
@@ -524,7 +522,7 @@ public class GridScreen extends BaseScreen<GridContainerMenu> implements IScreen
             }
         }
 
-        graphics.renderTooltipInternal(font, components, mouseX, mouseY, DefaultTooltipPositioner.INSTANCE);
+        ((com.refinedmods.refinedstorage.mixin.GuiGraphicsAccessor) (Object) graphics).refinedstorage$renderTooltipInternal(font, components, mouseX, mouseY, DefaultTooltipPositioner.INSTANCE);
     }
 
     @Override
@@ -643,8 +641,8 @@ public class GridScreen extends BaseScreen<GridContainerMenu> implements IScreen
                 doSort = !isOverSlotArea(x - leftPos, y - topPos) && !isOverCraftingOutputArea(x - leftPos, y - topPos);
             }
             if (grid.getGridType() != GridType.FLUID) {
-                if (isOverInventory(x - leftPos, y - topPos) && hoveredSlot != null && hoveredSlot.hasItem() && getMenu().getDisabledSlotNumber() != hoveredSlot.getSlotIndex()) {
-                    RS.NETWORK_HANDLER.sendToServer(new GridItemInventoryScrollMessage(hoveredSlot.getSlotIndex(), hasShiftDown(), delta > 0));
+                if (isOverInventory(x - leftPos, y - topPos) && hoveredSlot != null && hoveredSlot.hasItem() && getMenu().getDisabledSlotNumber() != hoveredSlot.index) {
+                    RS.NETWORK_HANDLER.sendToServer(new GridItemInventoryScrollMessage(hoveredSlot.index, hasShiftDown(), delta > 0));
                 } else if (isOverSlotArea(x - leftPos, y - topPos)) {
                     RS.NETWORK_HANDLER.sendToServer(new GridItemGridScrollMessage(isOverSlotWithStack() ? view.getStacks().get(slotNumber).getId() : null, hasShiftDown(), delta > 0));
                 }

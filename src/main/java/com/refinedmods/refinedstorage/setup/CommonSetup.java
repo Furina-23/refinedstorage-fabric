@@ -34,29 +34,19 @@ import com.refinedmods.refinedstorage.integration.craftingtweaks.CraftingTweaksI
 import com.refinedmods.refinedstorage.integration.inventorysorter.InventorySorterIntegration;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.RegisterEvent;
 
 public final class CommonSetup {
     private CommonSetup() {
     }
 
-    @SubscribeEvent
     public static void onRegister(final RegisterEvent e) {
         e.register(Registries.LOOT_FUNCTION_TYPE, helper -> RSLootFunctions.register());
         e.register(Registries.CREATIVE_MODE_TAB, RSCreativeModeTabItems::register);
     }
 
-    @SubscribeEvent
-    public static void onCommonSetup(FMLCommonSetupEvent e) {
+    public static void initialize() {
         RS.NETWORK_HANDLER.register();
-
-        MinecraftForge.EVENT_BUS.register(new NetworkNodeListener());
-        MinecraftForge.EVENT_BUS.register(new NetworkListener());
-        MinecraftForge.EVENT_BUS.register(new BlockListener());
 
         API.instance().getStorageDiskRegistry().add(ItemStorageDiskFactory.ID, new ItemStorageDiskFactory());
         API.instance().getStorageDiskRegistry().add(FluidStorageDiskFactory.ID, new FluidStorageDiskFactory());
@@ -133,8 +123,4 @@ public final class CommonSetup {
         return node;
     }
 
-    @SubscribeEvent
-    public static void onRegisterCapabilities(RegisterCapabilitiesEvent e) {
-        e.register(INetworkNodeProxy.class);
-    }
 }

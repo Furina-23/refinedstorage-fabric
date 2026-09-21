@@ -5,6 +5,7 @@ import com.refinedmods.refinedstorage.api.autocrafting.ICraftingPatternContainer
 import com.refinedmods.refinedstorage.apiimpl.network.node.GridNetworkNode;
 import com.refinedmods.refinedstorage.item.PatternItem;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -17,7 +18,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
 import com.refinedmods.refinedstorage.registry.ForgeRegistries;
-import net.minecraftforge.registries.tags.IReverseTag;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -104,13 +104,9 @@ public class CraftingPatternFactory {
             possibilities.add(input.copy());
 
             if (allowedTagList != null) {
-                Collection<ResourceLocation> tagsOfItem = ForgeRegistries.ITEMS
-                    .tags()
-                    .getReverseTag(input.getItem())
-                    .stream()
-                    .flatMap(IReverseTag::getTagKeys)
-                    .map(TagKey::location)
-                    .collect(Collectors.toSet());
+                Collection<ResourceLocation> tagsOfItem = ForgeRegistries.ITEMS.getResourceKey(input.getItem())
+                    .flatMap(ForgeRegistries.ITEMS::getHolder)
+                    .stream().flatMap(holder -> holder.tags()).map(TagKey::location).collect(Collectors.toSet());
                 Set<ResourceLocation> declaredAllowedTags = allowedTagList.getAllowedItemTags().get(i);
 
                 for (ResourceLocation declaredAllowedTag : declaredAllowedTags) {
@@ -123,10 +119,9 @@ public class CraftingPatternFactory {
                             )
                         );
                     } else {
-                        TagKey<Item> tagKey = TagKey.create(ForgeRegistries.ITEMS.getRegistryKey(), declaredAllowedTag);
-                        for (Item element : ForgeRegistries.ITEMS.tags().getTag(tagKey)) {
-                            possibilities.add(new ItemStack(element, input.getCount()));
-                        }
+                        TagKey<Item> tagKey = TagKey.create(Registries.ITEM, declaredAllowedTag);
+                        ForgeRegistries.ITEMS.getTag(tagKey).ifPresent(tag -> tag.forEach(holder ->
+                            possibilities.add(new ItemStack(holder.value(), input.getCount()))));
                     }
                 }
             }
@@ -150,13 +145,9 @@ public class CraftingPatternFactory {
             possibilities.add(input.copy());
 
             if (allowedTagList != null) {
-                Collection<ResourceLocation> tagsOfFluid = ForgeRegistries.FLUIDS
-                    .tags()
-                    .getReverseTag(input.getFluid())
-                    .stream()
-                    .flatMap(IReverseTag::getTagKeys)
-                    .map(TagKey::location)
-                    .collect(Collectors.toSet());
+                Collection<ResourceLocation> tagsOfFluid = ForgeRegistries.FLUIDS.getResourceKey(input.getFluid())
+                    .flatMap(ForgeRegistries.FLUIDS::getHolder)
+                    .stream().flatMap(holder -> holder.tags()).map(TagKey::location).collect(Collectors.toSet());
                 Set<ResourceLocation> declaredAllowedTags = allowedTagList.getAllowedFluidTags().get(i);
 
                 for (ResourceLocation declaredAllowedTag : declaredAllowedTags) {
@@ -169,10 +160,9 @@ public class CraftingPatternFactory {
                             )
                         );
                     } else {
-                        TagKey<Fluid> tagKey = TagKey.create(ForgeRegistries.FLUIDS.getRegistryKey(), declaredAllowedTag);
-                        for (Fluid element : ForgeRegistries.FLUIDS.tags().getTag(tagKey)) {
-                            possibilities.add(new FluidStack(element, input.getAmount()));
-                        }
+                        TagKey<Fluid> tagKey = TagKey.create(Registries.FLUID, declaredAllowedTag);
+                        ForgeRegistries.FLUIDS.getTag(tagKey).ifPresent(tag -> tag.forEach(holder ->
+                            possibilities.add(new FluidStack(holder.value(), input.getAmount()))));
                     }
                 }
             }

@@ -1,16 +1,12 @@
 package com.refinedmods.refinedstorage.item;
 
-import com.refinedmods.refinedstorage.item.capabilityprovider.EnergyCapabilityProvider;
 import com.refinedmods.refinedstorage.render.Styles;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import com.refinedmods.refinedstorage.transfer.energy.IEnergyStorage;
 
 import javax.annotation.Nullable;
@@ -28,10 +24,7 @@ public abstract class EnergyItem extends Item {
         this.energyCapacity = energyCapacity;
     }
 
-    @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, CompoundTag tag) {
-        return new EnergyCapabilityProvider(stack, energyCapacity.get());
-    }
+    public int getEnergyCapacity() { return energyCapacity.get(); }
 
     @Override
     public boolean isBarVisible(ItemStack stack) {
@@ -40,7 +33,7 @@ public abstract class EnergyItem extends Item {
 
     @Override
     public int getBarWidth(ItemStack stack) {
-        IEnergyStorage energy = stack.getCapability(ForgeCapabilities.ENERGY).orElse(null);
+        IEnergyStorage energy = new com.refinedmods.refinedstorage.energy.ItemEnergyStorage(stack, energyCapacity.get());
         if (energy == null) {
             return 0;
         }
@@ -50,7 +43,7 @@ public abstract class EnergyItem extends Item {
 
     @Override
     public int getBarColor(ItemStack stack) {
-        IEnergyStorage energy = stack.getCapability(ForgeCapabilities.ENERGY, null).orElse(null);
+        IEnergyStorage energy = new com.refinedmods.refinedstorage.energy.ItemEnergyStorage(stack, energyCapacity.get());
         if (energy == null) {
             return super.getBarColor(stack);
         }
@@ -62,8 +55,8 @@ public abstract class EnergyItem extends Item {
         super.appendHoverText(stack, level, tooltip, flag);
 
         if (!creative) {
-            stack.getCapability(ForgeCapabilities.ENERGY, null)
-                .ifPresent(energy -> tooltip.add(Component.translatable("misc.refinedstorage.energy_stored", energy.getEnergyStored(), energy.getMaxEnergyStored()).setStyle(Styles.GRAY)));
+            IEnergyStorage energy = new com.refinedmods.refinedstorage.energy.ItemEnergyStorage(stack, energyCapacity.get());
+            tooltip.add(Component.translatable("misc.refinedstorage.energy_stored", energy.getEnergyStored(), energy.getMaxEnergyStored()).setStyle(Styles.GRAY));
         }
     }
 }

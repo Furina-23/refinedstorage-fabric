@@ -1,7 +1,6 @@
 package com.refinedmods.refinedstorage.screen.grid.view;
 
 import com.refinedmods.refinedstorage.api.network.grid.IGrid;
-import com.refinedmods.refinedstorage.integration.jei.IngredientTracker;
 import com.refinedmods.refinedstorage.screen.grid.GridScreen;
 import com.refinedmods.refinedstorage.screen.grid.filtering.GridFilterParser;
 import com.refinedmods.refinedstorage.screen.grid.sorting.IGridSorter;
@@ -90,7 +89,6 @@ public class GridViewImpl implements IGridView {
     @Override
     public void removed() {
         deltaListeners.clear();
-        IngredientTracker.invalidate();
     }
 
     private Comparator<IGridStack> getActiveSort() {

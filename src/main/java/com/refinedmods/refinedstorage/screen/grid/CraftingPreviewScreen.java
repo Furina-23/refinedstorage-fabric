@@ -199,7 +199,7 @@ public class CraftingPreviewScreen extends BaseScreen<AbstractContainerMenu> {
 
         renderString(graphics, RenderUtils.getOffsetOnScale(x + 5, scale), RenderUtils.getOffsetOnScale(y + 61, scale), I18n.get("gui.refinedstorage.crafting_preview.error.recursive.4"));
 
-        ICraftingPattern pattern = PatternItem.fromCache(parent.getMinecraft().level, recursedPattern);
+        ICraftingPattern pattern = PatternItem.fromCache(Minecraft.getInstance().level, recursedPattern);
 
         int yy = 83;
         for (ItemStack output : pattern.getOutputs()) {

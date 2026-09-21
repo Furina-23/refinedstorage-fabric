@@ -9,6 +9,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import com.refinedmods.refinedstorage.registry.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
 import com.refinedmods.refinedstorage.registry.RegistryObject;
@@ -18,10 +21,18 @@ public class RSCreativeModeTabItems {
     }
 
     public static void register(RegisterEvent.RegisterHelper<CreativeModeTab> helper) {
-        helper.register("general", CreativeModeTab.builder()
+        helper.register("general", CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
             .title(Component.translatable("itemGroup.refinedstorage"))
             .icon(() -> new ItemStack(RSBlocks.CREATIVE_CONTROLLER.get(ColorMap.DEFAULT_COLOR).get()))
             .displayItems((params, output) -> RSCreativeModeTabItems.append(output))
+            .build());
+    }
+
+    public static void registerFabric() {
+        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, new ResourceLocation(RS.ID, "general"), CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
+            .title(Component.translatable("itemGroup.refinedstorage"))
+            .icon(() -> new ItemStack(RSBlocks.CREATIVE_CONTROLLER.get(ColorMap.DEFAULT_COLOR).get()))
+            .displayItems((params, output) -> append(output))
             .build());
     }
 
@@ -129,7 +140,7 @@ public class RSCreativeModeTabItems {
             addCovers(output, coverExampleStack);
             return;
         }
-        for (Block block : ForgeRegistries.BLOCKS.getValues()) {
+        for (Block block : ForgeRegistries.BLOCKS) {
             Item item = Item.byBlock(block);
             if (item == Items.AIR) {
                 continue;

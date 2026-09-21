@@ -11,7 +11,6 @@ import com.refinedmods.refinedstorage.network.sync.BlockEntitySynchronizationPar
 import com.refinedmods.refinedstorage.network.sync.BlockEntitySynchronizationParamaterUpdateMessage;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
@@ -75,12 +74,10 @@ public class NetworkHandler {
     }
 
     public void sendTo(ServerPlayer player, Object message) {
-        if (!(player instanceof FakePlayer)) {
-            if (splitter.shouldMessageBeSplit(message.getClass())) {
-                splitter.sendToPlayer(player, message);
-            } else {
-                handler.send(PacketDistributor.PLAYER.with(() -> player), message);
-            }
+        if (splitter.shouldMessageBeSplit(message.getClass())) {
+            splitter.sendToPlayer(player, message);
+        } else {
+            handler.send(PacketDistributor.PLAYER.with(() -> player), message);
         }
     }
 

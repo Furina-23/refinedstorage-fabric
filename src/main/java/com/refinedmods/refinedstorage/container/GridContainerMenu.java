@@ -62,7 +62,7 @@ public class GridContainerMenu extends BaseContainerMenu implements ICraftingGri
 
     public void initSlots() {
         this.slots.clear();
-        this.lastSlots.clear();
+        ((com.refinedmods.refinedstorage.mixin.AbstractContainerMenuAccessor) this).refinedstorage$getLastSlots().clear();
 
         this.transferManager.clearTransfers();
 
@@ -277,7 +277,7 @@ public class GridContainerMenu extends BaseContainerMenu implements ICraftingGri
             Slot slot = slots.get(i);
 
             if (slot instanceof CraftingGridSlot || slot == craftingResultSlot || slot == patternResultSlot) {
-                for (ContainerListener listener : containerListeners) {
+                for (ContainerListener listener : ((com.refinedmods.refinedstorage.mixin.AbstractContainerMenuAccessor) this).refinedstorage$getContainerListeners()) {
                     // @Volatile: We can't use ContainerListener#slotChanged since ServerPlayer blocks ResultSlot changes...
                     if (listener instanceof ServerPlayer) {
                         ((ServerPlayer) listener).connection.send(new ClientboundContainerSetSlotPacket(containerId, incrementStateId(), i, slot.getItem()));
@@ -352,8 +352,8 @@ public class GridContainerMenu extends BaseContainerMenu implements ICraftingGri
             }
 
             if (isVisible(i)) {
-                itemPatternSlots.get(i).y = yPosition;
-                fluidPatternSlots.get(i).y = yPosition;
+                ((com.refinedmods.refinedstorage.mixin.SlotAccessor) itemPatternSlots.get(i)).refinedstorage$setY(yPosition);
+                ((com.refinedmods.refinedstorage.mixin.SlotAccessor) fluidPatternSlots.get(i)).refinedstorage$setY(yPosition);
                 if ((i + 1) % 3 == 0) {
                     yPosition += 18;
                 }

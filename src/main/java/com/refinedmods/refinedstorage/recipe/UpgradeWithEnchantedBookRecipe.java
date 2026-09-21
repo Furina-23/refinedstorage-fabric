@@ -56,7 +56,7 @@ public class UpgradeWithEnchantedBookRecipe extends ShapedRecipe {
                 CompoundTag enchantmentNbt = enchantments.getCompound(i);
 
                 // @Volatile: NBT tags from EnchantedBookItem
-                if (ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation(enchantmentNbt.getString("id"))) == enchant.enchantment &&
+                if (ForgeRegistries.ENCHANTMENTS.get(new ResourceLocation(enchantmentNbt.getString("id"))) == enchant.enchantment &&
                     enchantmentNbt.getShort("lvl") == enchant.level) {
                     return true;
                 }

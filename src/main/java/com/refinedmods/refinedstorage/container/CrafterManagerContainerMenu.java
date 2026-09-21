@@ -64,7 +64,7 @@ public class CrafterManagerContainerMenu extends BaseContainerMenu {
         }
 
         this.slots.clear();
-        this.lastSlots.clear();
+        ((com.refinedmods.refinedstorage.mixin.AbstractContainerMenuAccessor) this).refinedstorage$getLastSlots().clear();
         this.headings.clear();
 
         this.rows = 0;

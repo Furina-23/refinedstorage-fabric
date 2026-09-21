@@ -157,7 +157,6 @@ public abstract class NetworkItem extends EnergyItem implements INetworkItemProv
         return InteractionResult.PASS;
     }
 
-    @Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
         return false;
     }

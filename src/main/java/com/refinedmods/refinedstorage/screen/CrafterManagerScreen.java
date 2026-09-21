@@ -22,11 +22,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
-import yalter.mousetweaks.api.MouseTweaksDisableWheelTweak;
 
 import java.util.Map;
 
-@MouseTweaksDisableWheelTweak
 public class CrafterManagerScreen extends BaseScreen<CrafterManagerContainerMenu> implements IScreenInfoProvider {
     private static final ResourceLocation TEXTURE = new ResourceLocation(RS.ID, "textures/gui/crafter_manager.png");
 

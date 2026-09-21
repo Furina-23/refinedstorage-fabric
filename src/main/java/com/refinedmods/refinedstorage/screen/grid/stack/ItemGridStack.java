@@ -11,10 +11,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fml.ModContainer;
-import net.minecraftforge.fml.ModList;
+import net.fabricmc.loader.api.FabricLoader;
 import com.refinedmods.refinedstorage.registry.ForgeRegistries;
-import net.minecraftforge.registries.tags.IReverseTag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -55,9 +53,8 @@ public class ItemGridStack implements IGridStack {
 
     @Nullable
     static String getModNameByModId(String modId) {
-        Optional<? extends ModContainer> modContainer = ModList.get().getModContainerById(modId);
-
-        return modContainer.map(container -> container.getModInfo().getDisplayName()).orElse(null);
+        return FabricLoader.getInstance().getModContainer(modId)
+            .map(container -> container.getMetadata().getName()).orElse(null);
     }
 
     public void setZeroed(boolean zeroed) {
@@ -107,11 +104,8 @@ public class ItemGridStack implements IGridStack {
     @Override
     public String getModId() {
         if (cachedModId == null) {
-            cachedModId = stack.getItem().getCreatorModId(stack);
-
-            if (cachedModId == null) {
-                cachedModId = ERROR_PLACEHOLDER;
-            }
+            ResourceLocation id = ForgeRegistries.ITEMS.getKey(stack.getItem());
+            cachedModId = id == null ? ERROR_PLACEHOLDER : id.getNamespace();
 
             cachedModId = cachedModId.toLowerCase().replace(" ", "");
         }
@@ -135,11 +129,10 @@ public class ItemGridStack implements IGridStack {
     @Override
     public Set<String> getTags() {
         if (cachedTags == null) {
-            cachedTags = ForgeRegistries.ITEMS
-                .tags()
-                .getReverseTag(stack.getItem())
+            cachedTags = ForgeRegistries.ITEMS.getResourceKey(stack.getItem())
+                .flatMap(ForgeRegistries.ITEMS::getHolder)
                 .stream()
-                .flatMap(IReverseTag::getTagKeys)
+                .flatMap(holder -> holder.tags())
                 .map(TagKey::location)
                 .map(ResourceLocation::getPath)
                 .collect(Collectors.toSet());

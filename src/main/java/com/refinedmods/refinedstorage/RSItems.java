@@ -173,7 +173,7 @@ public final class RSItems {
             )
         ));
 
-        COLORED_ITEM_TAGS.put(ItemTags.create(new ResourceLocation(RS.ID, CONTROLLER.get(ColorMap.DEFAULT_COLOR).getId().getPath())), CONTROLLER);
+        COLORED_ITEM_TAGS.put(net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ITEM, new ResourceLocation(RS.ID, CONTROLLER.get(ColorMap.DEFAULT_COLOR).getId().getPath())), CONTROLLER);
 
         LATE_REGISTRATION.add(() -> {
             RSBlocks.CONTROLLER.forEach((color, block) -> {

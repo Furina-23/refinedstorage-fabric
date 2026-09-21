@@ -6,7 +6,7 @@ import com.refinedmods.refinedstorage.api.network.node.INetworkNodeProxy;
 import com.refinedmods.refinedstorage.api.network.security.Permission;
 import com.refinedmods.refinedstorage.api.util.Action;
 import com.refinedmods.refinedstorage.apiimpl.API;
-import com.refinedmods.refinedstorage.capability.NetworkNodeProxyCapability;
+import com.refinedmods.refinedstorage.blockentity.NetworkNodeBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -23,11 +23,11 @@ public final class NetworkUtils {
 
     @Nullable
     public static INetworkNode getNodeFromBlockEntity(@Nullable BlockEntity blockEntity) {
-        if (blockEntity != null) {
-            INetworkNodeProxy<?> proxy = blockEntity.getCapability(NetworkNodeProxyCapability.NETWORK_NODE_PROXY_CAPABILITY).orElse(null);
-            if (proxy != null) {
-                return proxy.getNode();
-            }
+        if (blockEntity instanceof NetworkNodeBlockEntity<?> networkNodeBlockEntity) {
+            return networkNodeBlockEntity.getNode();
+        }
+        if (blockEntity instanceof INetworkNodeProxy<?> proxy) {
+            return proxy.getNode();
         }
 
         return null;

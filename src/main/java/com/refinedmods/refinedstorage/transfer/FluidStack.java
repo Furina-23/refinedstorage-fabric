@@ -112,7 +112,8 @@ public final class FluidStack {
     }
 
     public String getTranslationKey() {
-        return getFluid().getDescriptionId();
+        ResourceLocation id = BuiltInRegistries.FLUID.getKey(getFluid());
+        return "fluid." + id.getNamespace() + "." + id.getPath();
     }
 
     @Override

@@ -23,6 +23,32 @@ dependencies {
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
 }
 
+sourceSets {
+    main {
+        resources.srcDir 'src/generated/resources'
+        java {
+            // Forge's data generator API is build-time only. Existing generated
+            // resources remain packaged while its Fabric replacement is added.
+            exclude 'com/refinedmods/refinedstorage/datageneration/**'
+            exclude 'com/refinedmods/refinedstorage/integration/jei/CoverCraftingCategoryExtension.java'
+            exclude 'com/refinedmods/refinedstorage/integration/jei/GhostIngredientHandler.java'
+            exclude 'com/refinedmods/refinedstorage/integration/jei/GridRecipeTransferHandler.java'
+            exclude 'com/refinedmods/refinedstorage/integration/jei/GuiContainerHandler.java'
+            exclude 'com/refinedmods/refinedstorage/integration/jei/HollowCoverCraftingCategoryExtension.java'
+            exclude 'com/refinedmods/refinedstorage/integration/jei/Ingredient.java'
+            exclude 'com/refinedmods/refinedstorage/integration/jei/IngredientTracker.java'
+            exclude 'com/refinedmods/refinedstorage/integration/jei/JeiHelper.java'
+            exclude 'com/refinedmods/refinedstorage/integration/jei/RecipeTransferCraftingGridError.java'
+            exclude 'com/refinedmods/refinedstorage/integration/jei/RecipeTransferPatternGridError.java'
+            exclude 'com/refinedmods/refinedstorage/integration/jei/RSJeiPlugin.java'
+            exclude 'com/refinedmods/refinedstorage/render/model/**'
+            exclude 'com/refinedmods/refinedstorage/render/color/PatternItemColor.java'
+            exclude 'com/refinedmods/refinedstorage/setup/ClientSetup.java'
+            exclude 'com/refinedmods/refinedstorage/screen/KeyInputListener.java'
+        }
+    }
+}
+
 processResources {
     inputs.property 'version', project.version
 
@@ -33,6 +59,7 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
     options.release = 17
+    options.compilerArgs.addAll(['-Xmaxerrs', '1000'])
 }
 
 java {

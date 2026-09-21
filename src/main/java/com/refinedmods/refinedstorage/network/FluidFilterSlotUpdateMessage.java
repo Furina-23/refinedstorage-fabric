@@ -33,7 +33,7 @@ public class FluidFilterSlotUpdateMessage {
                 Slot slot = gui.getMenu().getSlot(message.containerSlot);
 
                 if (slot instanceof FluidFilterSlot) {
-                    ((FluidFilterSlot) slot).getFluidInventory().setFluid(slot.getSlotIndex(), message.stack);
+                    ((FluidFilterSlot) slot).getFluidInventory().setFluid(slot.index, message.stack);
                 }
             }
         });

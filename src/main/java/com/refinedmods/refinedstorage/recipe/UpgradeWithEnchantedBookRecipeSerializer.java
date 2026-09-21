@@ -15,8 +15,8 @@ public class UpgradeWithEnchantedBookRecipeSerializer implements RecipeSerialize
     public UpgradeWithEnchantedBookRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
         JsonObject enchantmentInfo = json.getAsJsonObject("enchantment");
 
-        ItemStack result = new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(json.getAsJsonPrimitive("result").getAsString())));
-        Enchantment enchantment = ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation(enchantmentInfo.getAsJsonPrimitive("id").getAsString()));
+        ItemStack result = new ItemStack(ForgeRegistries.ITEMS.get(new ResourceLocation(json.getAsJsonPrimitive("result").getAsString())));
+        Enchantment enchantment = ForgeRegistries.ENCHANTMENTS.get(new ResourceLocation(enchantmentInfo.getAsJsonPrimitive("id").getAsString()));
 
         int level = 1;
         if (enchantmentInfo.has("level")) {
@@ -30,7 +30,7 @@ public class UpgradeWithEnchantedBookRecipeSerializer implements RecipeSerialize
     @Override
     public UpgradeWithEnchantedBookRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
         ItemStack result = buffer.readItem();
-        Enchantment enchantment = ForgeRegistries.ENCHANTMENTS.getValue(buffer.readResourceLocation());
+        Enchantment enchantment = ForgeRegistries.ENCHANTMENTS.get(buffer.readResourceLocation());
         int level = buffer.readInt();
 
         return new UpgradeWithEnchantedBookRecipe(recipeId, enchantment, level, result);

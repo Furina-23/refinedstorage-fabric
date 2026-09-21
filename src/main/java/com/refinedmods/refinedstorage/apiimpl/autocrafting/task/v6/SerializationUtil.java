@@ -79,7 +79,7 @@ public class SerializationUtil {
     public static CompoundTag writePatternToNbt(ICraftingPattern pattern) {
         CompoundTag tag = new CompoundTag();
 
-        tag.put(NBT_PATTERN_STACK, pattern.getStack().serializeNBT());
+        tag.put(NBT_PATTERN_STACK, pattern.getStack().save(new CompoundTag()));
         tag.putLong(NBT_PATTERN_CONTAINER_POS, pattern.getContainer().getPosition().asLong());
 
         return tag;

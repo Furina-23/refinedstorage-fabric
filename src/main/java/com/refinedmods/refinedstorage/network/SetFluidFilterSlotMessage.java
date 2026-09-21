@@ -62,11 +62,11 @@ public class SetFluidFilterSlotMessage {
             // Prevent the grid crafting matrix inventory listener from resetting the list.
             if (container instanceof GridContainerMenu) {
                 IGrid grid = ((GridContainerMenu) container).getGrid();
-                if (grid instanceof GridNetworkNode && slot.getSlotIndex() < ((GridNetworkNode) grid).getAllowedTagList().getAllowedFluidTags().size()) {
-                    Set<ResourceLocation> list = new HashSet<>(((GridNetworkNode) grid).getAllowedTagList().getAllowedFluidTags().get(slot.getSlotIndex()));
+                if (grid instanceof GridNetworkNode && slot.index < ((GridNetworkNode) grid).getAllowedTagList().getAllowedFluidTags().size()) {
+                    Set<ResourceLocation> list = new HashSet<>(((GridNetworkNode) grid).getAllowedTagList().getAllowedFluidTags().get(slot.index));
 
                     postAction = () -> {
-                        ((GridNetworkNode) grid).getAllowedTagList().setAllowedFluidTags(slot.getSlotIndex(), list);
+                        ((GridNetworkNode) grid).getAllowedTagList().setAllowedFluidTags(slot.index, list);
                         ((GridNetworkNode) grid).markDirty();
                     };
                 }
@@ -74,7 +74,7 @@ public class SetFluidFilterSlotMessage {
 
             FluidFilterSlot fluidSlot = (FluidFilterSlot) slot;
 
-            fluidSlot.getFluidInventory().setFluid(slot.getSlotIndex(), message.stack);
+            fluidSlot.getFluidInventory().setFluid(slot.index, message.stack);
             postAction.run();
         }
     }

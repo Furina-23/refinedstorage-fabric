@@ -9,11 +9,9 @@ import com.refinedmods.refinedstorage.apiimpl.autocrafting.CraftingPattern;
 import com.refinedmods.refinedstorage.apiimpl.autocrafting.CraftingPatternFactory;
 import com.refinedmods.refinedstorage.apiimpl.network.node.GridNetworkNode;
 import com.refinedmods.refinedstorage.render.Styles;
-import com.refinedmods.refinedstorage.render.blockentity.PatternItemBlockEntityRenderer;
 import com.refinedmods.refinedstorage.util.ItemStackKey;
 import com.refinedmods.refinedstorage.util.RenderUtils;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -25,7 +23,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
 
 import javax.annotation.Nonnull;
@@ -34,7 +31,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class PatternItem extends Item implements ICraftingPatternProvider {
@@ -75,7 +71,7 @@ public class PatternItem extends Item implements ICraftingPatternProvider {
             pattern.setTag(new CompoundTag());
         }
 
-        pattern.getTag().put(String.format(NBT_INPUT_SLOT, slot), stack.serializeNBT());
+        pattern.getTag().put(String.format(NBT_INPUT_SLOT, slot), stack.save(new CompoundTag()));
     }
 
     @Nonnull
@@ -94,7 +90,7 @@ public class PatternItem extends Item implements ICraftingPatternProvider {
             pattern.setTag(new CompoundTag());
         }
 
-        pattern.getTag().put(String.format(NBT_OUTPUT_SLOT, slot), stack.serializeNBT());
+        pattern.getTag().put(String.format(NBT_OUTPUT_SLOT, slot), stack.save(new CompoundTag()));
     }
 
     @Nonnull
@@ -199,17 +195,6 @@ public class PatternItem extends Item implements ICraftingPatternProvider {
         allowedTagList.readFromNbt(pattern.getTag().getCompound(NBT_ALLOWED_TAGS));
 
         return allowedTagList;
-    }
-
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        super.initializeClient(consumer);
-        consumer.accept(new IClientItemExtensions() {
-            @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return PatternItemBlockEntityRenderer.getInstance();
-            }
-        });
     }
 
     @Override

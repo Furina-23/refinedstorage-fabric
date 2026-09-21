@@ -14,6 +14,7 @@ import com.refinedmods.refinedstorage.util.RenderUtils;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -24,7 +25,6 @@ import net.minecraft.world.level.material.Fluid;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
 import com.refinedmods.refinedstorage.transfer.FluidType;
 import com.refinedmods.refinedstorage.registry.ForgeRegistries;
-import net.minecraftforge.registries.tags.IReverseTag;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.*;
@@ -77,11 +77,10 @@ public class AlternativesScreen extends BaseScreen<AlternativesContainerMenu> {
         if (item != null) {
             lines.add(new ItemLine(item));
 
-            Collection<TagKey<Item>> tagsOfItem = ForgeRegistries.ITEMS
-                .tags()
-                .getReverseTag(item.getItem())
+            Collection<TagKey<Item>> tagsOfItem = ForgeRegistries.ITEMS.getResourceKey(item.getItem())
+                .flatMap(ForgeRegistries.ITEMS::getHolder)
                 .stream()
-                .flatMap(IReverseTag::getTagKeys)
+                .flatMap(holder -> holder.tags())
                 .collect(Collectors.toSet());
 
             for (TagKey<Item> owningTag : tagsOfItem) {
@@ -91,7 +90,8 @@ public class AlternativesScreen extends BaseScreen<AlternativesContainerMenu> {
 
                 ItemListLine line = new ItemListLine();
 
-                for (Item itemInTag : ForgeRegistries.ITEMS.tags().getTag(owningTag)) {
+                for (Holder<Item> itemHolder : ForgeRegistries.ITEMS.getTag(owningTag).orElseThrow()) {
+                    Item itemInTag = itemHolder.value();
                     if (itemCount > 0 && itemCount % 8 == 0) {
                         lines.add(line);
                         line = new ItemListLine();
@@ -107,11 +107,10 @@ public class AlternativesScreen extends BaseScreen<AlternativesContainerMenu> {
         } else if (fluid != null) {
             lines.add(new FluidLine(fluid));
 
-            Collection<TagKey<Fluid>> tagsOfFluid = ForgeRegistries.FLUIDS
-                .tags()
-                .getReverseTag(fluid.getFluid())
+            Collection<TagKey<Fluid>> tagsOfFluid = ForgeRegistries.FLUIDS.getResourceKey(fluid.getFluid())
+                .flatMap(ForgeRegistries.FLUIDS::getHolder)
                 .stream()
-                .flatMap(IReverseTag::getTagKeys)
+                .flatMap(holder -> holder.tags())
                 .collect(Collectors.toSet());
 
             for (TagKey<Fluid> owningTag : tagsOfFluid) {
@@ -121,7 +120,8 @@ public class AlternativesScreen extends BaseScreen<AlternativesContainerMenu> {
 
                 FluidListLine line = new FluidListLine();
 
-                for (Fluid fluidInTag : ForgeRegistries.FLUIDS.tags().getTag(owningTag)) {
+                for (Holder<Fluid> fluidHolder : ForgeRegistries.FLUIDS.getTag(owningTag).orElseThrow()) {
+                    Fluid fluidInTag = fluidHolder.value();
                     if (fluidCount > 0 && fluidCount % 8 == 0) {
                         lines.add(line);
                         line = new FluidListLine();

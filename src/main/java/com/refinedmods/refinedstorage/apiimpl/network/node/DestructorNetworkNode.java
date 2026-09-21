@@ -40,7 +40,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.level.BlockEvent;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
 import com.refinedmods.refinedstorage.transfer.FluidType;
-import net.minecraftforge.fluids.IFluidBlock;
 import com.refinedmods.refinedstorage.transfer.fluid.IFluidHandler;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandlerModifiable;
@@ -132,13 +131,7 @@ public class DestructorNetworkNode extends NetworkNode implements IComparable, I
         }
         BlockState frontBlockState = level.getBlockState(front);
         Block frontBlock = frontBlockState.getBlock();
-        ItemStack frontStack = frontBlock.getCloneItemStack(
-            frontBlockState,
-            new BlockHitResult(Vec3.ZERO, getDirection().getOpposite(), front, false),
-            level,
-            front,
-            LevelUtils.getFakePlayer((ServerLevel) level, getOwner())
-        );
+        ItemStack frontStack = frontBlock.getCloneItemStack(level, front, frontBlockState);
 
         if (!frontStack.isEmpty() &&
             IWhitelistBlacklist.acceptsItem(itemFilters, mode, compare, frontStack) &&
@@ -190,7 +183,7 @@ public class DestructorNetworkNode extends NetworkNode implements IComparable, I
         if (frontBlock instanceof LiquidBlock) {
             // @Volatile: Logic from FlowingFluidBlock#pickupFluid
             if (frontBlockState.getValue(LiquidBlock.LEVEL) == 0) {
-                Fluid fluid = ((LiquidBlock) frontBlock).getFluid();
+                Fluid fluid = frontBlockState.getFluidState().getType();
 
                 FluidStack stack = new FluidStack(fluid, FluidType.BUCKET_VOLUME);
 
@@ -199,19 +192,6 @@ public class DestructorNetworkNode extends NetworkNode implements IComparable, I
                     network.insertFluidTracked(stack, stack.getAmount());
 
                     level.setBlock(front, Blocks.AIR.defaultBlockState(), 11);
-                }
-            }
-        } else if (frontBlock instanceof IFluidBlock) {
-            IFluidBlock fluidBlock = (IFluidBlock) frontBlock;
-
-            if (fluidBlock.canDrain(level, front)) {
-                FluidStack simulatedDrain = fluidBlock.drain(level, front, IFluidHandler.FluidAction.SIMULATE);
-
-                if (IWhitelistBlacklist.acceptsFluid(fluidFilters, mode, compare, simulatedDrain) &&
-                    network.insertFluid(simulatedDrain, simulatedDrain.getAmount(), Action.SIMULATE).isEmpty()) {
-                    FluidStack drained = fluidBlock.drain(level, front, IFluidHandler.FluidAction.EXECUTE);
-
-                    network.insertFluidTracked(drained, drained.getAmount());
                 }
             }
         }

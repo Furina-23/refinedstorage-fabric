@@ -13,7 +13,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
 import com.refinedmods.refinedstorage.registry.ForgeRegistries;
-import net.minecraftforge.registries.tags.IReverseTag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -125,11 +124,10 @@ public class FluidGridStack implements IGridStack {
     @Override
     public Set<String> getTags() {
         if (cachedTags == null) {
-            cachedTags = ForgeRegistries.FLUIDS
-                .tags()
-                .getReverseTag(stack.getFluid())
+            cachedTags = ForgeRegistries.FLUIDS.getResourceKey(stack.getFluid())
+                .flatMap(ForgeRegistries.FLUIDS::getHolder)
                 .stream()
-                .flatMap(IReverseTag::getTagKeys)
+                .flatMap(holder -> holder.tags())
                 .map(TagKey::location)
                 .map(ResourceLocation::getPath)
                 .collect(Collectors.toSet());

@@ -37,7 +37,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeHooks;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
 import com.refinedmods.refinedstorage.transfer.FluidType;
-import net.minecraftforge.fluids.FluidUtil;
 import com.refinedmods.refinedstorage.transfer.fluid.IFluidHandler;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandlerModifiable;
@@ -105,7 +104,9 @@ public class ConstructorNetworkNode extends NetworkNode implements IComparable, 
                 network.getCraftingManager().request(this, stack, FluidType.BUCKET_VOLUME);
             }
         } else if (!level.getBlockState(front).getFluidState().isSource()) {
-            FluidUtil.tryPlaceFluid(LevelUtils.getFakePlayer((ServerLevel) level, getOwner()), level, InteractionHand.MAIN_HAND, front, new NetworkFluidHandler(StackUtils.copy(stack, FluidType.BUCKET_VOLUME)), stack);
+            if (level.setBlock(front, stack.getFluid().defaultFluidState().createLegacyBlock(), 11)) {
+                network.extractFluid(stack, FluidType.BUCKET_VOLUME, compare, Action.PERFORM);
+            }
         }
     }
 

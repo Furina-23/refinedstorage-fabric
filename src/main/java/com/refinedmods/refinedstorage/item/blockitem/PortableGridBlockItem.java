@@ -78,12 +78,10 @@ public class PortableGridBlockItem extends EnergyBlockItem {
         return InteractionResult.SUCCESS;
     }
 
-    @Override
     public int getEntityLifespan(ItemStack stack, Level level) {
         return Integer.MAX_VALUE;
     }
 
-    @Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
         if (oldStack.getItem() == newStack.getItem() &&
             WirelessGridItem.getSortingDirection(oldStack) == WirelessGridItem.getSortingDirection(newStack) &&
@@ -95,7 +93,7 @@ public class PortableGridBlockItem extends EnergyBlockItem {
             return false;
         }
 
-        return super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged);
+        return true;
     }
 
     public enum Type {

@@ -36,7 +36,8 @@ public class FilterGridFilter implements Predicate<IGridStack> {
 
                 if (filter.isModFilter()) {
                     String stackModId = stack.getModId();
-                    String filterModId = stackInFilter.getItem().getCreatorModId(stackInFilter);
+                    ResourceLocation filterId = ForgeRegistries.ITEMS.getKey(stackInFilter.getItem());
+                    String filterModId = filterId == null ? null : filterId.getNamespace();
 
                     if (filterModId != null && filterModId.equals(stackModId)) {
                         return filter.getMode() == IFilter.MODE_WHITELIST;

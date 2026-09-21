@@ -1,8 +1,6 @@
 package com.refinedmods.refinedstorage.screen.widget;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.refinedmods.refinedstorage.integration.jei.GridRecipeTransferHandler;
-import com.refinedmods.refinedstorage.integration.jei.JeiIntegration;
 import com.refinedmods.refinedstorage.screen.BaseScreen;
 import com.refinedmods.refinedstorage.util.RenderUtils;
 import net.minecraft.client.gui.GuiGraphics;
@@ -75,11 +73,6 @@ public class ScrollbarWidget implements GuiEventListener {
         my -= screen.getGuiTop();
 
         if (button == 0 && RenderUtils.inBounds(x, y, width, height, mx, my)) {
-            // Prevent accidental scrollbar click after clicking recipe transfer button
-            if (JeiIntegration.isLoaded() && GridRecipeTransferHandler.INSTANCE.hasTransferredRecently()) {
-                return false;
-            }
-
             updateOffset(my);
 
             clicked = true;

@@ -10,6 +10,7 @@ import com.refinedmods.refinedstorage.blockentity.CableBlockEntity;
 import com.refinedmods.refinedstorage.capability.NetworkNodeProxyCapability;
 import com.refinedmods.refinedstorage.render.ConstantsCable;
 import com.refinedmods.refinedstorage.util.BlockUtils;
+import com.refinedmods.refinedstorage.util.NetworkUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -197,7 +198,7 @@ public class CableBlock extends NetworkNodeBlock implements SimpleWaterloggedBlo
             return false;
         }
 
-        return blockEntity.getCapability(NetworkNodeProxyCapability.NETWORK_NODE_PROXY_CAPABILITY, direction).isPresent()
+        return NetworkUtils.getNodeFromBlockEntity(blockEntity) != null
                 && !isSideCovered(blockEntity, direction)
                 && !isSideCovered(world.getBlockEntity(pos.relative(direction)), direction.getOpposite());
     }
@@ -207,10 +208,10 @@ public class CableBlock extends NetworkNodeBlock implements SimpleWaterloggedBlo
             return false;
         }
 
-        Optional<INetworkNode> node = blockEntity.getCapability(NetworkNodeProxyCapability.NETWORK_NODE_PROXY_CAPABILITY, direction).map(INetworkNodeProxy::getNode);
+        INetworkNode node = NetworkUtils.getNodeFromBlockEntity(blockEntity);
 
-        if (node.isPresent() && node.get() instanceof ICoverable) {
-            Cover cover = ((ICoverable) node.get()).getCoverManager().getCover(direction);
+        if (node instanceof ICoverable) {
+            Cover cover = ((ICoverable) node).getCoverManager().getCover(direction);
             if (cover == null) {
                 return false;
             } else {

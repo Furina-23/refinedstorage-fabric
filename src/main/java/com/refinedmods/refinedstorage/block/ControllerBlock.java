@@ -7,6 +7,8 @@ import com.refinedmods.refinedstorage.apiimpl.API;
 import com.refinedmods.refinedstorage.apiimpl.network.Network;
 import com.refinedmods.refinedstorage.blockentity.ControllerBlockEntity;
 import com.refinedmods.refinedstorage.container.ControllerContainerMenu;
+import com.refinedmods.refinedstorage.energy.ItemEnergyStorageFactory;
+import com.refinedmods.refinedstorage.transfer.energy.IEnergyStorage;
 import com.refinedmods.refinedstorage.util.BlockUtils;
 import com.refinedmods.refinedstorage.util.ColorMap;
 import com.refinedmods.refinedstorage.util.NetworkUtils;
@@ -32,7 +34,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
@@ -64,13 +65,11 @@ public class ControllerBlock extends BaseBlock implements EntityBlock {
         super.setPlacedBy(level, pos, state, entity, stack);
 
         if (!level.isClientSide) {
-            stack.getCapability(ForgeCapabilities.ENERGY).ifPresent(energyFromStack -> {
-                BlockEntity blockEntity = level.getBlockEntity(pos);
-
-                if (blockEntity != null) {
-                    blockEntity.getCapability(ForgeCapabilities.ENERGY).ifPresent(energyFromBlockEntity -> energyFromBlockEntity.receiveEnergy(energyFromStack.getEnergyStored(), false));
-                }
-            });
+            IEnergyStorage energyFromStack = ItemEnergyStorageFactory.get(stack);
+            BlockEntity blockEntity = level.getBlockEntity(pos);
+            if (energyFromStack != null && blockEntity instanceof ControllerBlockEntity controller) {
+                controller.getNetwork().getEnergyStorage().receiveEnergy(energyFromStack.getEnergyStored(), false);
+            }
         }
     }
 
@@ -96,7 +95,8 @@ public class ControllerBlock extends BaseBlock implements EntityBlock {
         }
 
         ColorMap<ControllerBlock> colorMap = type == NetworkType.CREATIVE ? RSBlocks.CREATIVE_CONTROLLER : RSBlocks.CONTROLLER;
-        DyeColor color = DyeColor.getColor(player.getItemInHand(hand));
+        ItemStack held = player.getItemInHand(hand);
+        DyeColor color = held.getItem() instanceof net.minecraft.world.item.DyeItem dye ? dye.getDyeColor() : null;
 
         if (color != null && !state.getBlock().equals(colorMap.get(color).get())) {
             BlockState newState = colorMap.get(color).get().defaultBlockState().setValue(ENERGY_TYPE, state.getValue(ENERGY_TYPE));

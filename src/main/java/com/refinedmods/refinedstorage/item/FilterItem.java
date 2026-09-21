@@ -102,7 +102,7 @@ public class FilterItem extends Item {
             stack.setTag(new CompoundTag());
         }
 
-        stack.getTag().put(NBT_ICON, icon.serializeNBT());
+        stack.getTag().put(NBT_ICON, icon.save(new CompoundTag()));
     }
 
     public static void setFluidIcon(ItemStack stack, @Nullable FluidStack icon) {
@@ -173,7 +173,6 @@ public class FilterItem extends Item {
         RenderUtils.addCombinedFluidsToTooltip(tooltip, false, new ConfiguredFluidsInFilterItemHandler(stack).getConfiguredFluids());
     }
 
-    @Override
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
         return false;
     }

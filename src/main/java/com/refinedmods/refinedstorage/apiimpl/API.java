@@ -48,12 +48,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.forgespi.language.ModFileScanData;
 import com.refinedmods.refinedstorage.transfer.item.ItemHandlerHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.objectweb.asm.Type;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -83,30 +80,8 @@ public class API implements IRSAPI {
     }
 
     public static void deliver() {
-        Type annotationType = Type.getType(RSAPIInject.class);
-
-        List<ModFileScanData.AnnotationData> annotations = ModList.get().getAllScanData().stream()
-            .map(ModFileScanData::getAnnotations)
-            .flatMap(Collection::stream)
-            .filter(a -> annotationType.equals(a.annotationType()))
-            .toList();
-
-        LOGGER.info("Found {} RS API injection {}", annotations.size(), annotations.size() == 1 ? "point" : "points");
-
-        for (ModFileScanData.AnnotationData annotation : annotations) {
-            try {
-                Class<?> clazz = Class.forName(annotation.clazz().getClassName());
-                Field field = clazz.getField(annotation.memberName());
-
-                if (field.getType() == IRSAPI.class) {
-                    field.set(null, INSTANCE);
-                }
-
-                LOGGER.info("Injected RS API in {} {}", annotation.clazz().getClassName(), annotation.memberName());
-            } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | NoSuchFieldException | SecurityException e) {
-                LOGGER.error("Could not inject RS API in {} {}", annotation.clazz().getClassName(), annotation.memberName(), e);
-            }
-        }
+        // Fabric has no Forge mod scan data. API consumers are wired through
+        // the Fabric entrypoint during migration, so there is nothing to scan.
     }
 
     @Nonnull

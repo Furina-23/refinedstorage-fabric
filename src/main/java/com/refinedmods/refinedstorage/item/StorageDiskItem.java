@@ -99,7 +99,6 @@ public class StorageDiskItem extends Item implements IStorageDiskProvider {
         return new InteractionResultHolder<>(InteractionResult.PASS, diskStack);
     }
 
-    @Override
     public int getEntityLifespan(ItemStack stack, Level level) {
         return Integer.MAX_VALUE;
     }

@@ -46,6 +46,7 @@ import com.refinedmods.refinedstorage.inventory.item.validator.StorageDiskItemVa
 import com.refinedmods.refinedstorage.inventory.listener.BlockEntityInventoryListener;
 import com.refinedmods.refinedstorage.item.WirelessGridItem;
 import com.refinedmods.refinedstorage.item.blockitem.PortableGridBlockItem;
+import com.refinedmods.refinedstorage.energy.ItemEnergyStorageFactory;
 import com.refinedmods.refinedstorage.screen.BaseScreen;
 import com.refinedmods.refinedstorage.screen.grid.GridScreen;
 import com.refinedmods.refinedstorage.util.LevelUtils;
@@ -72,7 +73,6 @@ import com.refinedmods.refinedstorage.transfer.energy.EnergyStorage;
 import com.refinedmods.refinedstorage.transfer.energy.IEnergyStorage;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandlerModifiable;
-import net.minecraftforge.server.ServerLifecycleHooks;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -245,7 +245,8 @@ public class PortableGridBlockEntity extends BaseBlockEntity implements IGrid, I
         this.tabPage = WirelessGridItem.getTabPage(stack);
         this.size = WirelessGridItem.getSize(stack);
 
-        this.energyStorage = createEnergyStorage(stack.getCapability(ForgeCapabilities.ENERGY).map(IEnergyStorage::getEnergyStored).orElse(0));
+        IEnergyStorage itemEnergy = ItemEnergyStorageFactory.get(stack);
+        this.energyStorage = createEnergyStorage(itemEnergy == null ? 0 : itemEnergy.getEnergyStored());
 
         if (stack.hasTag()) {
             for (int i = 0; i < 4; ++i) {
@@ -292,7 +293,10 @@ public class PortableGridBlockEntity extends BaseBlockEntity implements IGrid, I
             stack.getTag().put(NBT_ENCHANTMENTS, enchants);
         }
 
-        stack.getCapability(ForgeCapabilities.ENERGY, null).ifPresent(itemEnergy -> itemEnergy.receiveEnergy(energyStorage.getEnergyStored(), false));
+        IEnergyStorage itemEnergy = ItemEnergyStorageFactory.get(stack);
+        if (itemEnergy != null) {
+            itemEnergy.receiveEnergy(energyStorage.getEnergyStored(), false);
+        }
 
         for (int i = 0; i < 4; ++i) {
             StackUtils.writeItems(filter, i, stack.getTag());
@@ -304,12 +308,13 @@ public class PortableGridBlockEntity extends BaseBlockEntity implements IGrid, I
     }
 
     private EnergyStorage createEnergyStorage(int energyStored) {
-        return new EnergyStorage(
+        EnergyStorage storage = new EnergyStorage(
             RS.SERVER_CONFIG.getPortableGrid().getCapacity(),
             RS.SERVER_CONFIG.getPortableGrid().getCapacity(),
-            RS.SERVER_CONFIG.getPortableGrid().getCapacity(),
-            energyStored
+            RS.SERVER_CONFIG.getPortableGrid().getCapacity()
         );
+        storage.receiveEnergy(energyStored, false);
+        return storage;
     }
 
     @Override
@@ -482,7 +487,7 @@ public class PortableGridBlockEntity extends BaseBlockEntity implements IGrid, I
                 this.itemStorageTrackerId = UUID.randomUUID();
             }
 
-            this.itemStorageTracker = (ItemStorageTracker) API.instance().getStorageTrackerManager(ServerLifecycleHooks.getCurrentServer().overworld()).getOrCreate(itemStorageTrackerId, StorageType.ITEM);
+            this.itemStorageTracker = (ItemStorageTracker) API.instance().getStorageTrackerManager((ServerLevel) level).getOrCreate(itemStorageTrackerId, StorageType.ITEM);
         }
 
         return itemStorageTracker;
@@ -495,7 +500,7 @@ public class PortableGridBlockEntity extends BaseBlockEntity implements IGrid, I
                 this.fluidStorageTrackerId = UUID.randomUUID();
             }
 
-            this.fluidStorageTracker = (FluidStorageTracker) API.instance().getStorageTrackerManager(ServerLifecycleHooks.getCurrentServer().overworld()).getOrCreate(fluidStorageTrackerId, StorageType.FLUID);
+            this.fluidStorageTracker = (FluidStorageTracker) API.instance().getStorageTrackerManager((ServerLevel) level).getOrCreate(fluidStorageTrackerId, StorageType.FLUID);
         }
 
         return fluidStorageTracker;

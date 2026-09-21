@@ -76,7 +76,7 @@ public class GridBlockEntity extends NetworkNodeBlockEntity<GridNetworkNode> {
             t.getNode().setSize(v);
             t.getNode().markDirty();
         }
-    }, (initial, p) -> BaseScreen.executeLater(GridScreen.class, grid -> grid.resize(grid.getMinecraft(), grid.width, grid.height)));
+    }, (initial, p) -> BaseScreen.executeLater(GridScreen.class, grid -> grid.resize(net.minecraft.client.Minecraft.getInstance(), grid.width, grid.height)));
     public static final BlockEntitySynchronizationParameter<Integer, GridBlockEntity> SEARCH_BOX_MODE = new BlockEntitySynchronizationParameter<>(new ResourceLocation(RS.ID, "grid_search_box_mode"), EntityDataSerializers.INT, 0, t -> t.getNode().getSearchBoxMode(), (t, v) -> {
         if (IGrid.isValidSearchBoxMode(v)) {
             t.getNode().setSearchBoxMode(v);

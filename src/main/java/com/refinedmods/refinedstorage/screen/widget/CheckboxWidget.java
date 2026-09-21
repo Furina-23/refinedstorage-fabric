@@ -17,6 +17,8 @@ public class CheckboxWidget extends Checkbox {
 
     private final Consumer<Checkbox> onPress;
     private boolean shadow = true;
+    private boolean checked;
+    private int foregroundColor = 14737632;
 
     public CheckboxWidget(int x, int y, Component text, boolean isChecked, Consumer<Checkbox> onPress) {
         super(
@@ -29,6 +31,7 @@ public class CheckboxWidget extends Checkbox {
         );
 
         this.onPress = onPress;
+        this.checked = isChecked;
     }
 
     public void setShadow(boolean shadow) {
@@ -37,14 +40,20 @@ public class CheckboxWidget extends Checkbox {
 
     @Override
     public void onPress() {
-        super.onPress();
-
+        checked = !checked;
         this.onPress.accept(this);
     }
 
     public void setChecked(boolean value) {
-        this.selected = value;
+        this.checked = value;
     }
+
+    public void setFGColor(int color) {
+        this.foregroundColor = color;
+    }
+
+    @Override
+    public boolean selected() { return checked; }
 
     @Override
     public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
@@ -58,19 +67,17 @@ public class CheckboxWidget extends Checkbox {
         RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
 
         float textureX = (this.isFocused() ? 10.0F : 0.0F);
-        float textureY = (this.selected ? 10.0F : 0.0F);
+        float textureY = (this.checked ? 10.0F : 0.0F);
 
         int width = 10;
         int height = 10;
 
         graphics.blit(TEXTURE, this.getX(), this.getY(), textureX, textureY, width, height, 32, 32);
 
-        int color = 14737632;
+        int color = foregroundColor;
 
         if (!active) {
             color = 10526880;
-        } else if (packedFGColor != 0) {
-            color = packedFGColor;
         }
 
         graphics.drawString(font, this.getMessage(), this.getX() + 13, this.getY() + (this.height - 8) / 2, color, shadow);

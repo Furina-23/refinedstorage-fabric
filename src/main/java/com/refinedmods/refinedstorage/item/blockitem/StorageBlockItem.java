@@ -95,7 +95,6 @@ public class StorageBlockItem extends BaseBlockItem {
         return new InteractionResultHolder<>(InteractionResult.PASS, storageStack);
     }
 
-    @Override
     public int getEntityLifespan(ItemStack stack, Level level) {
         return Integer.MAX_VALUE;
     }

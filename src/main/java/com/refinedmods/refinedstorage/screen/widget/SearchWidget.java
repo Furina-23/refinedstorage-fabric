@@ -3,7 +3,6 @@ package com.refinedmods.refinedstorage.screen.widget;
 import com.refinedmods.refinedstorage.RSKeyBindings;
 import com.refinedmods.refinedstorage.api.network.grid.IGrid;
 import com.refinedmods.refinedstorage.integration.jei.JeiIntegration;
-import com.refinedmods.refinedstorage.integration.jei.RSJeiPlugin;
 import com.refinedmods.refinedstorage.render.RenderSettings;
 import com.refinedmods.refinedstorage.screen.BaseScreen;
 import net.minecraft.client.gui.Font;
@@ -20,6 +19,7 @@ public class SearchWidget extends EditBox {
 
     private int mode;
     private int historyIndex = -1;
+    private boolean allowFocusLoss = true;
 
     public SearchWidget(Font fontRenderer, int x, int y, int width) {
         super(fontRenderer, x, y, width, fontRenderer.lineHeight, Component.literal(""));
@@ -30,9 +30,6 @@ public class SearchWidget extends EditBox {
     }
 
     public void updateJei() {
-        if (canSyncToJEINow()) {
-            RSJeiPlugin.getRuntime().getIngredientFilter().setFilterText(getValue());
-        }
     }
 
     private boolean canSyncToJEINow() {
@@ -81,12 +78,12 @@ public class SearchWidget extends EditBox {
                 updateHistory(1);
             } else if (keyCode == GLFW.GLFW_KEY_ENTER || keyCode == GLFW.GLFW_KEY_KP_ENTER) {
                 saveHistory();
-                if (canLoseFocus) {
+                if (allowFocusLoss) {
                     setFocused(false);
                 }
             } else if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
                 saveHistory();
-                if (!canLoseFocus) {
+                if (!allowFocusLoss) {
                     // If we can't lose focus,
                     // and we press escape,
                     // we unfocus ourselves,
@@ -104,13 +101,19 @@ public class SearchWidget extends EditBox {
             }
         }
 
-        if (BaseScreen.isKeyDown(RSKeyBindings.FOCUS_SEARCH_BAR) && canLoseFocus) {
+        if (BaseScreen.isKeyDown(RSKeyBindings.FOCUS_SEARCH_BAR) && allowFocusLoss) {
             setFocused(!isFocused());
             saveHistory();
             return true;
         }
 
         return isFocused() && canConsumeInput() && keyCode != GLFW.GLFW_KEY_ESCAPE;
+    }
+
+    @Override
+    public void setCanLoseFocus(boolean canLoseFocus) {
+        super.setCanLoseFocus(canLoseFocus);
+        this.allowFocusLoss = canLoseFocus;
     }
 
     private void updateHistory(int delta) {
@@ -161,17 +164,10 @@ public class SearchWidget extends EditBox {
     }
 
     private void setTextFromJEI() {
-        final String filterText = RSJeiPlugin.getRuntime().getIngredientFilter().getFilterText();
-        if (!getValue().equals(filterText)) {
-            setValue(filterText);
-        }
     }
 
     @Override
     public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-        if (canSyncFromJEINow() && RSJeiPlugin.getRuntime().getIngredientListOverlay().hasKeyboardFocus()) {
-            setTextFromJEI();
-        }
         super.renderWidget(graphics, mouseX, mouseY, partialTicks);
     }
 }

@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "com.refinedmods.refinedstorage.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "AbstractContainerMenuAccessor",
+    "SlotAccessor"
+  ],
+  "client": [
+    "GuiGraphicsAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

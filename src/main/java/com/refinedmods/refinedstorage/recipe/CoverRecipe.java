@@ -14,11 +14,14 @@ import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.Tags;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 
 import java.util.List;
 
 public class CoverRecipe extends CustomRecipe {
+    private static final TagKey<Item> IRON_NUGGETS = TagKey.create(Registries.ITEM, new ResourceLocation("c", "nuggets/iron"));
     public static RecipeSerializer<CoverRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(CoverRecipe::new);
 
     public CoverRecipe(ResourceLocation id, CraftingBookCategory category) {
@@ -43,13 +46,13 @@ public class CoverRecipe extends CustomRecipe {
     }
 
     public static ItemStack getResult(ItemStack first, ItemStack second) {
-        if (first.is(Tags.Items.NUGGETS_IRON)) {
+        if (first.is(IRON_NUGGETS)) {
             ItemStack stack = new ItemStack(RSItems.COVER.get());
             CoverItem.setItem(stack, second);
             stack.setCount(6);
             return stack;
         }
-        if (second.is(Tags.Items.NUGGETS_IRON)) {
+        if (second.is(IRON_NUGGETS)) {
             ItemStack stack = new ItemStack(RSItems.COVER.get());
             CoverItem.setItem(stack, first);
             stack.setCount(6);
@@ -66,7 +69,7 @@ public class CoverRecipe extends CustomRecipe {
             ItemStack itemstack = craftingContainer.getItem(i);
             if (!itemstack.isEmpty()) {
                 list.add(itemstack);
-                if (itemstack.is(Tags.Items.NUGGETS_IRON)) {
+                if (itemstack.is(IRON_NUGGETS)) {
                     ++ingots;
                 } else if (!stackMatches(itemstack)) {
                     return false;
@@ -84,7 +87,7 @@ public class CoverRecipe extends CustomRecipe {
             ItemStack itemstack = inv.getItem(i);
             if (!itemstack.isEmpty()) {
                 list.add(itemstack);
-                if (itemstack.is(Tags.Items.NUGGETS_IRON)) {
+                if (itemstack.is(IRON_NUGGETS)) {
                     ++ingots;
                 } else if (!stackMatches(itemstack)) {
                     return ItemStack.EMPTY;

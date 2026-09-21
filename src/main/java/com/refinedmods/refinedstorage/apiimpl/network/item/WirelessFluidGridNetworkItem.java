@@ -37,7 +37,7 @@ public class WirelessFluidGridNetworkItem implements INetworkItem {
 
     @Override
     public boolean onOpen(INetwork network) {
-        IEnergyStorage energy = stack.getCapability(ForgeCapabilities.ENERGY, null).orElse(null);
+        IEnergyStorage energy = com.refinedmods.refinedstorage.energy.ItemEnergyStorageFactory.get(stack);
 
         if (RS.SERVER_CONFIG.getWirelessFluidGrid().getUseEnergy() &&
             ((WirelessFluidGridItem) stack.getItem()).getType() != WirelessFluidGridItem.Type.CREATIVE &&
@@ -64,17 +64,18 @@ public class WirelessFluidGridNetworkItem implements INetworkItem {
     @Override
     public void drainEnergy(int energy) {
         if (RS.SERVER_CONFIG.getWirelessFluidGrid().getUseEnergy() && ((WirelessFluidGridItem) stack.getItem()).getType() != WirelessFluidGridItem.Type.CREATIVE) {
-            stack.getCapability(ForgeCapabilities.ENERGY).ifPresent(energyStorage -> {
+            IEnergyStorage energyStorage = com.refinedmods.refinedstorage.energy.ItemEnergyStorageFactory.get(stack);
+            if (energyStorage != null) {
                 energyStorage.extractEnergy(energy, false);
 
                 if (energyStorage.getEnergyStored() <= 0) {
                     handler.close(player);
 
-                    player.closeContainer();
+                    ((ServerPlayer) player).closeContainer();
 
                     sendOutOfEnergyMessage();
                 }
-            });
+            }
         }
     }
 

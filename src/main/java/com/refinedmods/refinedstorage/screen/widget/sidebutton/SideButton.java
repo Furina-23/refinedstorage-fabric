@@ -18,7 +18,7 @@ public abstract class SideButton extends Button {
     protected final BaseScreen<?> screen;
 
     protected SideButton(BaseScreen<?> screen) {
-        super(Button.builder(Component.empty(), NO_ACTION).pos(-1, -1).size(WIDTH, HEIGHT));
+        super(-1, -1, WIDTH, HEIGHT, Component.empty(), NO_ACTION, DEFAULT_NARRATION);
         this.screen = screen;
     }
 

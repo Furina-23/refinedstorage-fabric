@@ -52,7 +52,7 @@ public class PortableItemGridHandler implements IItemGridHandler {
 
         int itemSize = item.getCount();
         // We copy here because some mods change the NBT tag of an item after getting the stack limit
-        int maxItemSize = item.getItem().getMaxStackSize(item.copy());
+        int maxItemSize = item.getMaxStackSize();
 
         boolean single = (flags & EXTRACT_SINGLE) == EXTRACT_SINGLE;
 
@@ -93,7 +93,7 @@ public class PortableItemGridHandler implements IItemGridHandler {
 
         if (!took.isEmpty()) {
             if ((flags & EXTRACT_SHIFT) == EXTRACT_SHIFT) {
-                IItemHandler playerInventory = player.getCapability(ForgeCapabilities.ITEM_HANDLER, Direction.UP).orElse(null);
+                IItemHandler playerInventory = new net.minecraftforge.items.wrapper.PlayerInvWrapper(player);
                 if (playerInventory != null) {
                     if (preferredSlot != -1) {
                         ItemStack remainder = playerInventory.insertItem(preferredSlot, took, true);

@@ -85,7 +85,7 @@ public final class StackUtils {
 
             ItemStack stack = new ItemStack(Item.byId(id), count);
 
-            stack.readShareTag(buf.readNbt());
+            stack.setTag(buf.readNbt());
 
             return stack;
         }
@@ -296,7 +296,7 @@ public final class StackUtils {
             stack = ItemHandlerHelper.copyStackWithSize(stack, 1);
         }
 
-        IFluidHandlerItem handler = stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM, null).orElse(null);
+        IFluidHandlerItem handler = getFluidHandler(stack);
         if (handler != null) {
             FluidStack result = handler.drain(FluidType.BUCKET_VOLUME, simulate ? IFluidHandler.FluidAction.SIMULATE : IFluidHandler.FluidAction.EXECUTE);
 
@@ -304,6 +304,10 @@ public final class StackUtils {
         }
 
         return Pair.of(ItemStack.EMPTY, FluidStack.EMPTY);
+    }
+
+    public static IFluidHandlerItem getFluidHandler(ItemStack stack) {
+        return com.refinedmods.refinedstorage.transfer.fluid.FabricFluidHandlerItem.find(stack);
     }
 
     public static CompoundTag serializeStackToNbt(@Nonnull ItemStack stack) {
@@ -333,7 +337,7 @@ public final class StackUtils {
     public static ItemStack deserializeStackFromNbt(CompoundTag tag) {
         Item item;
         if (tag.contains(NBT_ITEM_ID)) {
-            item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(tag.getString(NBT_ITEM_ID)));
+            item = ForgeRegistries.ITEMS.get(new ResourceLocation(tag.getString(NBT_ITEM_ID)));
 
             if (item == null) {
                 LOGGER.warn("Could not deserialize item from string ID {}, it no longer exists", tag.getString(NBT_ITEM_ID));
@@ -346,11 +350,7 @@ public final class StackUtils {
             return ItemStack.EMPTY;
         }
 
-        ItemStack stack = new ItemStack(
-            item,
-            tag.getInt(NBT_ITEM_QUANTITY),
-            tag.contains(NBT_ITEM_CAPS) ? tag.getCompound(NBT_ITEM_CAPS) : null
-        );
+        ItemStack stack = new ItemStack(item, tag.getInt(NBT_ITEM_QUANTITY));
 
         stack.setTag(tag.contains(NBT_ITEM_NBT) ? tag.getCompound(NBT_ITEM_NBT) : null);
 

@@ -13,8 +13,8 @@ import com.refinedmods.refinedstorage.screen.BaseScreen;
 import com.refinedmods.refinedstorage.screen.grid.GridScreen;
 import net.minecraft.world.item.ItemStack;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.util.thread.EffectiveSide;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +46,7 @@ public class FilterItemHandler extends BaseItemHandler {
             }
         }
 
-        if (EffectiveSide.get() == LogicalSide.CLIENT) {
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
             BaseScreen.executeLater(GridScreen.class, grid -> grid.getView().sort());
         }
     }

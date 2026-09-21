@@ -64,11 +64,11 @@ public class SetFilterSlotMessage {
             if (container instanceof GridContainerMenu) {
                 IGrid grid = ((GridContainerMenu) container).getGrid();
                 //exclude output slots
-                if (grid instanceof GridNetworkNode && slot.getSlotIndex() < ((GridNetworkNode) grid).getAllowedTagList().getAllowedItemTags().size()) {
-                    Set<ResourceLocation> list = new HashSet<>(((GridNetworkNode) grid).getAllowedTagList().getAllowedItemTags().get(slot.getSlotIndex()));
+                if (grid instanceof GridNetworkNode && slot.index < ((GridNetworkNode) grid).getAllowedTagList().getAllowedItemTags().size()) {
+                    Set<ResourceLocation> list = new HashSet<>(((GridNetworkNode) grid).getAllowedTagList().getAllowedItemTags().get(slot.index));
 
                     postAction = () -> {
-                        ((GridNetworkNode) grid).getAllowedTagList().setAllowedItemTags(slot.getSlotIndex(), list);
+                        ((GridNetworkNode) grid).getAllowedTagList().setAllowedItemTags(slot.index, list);
                         ((GridNetworkNode) grid).markDirty();
                     };
                 }

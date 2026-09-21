@@ -218,7 +218,9 @@ public class StorageMonitorNetworkNode extends NetworkNode implements IComparabl
 
         boolean shift = player.isCrouching();
         if (shift) {
-            NetworkUtils.extractBucketFromPlayerInventoryOrNetwork(player, network, bucket -> bucket.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM, null).ifPresent(fluidHandler -> {
+            NetworkUtils.extractBucketFromPlayerInventoryOrNetwork(player, network, bucket -> {
+                var fluidHandler = StackUtils.getFluidHandler(bucket);
+                if (fluidHandler == null) return;
                 network.getFluidStorageTracker().changed(player, stack.copy());
 
                 fluidHandler.fill(network.extractFluid(stack, FluidType.BUCKET_VOLUME, Action.PERFORM), IFluidHandler.FluidAction.EXECUTE);
@@ -226,7 +228,7 @@ public class StorageMonitorNetworkNode extends NetworkNode implements IComparabl
                 if (!player.getInventory().add(fluidHandler.getContainer().copy())) {
                     Containers.dropItemStack(player.getCommandSenderWorld(), player.getX(), player.getY(), player.getZ(), fluidHandler.getContainer());
                 }
-            }));
+            });
         }
     }
 

@@ -59,9 +59,7 @@ public abstract class BaseScreen<T extends AbstractContainerMenu> extends Abstra
     }
 
     public static boolean isKeyDown(KeyMapping keybinding) {
-        return !keybinding.isUnbound() && InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), keybinding.getKey().getValue()) &&
-            keybinding.getKeyConflictContext().isActive() &&
-            keybinding.getKeyModifier().isActive(keybinding.getKeyConflictContext());
+        return !keybinding.isUnbound() && keybinding.isDown();
     }
 
     public static <T> void executeLater(Class<T> clazz, Consumer<T> callback) {
@@ -131,7 +129,7 @@ public abstract class BaseScreen<T extends AbstractContainerMenu> extends Abstra
             Slot slot = menu.slots.get(i);
 
             if (slot.isActive() && slot instanceof FluidFilterSlot) {
-                FluidStack stack = ((FluidFilterSlot) slot).getFluidInventory().getFluid(slot.getSlotIndex());
+                FluidStack stack = ((FluidFilterSlot) slot).getFluidInventory().getFluid(slot.index);
 
                 if (!stack.isEmpty()) {
                     FluidRenderer.INSTANCE.render(graphics, leftPos + slot.x, topPos + slot.y, stack);
@@ -159,7 +157,7 @@ public abstract class BaseScreen<T extends AbstractContainerMenu> extends Abstra
             Slot slot = menu.slots.get(i);
 
             if (slot.isActive() && slot instanceof FluidFilterSlot) {
-                FluidStack stack = ((FluidFilterSlot) slot).getFluidInventory().getFluid(slot.getSlotIndex());
+                FluidStack stack = ((FluidFilterSlot) slot).getFluidInventory().getFluid(slot.index);
 
                 if (!stack.isEmpty() && RenderUtils.inBounds(slot.x, slot.y, 17, 17, mouseX, mouseY)) {
                     renderTooltip(graphics, mouseX, mouseY, stack.getDisplayName().getString());
@@ -180,7 +178,7 @@ public abstract class BaseScreen<T extends AbstractContainerMenu> extends Abstra
                         minecraft.player,
                         ALTERNATIVES_TEXT,
                         slot.getItem(),
-                        slot.getSlotIndex()
+                        slot.index
                     ));
                 } else {
                     minecraft.setScreen(new ItemAmountScreen(
@@ -194,13 +192,13 @@ public abstract class BaseScreen<T extends AbstractContainerMenu> extends Abstra
                             minecraft.player,
                             ALTERNATIVES_TEXT,
                             slot.getItem(),
-                            slot.getSlotIndex()
+                            slot.index
                         )) : null
                     ));
                 }
             }
         } else if (valid && slot instanceof FluidFilterSlot && slot.isActive() && ((FluidFilterSlot) slot).isSizeAllowed()) {
-            FluidStack stack = ((FluidFilterSlot) slot).getFluidInventory().getFluid(slot.getSlotIndex());
+            FluidStack stack = ((FluidFilterSlot) slot).getFluidInventory().getFluid(slot.index);
 
             if (!stack.isEmpty()) {
                 if (((FluidFilterSlot) slot).isAlternativesAllowed() && hasControlDown()) {
@@ -209,7 +207,7 @@ public abstract class BaseScreen<T extends AbstractContainerMenu> extends Abstra
                         minecraft.player,
                         ALTERNATIVES_TEXT,
                         stack,
-                        slot.getSlotIndex()
+                        slot.index
                     ));
                 } else {
                     minecraft.setScreen(new FluidAmountScreen(
@@ -223,7 +221,7 @@ public abstract class BaseScreen<T extends AbstractContainerMenu> extends Abstra
                             minecraft.player,
                             ALTERNATIVES_TEXT,
                             stack,
-                            slot.getSlotIndex()
+                            slot.index
                         )) : null
                     ));
                 }
@@ -261,6 +259,14 @@ public abstract class BaseScreen<T extends AbstractContainerMenu> extends Abstra
 
     public List<SideButton> getSideButtons() {
         return sideButtons;
+    }
+
+    public int getGuiLeft() {
+        return leftPos;
+    }
+
+    public int getGuiTop() {
+        return topPos;
     }
 
     public void renderItem(GuiGraphics graphics, int x, int y, ItemStack stack) {
@@ -313,7 +319,7 @@ public abstract class BaseScreen<T extends AbstractContainerMenu> extends Abstra
     }
 
     public void renderTooltip(GuiGraphics graphics, @Nonnull ItemStack stack, int x, int y, List<Component> lines) {
-        graphics.renderComponentTooltip(font, lines, x, y, stack);
+        graphics.renderComponentTooltip(font, lines, x, y);
     }
 
     protected void onPreInit() {

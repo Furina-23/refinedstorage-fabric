@@ -20,7 +20,11 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.FakePlayerFactory;
 import com.refinedmods.refinedstorage.transfer.fluid.IFluidHandler;
+import com.refinedmods.refinedstorage.transfer.fluid.FabricFluidHandler;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
@@ -45,7 +49,7 @@ public final class LevelUtils {
             return null;
         }
 
-        IItemHandler handler = blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, side).orElse(null);
+        IItemHandler handler = null;
         if (handler == null) {
             if (side != null && blockEntity instanceof WorldlyContainer) {
                 handler = new SidedInvWrapper((WorldlyContainer) blockEntity, side);
@@ -58,8 +62,9 @@ public final class LevelUtils {
     }
 
     public static IFluidHandler getFluidHandler(@Nullable BlockEntity blockEntity, Direction side) {
-        if (blockEntity != null) {
-            return blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER, side).orElse(null);
+        if (blockEntity != null && blockEntity.getLevel() != null) {
+            Storage<FluidVariant> storage = FluidStorage.SIDED.find(blockEntity.getLevel(), blockEntity.getBlockPos(), side);
+            return storage == null ? null : new FabricFluidHandler(storage);
         }
 
         return null;
@@ -84,7 +89,7 @@ public final class LevelUtils {
     }
 
     public static HitResult rayTracePlayer(Level level, Player player) {
-        double reachDistance = player.getBlockReach();
+        double reachDistance = 5.0D;
 
         Vec3 base = player.getEyePosition(1.0F);
         Vec3 look = player.getLookAngle();

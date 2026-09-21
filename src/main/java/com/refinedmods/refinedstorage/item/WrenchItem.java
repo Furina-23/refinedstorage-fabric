@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.server.level.ServerPlayer;
 import com.refinedmods.refinedstorage.transfer.item.ItemHandlerHelper;
 
 public class WrenchItem extends Item {
@@ -22,7 +23,7 @@ public class WrenchItem extends Item {
     }
 
     @Override
-    public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext ctx) {
+    public InteractionResult useOn(UseOnContext ctx) {
         if (ctx.getLevel().isClientSide) {
             return InteractionResult.CONSUME;
         }
@@ -41,14 +42,14 @@ public class WrenchItem extends Item {
             if (cover != null) {
                 ItemStack stack1 = cover.getType().createStack();
                 CoverItem.setItem(stack1, cover.getStack());
-                ItemHandlerHelper.giveItemToPlayer(ctx.getPlayer(), stack1);
+                ItemHandlerHelper.giveItemToPlayer((ServerPlayer) ctx.getPlayer(), stack1);
                 ctx.getLevel().sendBlockUpdated(ctx.getClickedPos(), state, state, 3);
                 ctx.getLevel().updateNeighborsAt(ctx.getClickedPos(), ctx.getLevel().getBlockState(ctx.getClickedPos()).getBlock());
                 return InteractionResult.SUCCESS;
             }
         }
 
-        ctx.getLevel().setBlockAndUpdate(ctx.getClickedPos(), state.rotate(ctx.getLevel(), ctx.getClickedPos(), Rotation.CLOCKWISE_90));
+        ctx.getLevel().setBlockAndUpdate(ctx.getClickedPos(), state.rotate(Rotation.CLOCKWISE_90));
 
         return InteractionResult.CONSUME;
     }

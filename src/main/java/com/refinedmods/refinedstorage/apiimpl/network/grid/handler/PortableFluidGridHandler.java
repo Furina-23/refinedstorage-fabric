@@ -53,7 +53,8 @@ public class PortableFluidGridHandler implements IFluidGridHandler {
         }
 
         if (!bucket.isEmpty()) {
-            bucket.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM, null).ifPresent(fluidHandler -> {
+            var fluidHandler = StackUtils.getFluidHandler(bucket);
+            if (fluidHandler != null) {
                 portableGrid.getFluidStorageTracker().changed(player, stack.copy());
 
                 fluidHandler.fill(portableGrid.getFluidStorage().extract(stack, FluidType.BUCKET_VOLUME, IComparer.COMPARE_NBT, Action.PERFORM), IFluidHandler.FluidAction.EXECUTE);
@@ -67,7 +68,7 @@ public class PortableFluidGridHandler implements IFluidGridHandler {
                 }
 
                 portableGrid.drainEnergy(RS.SERVER_CONFIG.getPortableGrid().getExtractUsage());
-            });
+            }
         }
     }
 

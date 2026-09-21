@@ -12,10 +12,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
@@ -83,7 +86,7 @@ public class ColorMap<T> {
             map.put(color, (RegistryObject<T>) block);
             RSBlocks.COLORED_BLOCKS.add(block);
         }
-        RSBlocks.COLORED_BLOCK_TAGS.put(BlockTags.create(new ResourceLocation(RS.ID, get(DEFAULT_COLOR).getId().getPath())), (ColorMap<S>) this);
+        RSBlocks.COLORED_BLOCK_TAGS.put(TagKey.create(Registries.BLOCK, new ResourceLocation(RS.ID, get(DEFAULT_COLOR).getId().getPath())), (ColorMap<S>) this);
     }
 
     public <S extends BaseBlock> void registerItemsFromBlocks(ColorMap<S> blockMap) {
@@ -94,7 +97,7 @@ public class ColorMap<T> {
                 map.put(color, registerBlockItemFor(block, color, originalBlock));
             }
         }));
-        RSItems.COLORED_ITEM_TAGS.put(ItemTags.create(new ResourceLocation(RS.ID, blockMap.get(DEFAULT_COLOR).getId().getPath())), (ColorMap<BlockItem>) this);
+        RSItems.COLORED_ITEM_TAGS.put(TagKey.create(Registries.ITEM, new ResourceLocation(RS.ID, blockMap.get(DEFAULT_COLOR).getId().getPath())), (ColorMap<BlockItem>) this);
     }
 
     private <S extends BaseBlock> RegistryObject<T> registerBlockItemFor(RegistryObject<S> block, DyeColor color, RegistryObject<S> translationBlock) {
@@ -110,7 +113,7 @@ public class ColorMap<T> {
     }
 
     public <S extends BaseBlock> InteractionResult changeBlockColor(BlockState state, ItemStack heldItem, Level level, BlockPos pos, Player player) {
-        DyeColor color = DyeColor.getColor(heldItem);
+        DyeColor color = heldItem.getItem() instanceof DyeItem dye ? dye.getDyeColor() : null;
         if (color == null || state.getBlock().equals(map.get(color).get())) {
             return InteractionResult.PASS;
         }

@@ -35,7 +35,7 @@ public class FluidStorageDiskFactory implements IStorageDiskFactory<FluidStack> 
             FluidStack stack = FluidStack.loadFluidStackFromNBT(list.getCompound(i));
 
             if (!stack.isEmpty()) {
-                disk.getRawStacks().put(stack.getRawFluid(), stack);
+                disk.getRawStacks().put(stack.getFluid(), stack);
             }
         }
 

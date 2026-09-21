@@ -40,7 +40,9 @@ public class FluidGridHandler implements IFluidGridHandler {
             return;
         }
 
-        NetworkUtils.extractBucketFromPlayerInventoryOrNetwork(player, network, bucket -> bucket.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM, null).ifPresent(fluidHandler -> {
+        NetworkUtils.extractBucketFromPlayerInventoryOrNetwork(player, network, bucket -> {
+            var fluidHandler = StackUtils.getFluidHandler(bucket);
+            if (fluidHandler == null) return;
             network.getFluidStorageTracker().changed(player, stack.copy());
 
             FluidStack extracted = network.extractFluid(stack, FluidType.BUCKET_VOLUME, Action.PERFORM);
@@ -56,7 +58,7 @@ public class FluidGridHandler implements IFluidGridHandler {
             }
 
             network.getNetworkItemManager().drainEnergy(player, RS.SERVER_CONFIG.getWirelessFluidGrid().getExtractUsage());
-        }));
+        });
     }
 
     @Override

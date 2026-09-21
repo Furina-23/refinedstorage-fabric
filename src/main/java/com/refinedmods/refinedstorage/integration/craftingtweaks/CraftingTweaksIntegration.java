@@ -4,8 +4,6 @@ import com.refinedmods.refinedstorage.api.network.grid.GridType;
 import com.refinedmods.refinedstorage.container.GridContainerMenu;
 import com.refinedmods.refinedstorage.container.slot.grid.CraftingGridSlot;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.fml.InterModComms;
-import net.minecraftforge.fml.ModList;
 
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -17,7 +15,7 @@ public final class CraftingTweaksIntegration {
     }
 
     public static boolean isLoaded() {
-        return ModList.get().isLoaded(ID);
+        return false;
     }
 
     public static boolean isCraftingTweaksClass(Class<?> clazz) {
@@ -25,14 +23,6 @@ public final class CraftingTweaksIntegration {
     }
 
     public static void register() {
-        CompoundTag tag = new CompoundTag();
-
-        tag.putString("ContainerClass", GridContainerMenu.class.getName());
-        tag.putString("ValidContainerPredicate", ValidContainerPredicate.class.getName());
-        tag.putString("GetGridStartFunction", GetGridStartFunction.class.getName());
-        tag.putString("AlignToGrid", "left");
-
-        InterModComms.sendTo(ID, "RegisterProvider", () -> tag);
     }
 
     public static class ValidContainerPredicate implements Predicate<GridContainerMenu> {
