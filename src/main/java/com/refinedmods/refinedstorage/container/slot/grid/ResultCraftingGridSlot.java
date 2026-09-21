@@ -4,8 +4,6 @@ import com.refinedmods.refinedstorage.api.network.grid.IGrid;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ResultSlot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nonnull;
 
@@ -22,13 +20,9 @@ public class ResultCraftingGridSlot extends ResultSlot {
     @Override
     public void onTake(Player player, @Nonnull ItemStack stack) {
         checkTakeAchievements(stack);
-        ForgeHooks.setCraftingPlayer(player);
 
         if (!player.getCommandSenderWorld().isClientSide) {
             grid.onCrafted(player, null, null);
         }
-
-        ForgeEventFactory.firePlayerCraftingEvent(player, stack.copy(), grid.getCraftingMatrix());
-        ForgeHooks.setCraftingPlayer(null);
     }
 }

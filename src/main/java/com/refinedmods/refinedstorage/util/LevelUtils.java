@@ -16,15 +16,15 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.common.util.FakePlayerFactory;
 import com.refinedmods.refinedstorage.transfer.fluid.IFluidHandler;
 import com.refinedmods.refinedstorage.transfer.fluid.FabricFluidHandler;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
+import com.refinedmods.refinedstorage.transfer.item.FabricItemHandler;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
@@ -33,6 +33,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 public final class LevelUtils {
+    private static final GameProfile AUTOMATION_PROFILE = new GameProfile(
+        UUID.fromString("41c82c87-7afb-4024-ba57-13d2c99cae77"), "[RefinedStorage]"
+    );
+
     private LevelUtils() {
     }
 
@@ -47,6 +51,13 @@ public final class LevelUtils {
     public static IItemHandler getItemHandler(@Nullable BlockEntity blockEntity, Direction side) {
         if (blockEntity == null) {
             return null;
+        }
+
+        if (blockEntity.getLevel() != null) {
+            Storage<ItemVariant> storage = ItemStorage.SIDED.find(blockEntity.getLevel(), blockEntity.getBlockPos(), side);
+            if (storage != null) {
+                return new FabricItemHandler(storage);
+            }
         }
 
         IItemHandler handler = null;
@@ -70,18 +81,18 @@ public final class LevelUtils {
         return null;
     }
 
-    public static FakePlayer getFakePlayer(ServerLevel level, @Nullable UUID owner) {
+    public static RSFakePlayer getFakePlayer(ServerLevel level, @Nullable UUID owner) {
         if (owner != null) {
             GameProfileCache profileCache = level.getServer().getProfileCache();
 
             Optional<GameProfile> profile = profileCache.get(owner);
 
             if (profile.isPresent()) {
-                return FakePlayerFactory.get(level, profile.get());
+                return new RSFakePlayer(level, profile.get());
             }
         }
 
-        return FakePlayerFactory.getMinecraft(level);
+        return new RSFakePlayer(level, AUTOMATION_PROFILE);
     }
 
     public static void sendNoPermissionMessage(Player player) {

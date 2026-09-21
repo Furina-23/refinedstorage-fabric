@@ -1,4 +1,5 @@
 {
+  "replace": false,
   "values": [
     "refinedstorage:white_pattern_grid",
     "refinedstorage:orange_pattern_grid",

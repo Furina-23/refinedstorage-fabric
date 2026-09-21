@@ -20,8 +20,6 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.event.ForgeEventFactory;
 import com.refinedmods.refinedstorage.transfer.item.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.items.wrapper.PlayerInvWrapper;
@@ -111,7 +109,6 @@ public class CraftingGridBehavior implements ICraftingGridBehavior {
         //A second list to remember which items have been extracted
         IStackList<ItemStack> usedItems = API.instance().createItemStackList();
 
-        ForgeHooks.setCraftingPlayer(player);
         // Do while the item is still craftable (aka is the result slot still the same as the original item?) and we don't exceed the max stack size.
         do {
             grid.onCrafted(player, availableItems, usedItems);
@@ -145,8 +142,6 @@ public class CraftingGridBehavior implements ICraftingGridBehavior {
         // otherwise it's not being called.
         // For regular crafting, this is already called in ResultCraftingGridSlot#onTake -> checkTakeAchievements(stack)
         crafted.onCraftedBy(player.level(), player, amountCrafted);
-        ForgeEventFactory.firePlayerCraftingEvent(player, ItemHandlerHelper.copyStackWithSize(crafted, amountCrafted), grid.getCraftingMatrix());
-        ForgeHooks.setCraftingPlayer(null);
     }
 
     private void filterDuplicateStacks(INetwork network, CraftingContainer matrix, IStackList<ItemStack> availableItems) {

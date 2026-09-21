@@ -13,7 +13,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.data.ModelData;
 
 import javax.annotation.Nonnull;
 
@@ -36,12 +35,6 @@ public class CableBlockEntity extends NetworkNodeBlockEntity<CableNetworkNode> {
         return new CableNetworkNode(level, pos);
     }
 
-    @Nonnull
-    @Override
-    public ModelData getModelData() {
-        return ModelData.builder().with(CoverManager.PROPERTY, this.getNode().getCoverManager()).build();
-    }
-
     @Override
     public CompoundTag writeUpdate(CompoundTag tag) {
         super.writeUpdate(tag);
@@ -56,8 +49,6 @@ public class CableBlockEntity extends NetworkNodeBlockEntity<CableNetworkNode> {
         super.readUpdate(tag);
 
         this.getNode().getCoverManager().readFromNbt(tag.getCompound(CoverManager.NBT_COVER_MANAGER));
-
-        requestModelDataUpdate();
 
         LevelUtils.updateBlock(level, worldPosition);
     }

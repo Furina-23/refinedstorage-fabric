@@ -5,30 +5,31 @@ import com.refinedmods.refinedstorage.RSItems;
 import com.refinedmods.refinedstorage.item.ProcessorItem;
 import com.refinedmods.refinedstorage.util.ColorMap;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.data.PackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Items;
 
 import java.util.function.Consumer;
 
-public class RecipeGenerator extends RecipeProvider {
+public final class RecipeGenerator extends FabricRecipeProvider {
     private static final String GRID_ID = RS.ID + ":grid";
 
-    public RecipeGenerator(PackOutput output) {
+    public RecipeGenerator(FabricDataOutput output) {
         super(output);
     }
 
     @Override
-    protected void buildRecipes(Consumer<FinishedRecipe> recipeAcceptor) {
+    public void buildRecipes(Consumer<FinishedRecipe> recipeAcceptor) {
         // Tag + Color -> Colored Block
         RSItems.COLORED_ITEM_TAGS.forEach((tag, map) -> map.forEach((color, item) -> ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, item.get())
             .requires(tag)
-            .requires(color.getTag())
+            .requires(TagKey.create(Registries.ITEM, new ResourceLocation("c", color.getName() + "_dyes")))
             .group(RS.ID)
             .unlockedBy("refinedstorage:controller", InventoryChangeTrigger.TriggerInstance.hasItems(RSItems.CONTROLLER.get(ColorMap.DEFAULT_COLOR).get()))
             .save(recipeAcceptor, new ResourceLocation(RS.ID, "coloring_recipes/" + item.getId().getPath()))
@@ -38,7 +39,7 @@ public class RecipeGenerator extends RecipeProvider {
         RSItems.CRAFTING_GRID.forEach((color, item) -> ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, item.get())
             .requires(RSItems.GRID.get(color).get())
             .requires(RSItems.PROCESSORS.get(ProcessorItem.Type.ADVANCED).get())
-            .requires(ItemTags.create(new ResourceLocation(RS.ID, "crafting_tables")))
+            .requires(TagKey.create(Registries.ITEM, new ResourceLocation(RS.ID, "crafting_tables")))
             .unlockedBy(GRID_ID, InventoryChangeTrigger.TriggerInstance.hasItems(RSItems.GRID.get(ColorMap.DEFAULT_COLOR).get()))
             .save(recipeAcceptor, new ResourceLocation(RS.ID, "crafting_grid/" + item.getId().getPath()))
         );

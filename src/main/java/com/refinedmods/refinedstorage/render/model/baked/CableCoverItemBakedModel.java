@@ -7,6 +7,10 @@ import com.refinedmods.refinedstorage.apiimpl.network.node.cover.Cover;
 import com.refinedmods.refinedstorage.apiimpl.network.node.cover.CoverType;
 import com.refinedmods.refinedstorage.item.CoverItem;
 import com.refinedmods.refinedstorage.util.RenderUtils;
+import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
+import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
+import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
+import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
@@ -24,10 +28,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 import static com.refinedmods.refinedstorage.render.model.baked.CableCoverBakedModel.addCover;
 
-public class CableCoverItemBakedModel implements BakedModel {
+public class CableCoverItemBakedModel implements BakedModel, FabricBakedModel {
     private static final LoadingCache<CacheKey, List<BakedQuad>> CACHE = CacheBuilder.newBuilder().build(new CacheLoader<CacheKey, List<BakedQuad>>() {
         @Override
         public List<BakedQuad> load(CacheKey key) {
@@ -55,17 +60,26 @@ public class CableCoverItemBakedModel implements BakedModel {
 
     @Override
     public ItemOverrides getOverrides() {
-        return new ItemOverrides() {
-            @Override
-            public BakedModel resolve(BakedModel originalModel, ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int p) {
-                return new CableCoverItemBakedModel(stack, type);
-            }
-        };
+        return ItemOverrides.EMPTY;
     }
 
     @Override
-    public List<BakedModel> getRenderPasses(final ItemStack itemStack, final boolean fabulous) {
-        return List.of(this);
+    public boolean isVanillaAdapter() {
+        return false;
+    }
+
+    @Override
+    public void emitItemQuads(ItemStack stack, Supplier<RandomSource> randomSupplier, RenderContext context) {
+        ItemStack coveredStack = CoverItem.getItem(stack);
+        if (coveredStack.isEmpty()) {
+            return;
+        }
+        List<BakedQuad> quads = new ArrayList<>();
+        addCover(quads, new Cover(coveredStack, type), Direction.NORTH, null, randomSupplier.get(), null, null, true);
+        RenderMaterial material = RendererAccess.INSTANCE.getRenderer().materialFinder().find();
+        for (BakedQuad quad : quads) {
+            context.getEmitter().fromVanilla(quad, material, null).emit();
+        }
     }
 
     @Override
@@ -86,11 +100,6 @@ public class CableCoverItemBakedModel implements BakedModel {
     @Override
     public TextureAtlasSprite getParticleIcon() {
         return null;
-    }
-
-    @Override
-    public boolean useAmbientOcclusion(BlockState state) {
-        return true;
     }
 
     @Override

@@ -34,7 +34,6 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeHooks;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
 import com.refinedmods.refinedstorage.transfer.FluidType;
 import com.refinedmods.refinedstorage.transfer.fluid.IFluidHandler;
@@ -113,7 +112,6 @@ public class ConstructorNetworkNode extends NetworkNode implements IComparable, 
     private void extractAndPlaceBlock(ItemStack stack) {
         ItemStack took = network.extractItem(stack, 1, compare, Action.SIMULATE);
         if (!took.isEmpty()) {
-            // We have to copy took as the forge hook clears the item.
             final ItemStack tookCopy = took.copy();
             BlockPlaceContext ctx = new ConstructorBlockItemUseContext(
                 level,
@@ -123,7 +121,7 @@ public class ConstructorNetworkNode extends NetworkNode implements IComparable, 
                 new BlockHitResult(Vec3.ZERO, getDirection(), pos, false)
             );
 
-            InteractionResult result = ForgeHooks.onPlaceItemIntoWorld(ctx);
+            InteractionResult result = took.useOn(ctx);
             if (result.consumesAction()) {
                 network.extractItem(tookCopy, 1, Action.PERFORM);
             }

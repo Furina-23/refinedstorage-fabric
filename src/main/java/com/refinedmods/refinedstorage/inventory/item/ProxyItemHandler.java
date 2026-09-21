@@ -1,15 +1,15 @@
 package com.refinedmods.refinedstorage.inventory.item;
 
 import net.minecraft.world.item.ItemStack;
-import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
+import com.refinedmods.refinedstorage.transfer.item.IItemHandlerModifiable;
 
 import javax.annotation.Nonnull;
 
-public class ProxyItemHandler implements IItemHandler {
-    private final IItemHandler insertHandler;
-    private final IItemHandler extractHandler;
+public class ProxyItemHandler implements IItemHandlerModifiable {
+    private final IItemHandlerModifiable insertHandler;
+    private final IItemHandlerModifiable extractHandler;
 
-    public ProxyItemHandler(IItemHandler insertHandler, IItemHandler extractHandler) {
+    public ProxyItemHandler(IItemHandlerModifiable insertHandler, IItemHandlerModifiable extractHandler) {
         this.insertHandler = insertHandler;
         this.extractHandler = extractHandler;
     }
@@ -23,6 +23,15 @@ public class ProxyItemHandler implements IItemHandler {
     @Override
     public ItemStack getStackInSlot(int slot) {
         return slot < insertHandler.getSlots() ? insertHandler.getStackInSlot(slot) : extractHandler.getStackInSlot(slot - insertHandler.getSlots());
+    }
+
+    @Override
+    public void setStackInSlot(int slot, ItemStack stack) {
+        if (slot < insertHandler.getSlots()) {
+            insertHandler.setStackInSlot(slot, stack);
+        } else {
+            extractHandler.setStackInSlot(slot - insertHandler.getSlots(), stack);
+        }
     }
 
     @Nonnull
@@ -44,6 +53,6 @@ public class ProxyItemHandler implements IItemHandler {
 
     @Override
     public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-        return slot < insertHandler.getSlots() ? insertHandler.isItemValid(slot, stack) : extractHandler.isItemValid(slot - extractHandler.getSlots(), stack);
+        return slot < insertHandler.getSlots() ? insertHandler.isItemValid(slot, stack) : extractHandler.isItemValid(slot - insertHandler.getSlots(), stack);
     }
 }

@@ -1,4 +1,5 @@
 {
+  "replace": false,
   "values": [
     "refinedstorage:white_crafting_grid",
     "refinedstorage:orange_crafting_grid",

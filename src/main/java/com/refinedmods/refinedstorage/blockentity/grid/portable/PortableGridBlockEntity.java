@@ -66,9 +66,6 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.inventory.ResultContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
 import com.refinedmods.refinedstorage.transfer.energy.EnergyStorage;
 import com.refinedmods.refinedstorage.transfer.energy.IEnergyStorage;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
@@ -146,7 +143,6 @@ public class PortableGridBlockEntity extends BaseBlockEntity implements IGrid, I
     private final PortableItemGridHandler itemHandler = new PortableItemGridHandler(this, this);
     private final PortableFluidGridHandler fluidHandler = new PortableFluidGridHandler(this);
     private EnergyStorage energyStorage = createEnergyStorage(0);
-    private final LazyOptional<EnergyStorage> energyStorageCap = LazyOptional.of(() -> energyStorage);
     private RedstoneMode redstoneMode = RedstoneMode.IGNORE;
     private int sortingType;
     private int sortingDirection;
@@ -751,14 +747,8 @@ public class PortableGridBlockEntity extends BaseBlockEntity implements IGrid, I
         clientGridType = GridType.values()[tag.getInt(NBT_TYPE)];
     }
 
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction direction) {
-        if (cap == ForgeCapabilities.ENERGY) {
-            return energyStorageCap.cast();
-        }
-
-        return super.getCapability(cap, direction);
+    public IEnergyStorage getEnergyStorage() {
+        return energyStorage;
     }
 
     public void onOpened() {

@@ -1,4 +1,5 @@
 {
+  "replace": false,
   "values": [
     "refinedstorage:white_creative_controller",
     "refinedstorage:orange_creative_controller",

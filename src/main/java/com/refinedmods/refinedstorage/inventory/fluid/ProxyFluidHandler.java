@@ -15,6 +15,14 @@ public class ProxyFluidHandler implements IFluidHandler {
         this.extractHandler = extractHandler;
     }
 
+    public FluidTank getInsertHandler() {
+        return insertHandler;
+    }
+
+    public FluidTank getExtractHandler() {
+        return extractHandler;
+    }
+
     @Override
     public int getTanks() {
         return 2;

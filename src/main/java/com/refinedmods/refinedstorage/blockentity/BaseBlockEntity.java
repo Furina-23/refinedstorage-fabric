@@ -3,19 +3,14 @@ package com.refinedmods.refinedstorage.blockentity;
 import com.refinedmods.refinedstorage.blockentity.data.BlockEntitySynchronizationManager;
 import com.refinedmods.refinedstorage.blockentity.data.BlockEntitySynchronizationSpec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.data.ModelData;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public abstract class BaseBlockEntity extends BlockEntity {
     private final BlockEntitySynchronizationManager dataManager;
@@ -38,20 +33,6 @@ public abstract class BaseBlockEntity extends BlockEntity {
     }
 
     public void onLoad() {
-    }
-
-    @Nonnull
-    public ModelData getModelData() {
-        return ModelData.EMPTY;
-    }
-
-    public void requestModelDataUpdate() {
-        setChanged();
-    }
-
-    @Nonnull
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction direction) {
-        return LazyOptional.empty();
     }
 
     @Override

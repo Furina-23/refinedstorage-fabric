@@ -17,10 +17,12 @@ import com.refinedmods.refinedstorage.inventory.listener.NetworkNodeInventoryLis
 import com.refinedmods.refinedstorage.item.UpgradeItem;
 import com.refinedmods.refinedstorage.util.LevelUtils;
 import com.refinedmods.refinedstorage.util.StackUtils;
+import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -32,12 +34,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.level.BlockEvent;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
 import com.refinedmods.refinedstorage.transfer.FluidType;
 import com.refinedmods.refinedstorage.transfer.fluid.IFluidHandler;
@@ -132,16 +133,19 @@ public class DestructorNetworkNode extends NetworkNode implements IComparable, I
         BlockState frontBlockState = level.getBlockState(front);
         Block frontBlock = frontBlockState.getBlock();
         ItemStack frontStack = frontBlock.getCloneItemStack(level, front, frontBlockState);
+        BlockEntity frontBlockEntity = level.getBlockEntity(front);
+        ServerPlayer fakePlayer = LevelUtils.getFakePlayer((ServerLevel) level, getOwner());
 
         if (!frontStack.isEmpty() &&
             IWhitelistBlacklist.acceptsItem(itemFilters, mode, compare, frontStack) &&
-            frontBlockState.getDestroySpeed(level, front) != -1.0) {
+            frontBlockState.getDestroySpeed(level, front) != -1.0 &&
+            PlayerBlockBreakEvents.BEFORE.invoker().beforeBlockBreak(level, fakePlayer, front, frontBlockState, frontBlockEntity)) {
             List<ItemStack> drops = Block.getDrops(
                 frontBlockState,
                 (ServerLevel) level,
                 front,
-                level.getBlockEntity(front),
-                LevelUtils.getFakePlayer((ServerLevel) level, getOwner()),
+                frontBlockEntity,
+                fakePlayer,
                 tool
             );
 
@@ -151,21 +155,16 @@ public class DestructorNetworkNode extends NetworkNode implements IComparable, I
                 }
             }
 
-            BlockEvent.BreakEvent e = new BlockEvent.BreakEvent(level, front, frontBlockState, LevelUtils.getFakePlayer((ServerLevel) level, getOwner()));
+            frontBlock.playerWillDestroy(level, front, frontBlockState, fakePlayer);
+            level.removeBlock(front, false);
+            PlayerBlockBreakEvents.AFTER.invoker().afterBlockBreak(level, fakePlayer, front, frontBlockState, frontBlockEntity);
 
-            if (!MinecraftForge.EVENT_BUS.post(e)) {
-                frontBlock.playerWillDestroy(level, front, frontBlockState, LevelUtils.getFakePlayer((ServerLevel) level, getOwner()));
-
-                level.removeBlock(front, false);
-
-                for (ItemStack drop : drops) {
-                    // We check if the controller isn't null here because when a destructor faces a node and removes it
-                    // it will essentially remove this block itself from the network without knowing
-                    if (network == null) {
-                        Containers.dropItemStack(level, front.getX(), front.getY(), front.getZ(), drop);
-                    } else {
-                        network.insertItemTracked(drop, drop.getCount());
-                    }
+            for (ItemStack drop : drops) {
+                // Removing a network node can detach this destructor from its controller.
+                if (network == null) {
+                    Containers.dropItemStack(level, front.getX(), front.getY(), front.getZ(), drop);
+                } else {
+                    network.insertItemTracked(drop, drop.getCount());
                 }
             }
         }

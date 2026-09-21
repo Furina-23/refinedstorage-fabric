@@ -5,26 +5,47 @@ import com.refinedmods.refinedstorage.RSBlockEntities;
 import com.refinedmods.refinedstorage.RSContainerMenus;
 import com.refinedmods.refinedstorage.RSItems;
 import com.refinedmods.refinedstorage.RSKeyBindings;
+import com.refinedmods.refinedstorage.apiimpl.API;
+import com.refinedmods.refinedstorage.container.CrafterContainerMenu;
+import com.refinedmods.refinedstorage.container.CrafterManagerContainerMenu;
+import com.refinedmods.refinedstorage.container.slot.CrafterManagerSlot;
 import com.refinedmods.refinedstorage.item.property.ControllerItemPropertyGetter;
 import com.refinedmods.refinedstorage.item.property.NetworkItemPropertyGetter;
 import com.refinedmods.refinedstorage.item.property.SecurityCardItemPropertyGetter;
 import com.refinedmods.refinedstorage.render.blockentity.StorageMonitorBlockEntityRenderer;
+import com.refinedmods.refinedstorage.render.color.PatternItemColor;
+import com.refinedmods.refinedstorage.render.model.FabricModelLoadingPlugin;
+import com.refinedmods.refinedstorage.render.resourcepack.ResourcePackListener;
 import com.refinedmods.refinedstorage.screen.*;
 import com.refinedmods.refinedstorage.screen.factory.CrafterManagerScreenFactory;
 import com.refinedmods.refinedstorage.screen.factory.GridScreenFactory;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
 
 public final class RefinedStorageFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
+        FabricModelLoadingPlugin.register();
+        RS.CLIENT_CONFIG.getSpec().load(FabricLoader.getInstance().getConfigDir().resolve("refinedstorage-client.json"));
         registerScreens();
         registerKeyBindings();
         registerItemProperties();
+        registerPatternRenderHandlers();
+        ColorProviderRegistry.ITEM.register(new PatternItemColor(), RSItems.PATTERN.get());
+        ClientTickEvents.END_CLIENT_TICK.register(KeyInputListener::onClientTick);
+        ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new ResourcePackListener());
         BlockEntityRenderers.register(RSBlockEntities.STORAGE_MONITOR.get(), context -> new StorageMonitorBlockEntityRenderer());
     }
 
@@ -53,6 +74,32 @@ public final class RefinedStorageFabricClient implements ClientModInitializer {
         MenuScreens.register(RSContainerMenus.CRAFTER_MANAGER.get(), new CrafterManagerScreenFactory());
         MenuScreens.register(RSContainerMenus.CRAFTING_MONITOR.get(), CraftingMonitorScreen::new);
         MenuScreens.register(RSContainerMenus.WIRELESS_CRAFTING_MONITOR.get(), CraftingMonitorScreen::new);
+    }
+
+    private static void registerPatternRenderHandlers() {
+        API.instance().addPatternRenderHandler(pattern -> Screen.hasShiftDown());
+        API.instance().addPatternRenderHandler(pattern -> {
+            AbstractContainerMenu menu = net.minecraft.client.Minecraft.getInstance().player.containerMenu;
+            if (menu instanceof CrafterManagerContainerMenu) {
+                for (Slot slot : menu.slots) {
+                    if (slot instanceof CrafterManagerSlot && slot.getItem() == pattern) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        });
+        API.instance().addPatternRenderHandler(pattern -> {
+            AbstractContainerMenu menu = net.minecraft.client.Minecraft.getInstance().player.containerMenu;
+            if (menu instanceof CrafterContainerMenu) {
+                for (int slot = 0; slot < 9; ++slot) {
+                    if (menu.getSlot(slot).getItem() == pattern) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        });
     }
 
     private static void registerKeyBindings() {

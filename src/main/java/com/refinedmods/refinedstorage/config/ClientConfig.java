@@ -1,10 +1,10 @@
 package com.refinedmods.refinedstorage.config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import com.refinedmods.refinedstorage.config.ConfigSpec;
 
 public class ClientConfig {
-    private final ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
-    private final ForgeConfigSpec spec;
+    private final ConfigSpec.Builder builder = new ConfigSpec.Builder();
+    private final ConfigSpec spec;
 
     private final Grid grid;
     private final CrafterManager crafterManager;
@@ -17,7 +17,7 @@ public class ClientConfig {
         spec = builder.build();
     }
 
-    public ForgeConfigSpec getSpec() {
+    public ConfigSpec getSpec() {
         return spec;
     }
 
@@ -34,11 +34,11 @@ public class ClientConfig {
     }
 
     public class Grid {
-        private final ForgeConfigSpec.IntValue maxRowsStretch;
-        private final ForgeConfigSpec.BooleanValue detailedTooltip;
-        private final ForgeConfigSpec.BooleanValue largeFont;
-        private final ForgeConfigSpec.BooleanValue preventSortingWhileShiftIsDown;
-        private final ForgeConfigSpec.BooleanValue rememberSearchQuery;
+        private final ConfigSpec.IntValue maxRowsStretch;
+        private final ConfigSpec.BooleanValue detailedTooltip;
+        private final ConfigSpec.BooleanValue largeFont;
+        private final ConfigSpec.BooleanValue preventSortingWhileShiftIsDown;
+        private final ConfigSpec.BooleanValue rememberSearchQuery;
 
         public Grid() {
             builder.push("grid");
@@ -74,7 +74,7 @@ public class ClientConfig {
     }
 
     public class CrafterManager {
-        private final ForgeConfigSpec.IntValue maxRowsStretch;
+        private final ConfigSpec.IntValue maxRowsStretch;
 
         public CrafterManager() {
             builder.push("crafterManager");
@@ -91,7 +91,7 @@ public class ClientConfig {
 
     public class Cover {
 
-        private final ForgeConfigSpec.BooleanValue showAllCoversInJEI;
+        private final ConfigSpec.BooleanValue showAllCoversInJEI;
 
         public Cover() {
             builder.push("cover");

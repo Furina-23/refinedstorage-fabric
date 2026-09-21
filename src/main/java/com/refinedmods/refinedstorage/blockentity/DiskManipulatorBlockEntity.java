@@ -11,7 +11,6 @@ import com.refinedmods.refinedstorage.blockentity.data.BlockEntitySynchronizatio
 import com.refinedmods.refinedstorage.blockentity.data.BlockEntitySynchronizationSpec;
 import com.refinedmods.refinedstorage.util.LevelUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.nbt.ListTag;
@@ -20,15 +19,8 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.data.ModelData;
-import net.minecraftforge.client.model.data.ModelProperty;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Arrays;
 
 public class DiskManipulatorBlockEntity extends NetworkNodeBlockEntity<DiskManipulatorNetworkNode> {
@@ -40,8 +32,6 @@ public class DiskManipulatorBlockEntity extends NetworkNodeBlockEntity<DiskManip
         t.getNode().markDirty();
     });
 
-    public static final ModelProperty<DiskState[]> DISK_STATE_PROPERTY = new ModelProperty<>();
-
     public static BlockEntitySynchronizationSpec SPEC = BlockEntitySynchronizationSpec.builder()
         .addWatchedParameter(REDSTONE_MODE)
         .addWatchedParameter(COMPARE)
@@ -51,8 +41,6 @@ public class DiskManipulatorBlockEntity extends NetworkNodeBlockEntity<DiskManip
         .build();
 
     private static final String NBT_DISK_STATE = "DiskStates";
-
-    private final LazyOptional<IItemHandler> diskCapability = LazyOptional.of(() -> getNode().getDisks());
 
     private final DiskState[] diskState = new DiskState[6];
 
@@ -86,25 +74,11 @@ public class DiskManipulatorBlockEntity extends NetworkNodeBlockEntity<DiskManip
             diskState[i] = DiskState.values()[list.getInt(i)];
         }
 
-        requestModelDataUpdate();
-
         LevelUtils.updateBlock(level, worldPosition);
     }
 
-    @Nonnull
-    @Override
-    public ModelData getModelData() {
-        return ModelData.builder().with(DISK_STATE_PROPERTY, diskState).build();
-    }
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction direction) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            return diskCapability.cast();
-        }
-
-        return super.getCapability(cap, direction);
+    public DiskState[] getDiskState() {
+        return diskState;
     }
 
     @Override

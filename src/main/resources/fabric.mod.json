@@ -21,6 +21,9 @@
     ],
     "client": [
       "com.refinedmods.refinedstorage.fabric.RefinedStorageFabricClient"
+    ],
+    "fabric-datagen": [
+      "com.refinedmods.refinedstorage.datageneration.DataGenerators"
     ]
   },
   "mixins": [

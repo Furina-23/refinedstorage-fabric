@@ -6,14 +6,18 @@ import com.google.common.cache.LoadingCache;
 import com.refinedmods.refinedstorage.RSBlocks;
 import com.refinedmods.refinedstorage.apiimpl.network.node.DiskState;
 import com.refinedmods.refinedstorage.blockentity.DiskDriveBlockEntity;
-import net.minecraft.client.renderer.RenderType;
+import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
+import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.BakedModelWrapper;
-import net.minecraftforge.client.model.data.ModelData;
 import org.joml.Vector3f;
 
 import javax.annotation.Nonnull;
@@ -23,8 +27,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
-public class DiskDriveBakedModel extends BakedModelWrapper<BakedModel> {
+public class DiskDriveBakedModel extends BakedModelWrapper<BakedModel> implements FabricBakedModel {
     private final Function<Direction, BakedModel> baseModelBakery;
     private final BiFunction<Direction, Vector3f, BakedModel> diskModelBakery;
     private final BiFunction<Direction, Vector3f, BakedModel> diskNearCapacityModelBakery;
@@ -87,22 +92,71 @@ public class DiskDriveBakedModel extends BakedModelWrapper<BakedModel> {
         this.diskDisconnectedModelBakery = diskDisconnectedModelBakery;
     }
 
-    @Nonnull
     @Override
-    public List<BakedQuad> getQuads(@Nullable final BlockState state,
-                                    @Nullable final Direction side,
-                                    @Nonnull final RandomSource rand,
-                                    @Nonnull final ModelData extraData,
-                                    @Nullable final RenderType renderType) {
-        DiskState[] diskState = extraData.get(DiskDriveBlockEntity.DISK_STATE_PROPERTY);
+    public boolean isVanillaAdapter() {
+        return false;
+    }
 
-        if (diskState == null) {
-            return super.getQuads(state, side, rand, extraData, renderType);
+    @Override
+    public ItemOverrides getOverrides() {
+        return ItemOverrides.EMPTY;
+    }
+
+    @Override
+    public void emitBlockQuads(BlockAndTintGetter blockView, BlockState state, BlockPos pos,
+                               Supplier<RandomSource> randomSupplier, RenderContext context) {
+        Direction facing = state.getValue(RSBlocks.DISK_DRIVE.get().getDirection().getProperty());
+        emit(baseModelBakery.apply(facing), blockView, state, pos, randomSupplier, context);
+
+        if (!(blockView.getBlockEntity(pos) instanceof DiskDriveBlockEntity diskDrive)) {
+            return;
         }
 
-        CacheKey key = new CacheKey(state, side, diskState, rand);
+        DiskState[] diskStates = diskDrive.getDiskState();
+        int x = 0;
+        int y = 0;
+        for (int i = 0; i < diskStates.length; ++i) {
+            if (diskStates[i] != DiskState.NONE) {
+                BakedModel diskModel = getDiskModelBakery(diskStates[i]).apply(facing, getDiskTranslation(x, y));
+                emit(diskModel, blockView, state, pos, randomSupplier, context);
+            }
+            if (++x == 2) {
+                x = 0;
+                y++;
+            }
+        }
+    }
 
-        return cache.getUnchecked(key);
+    private void emit(BakedModel model, BlockAndTintGetter blockView, BlockState state, BlockPos pos,
+                      Supplier<RandomSource> randomSupplier, RenderContext context) {
+        ((FabricBakedModel) model).emitBlockQuads(blockView, state, pos, randomSupplier, context);
+    }
+
+    @Override
+    public void emitItemQuads(ItemStack stack, Supplier<RandomSource> randomSupplier, RenderContext context) {
+        ((FabricBakedModel) baseModelBakery.apply(Direction.NORTH)).emitItemQuads(stack, randomSupplier, context);
+    }
+
+    @Override
+    public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource rand) {
+        return super.getQuads(state, side, rand);
+    }
+
+    private BiFunction<Direction, Vector3f, BakedModel> getDiskModelBakery(DiskState diskState) {
+        return switch (diskState) {
+            case DISCONNECTED -> diskDisconnectedModelBakery;
+            case NEAR_CAPACITY -> diskNearCapacityModelBakery;
+            case FULL -> diskFullModelBakery;
+            default -> diskModelBakery;
+        };
+    }
+
+    private Vector3f getDiskTranslation(int x, int y) {
+        return new Vector3f(
+            -((2F + x * 7F) / 16F),
+            -((2F + y * 3F) / 16F),
+            0
+        );
     }
 
     private static class CacheKey {
@@ -114,7 +168,7 @@ public class DiskDriveBakedModel extends BakedModelWrapper<BakedModel> {
         CacheKey(BlockState state, @Nullable Direction side, DiskState[] diskState, RandomSource random) {
             this.state = state;
             this.side = side;
-            this.diskState = diskState;
+            this.diskState = Arrays.copyOf(diskState, diskState.length);
             this.random = random;
         }
 

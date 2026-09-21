@@ -1,4 +1,5 @@
 {
+  "parent": "refinedstorage:block/portable_grid_connected",
   "render_type": "cutout",
   "loader": "refinedstorage:portable_grid"
 }

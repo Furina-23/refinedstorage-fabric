@@ -19,7 +19,6 @@ import com.refinedmods.refinedstorage.network.grid.GridCraftingStartResponseMess
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
 import com.refinedmods.refinedstorage.transfer.item.ItemHandlerHelper;
 

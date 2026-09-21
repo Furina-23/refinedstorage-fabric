@@ -1,4 +1,5 @@
 {
+  "replace": false,
   "values": [
     "refinedstorage:white_detector",
     "refinedstorage:orange_detector",

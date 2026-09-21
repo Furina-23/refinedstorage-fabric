@@ -1,12 +1,20 @@
 package com.refinedmods.refinedstorage.block;
 
+import com.refinedmods.refinedstorage.api.network.node.INetworkNode;
+import com.refinedmods.refinedstorage.api.util.Action;
+import com.refinedmods.refinedstorage.util.NetworkUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+
+import javax.annotation.Nullable;
 
 public abstract class BaseBlock extends Block {
     protected BaseBlock(Properties properties) {
@@ -32,6 +40,29 @@ public abstract class BaseBlock extends Block {
 
     protected void onDirectionChanged(Level level, BlockPos pos, Direction newDirection) {
         // NO OP
+    }
+
+    @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        super.setPlacedBy(level, pos, state, placer, stack);
+        if (level.isClientSide || !(placer instanceof Player player)) {
+            return;
+        }
+
+        INetworkNode placed = NetworkUtils.getNodeFromBlockEntity(level.getBlockEntity(pos));
+        if (placed == null) {
+            return;
+        }
+        placed.setOwner(player.getGameProfile().getId());
+        for (Direction direction : Direction.values()) {
+            INetworkNode neighbor = NetworkUtils.getNodeFromBlockEntity(level.getBlockEntity(pos.relative(direction)));
+            if (neighbor != null && neighbor.getNetwork() != null) {
+                neighbor.getNetwork().getNodeGraph().invalidate(
+                    Action.PERFORM, neighbor.getNetwork().getLevel(), neighbor.getNetwork().getPosition()
+                );
+                break;
+            }
+        }
     }
 
     @Override

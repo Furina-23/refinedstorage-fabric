@@ -1,6 +1,8 @@
 package com.refinedmods.refinedstorage.render.resourcepack;
 
 import com.refinedmods.refinedstorage.render.RenderSettings;
+import com.refinedmods.refinedstorage.RS;
+import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -12,8 +14,13 @@ import org.apache.logging.log4j.Logger;
 import javax.annotation.Nullable;
 import java.io.IOException;
 
-public class ResourcePackListener extends SimplePreparableReloadListener<RSResourcePackSection> {
+public class ResourcePackListener extends SimplePreparableReloadListener<RSResourcePackSection> implements IdentifiableResourceReloadListener {
     private final Logger logger = LogManager.getLogger(getClass());
+
+    @Override
+    public net.minecraft.resources.ResourceLocation getFabricId() {
+        return new net.minecraft.resources.ResourceLocation(RS.ID, "render_settings");
+    }
 
     @Override
     protected RSResourcePackSection prepare(ResourceManager resourceManager, ProfilerFiller profiler) {

@@ -13,19 +13,13 @@ import com.refinedmods.refinedstorage.blockentity.data.RSSerializers;
 import com.refinedmods.refinedstorage.screen.BaseScreen;
 import com.refinedmods.refinedstorage.screen.grid.GridScreen;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -116,8 +110,6 @@ public class GridBlockEntity extends NetworkNodeBlockEntity<GridNetworkNode> {
     }
 
     private final GridType type;
-    private final LazyOptional<IItemHandler> diskCapability = LazyOptional.of(() -> getNode().getPatterns());
-
     public GridBlockEntity(GridType type, BlockPos pos, BlockState state) {
         super(getType(type), pos, state, SPEC, GridNetworkNode.class);
         this.type = type;
@@ -127,15 +119,5 @@ public class GridBlockEntity extends NetworkNodeBlockEntity<GridNetworkNode> {
     @Nonnull
     public GridNetworkNode createNode(Level level, BlockPos pos) {
         return new GridNetworkNode(level, pos, type);
-    }
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction direction) {
-        if (cap == ForgeCapabilities.ITEM_HANDLER && type == GridType.PATTERN) {
-            return diskCapability.cast();
-        }
-
-        return super.getCapability(cap, direction);
     }
 }

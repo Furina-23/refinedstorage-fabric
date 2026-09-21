@@ -12,7 +12,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.data.ModelProperty;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandlerModifiable;
 import com.refinedmods.refinedstorage.transfer.item.ItemStackHandler;
 
@@ -22,7 +21,6 @@ import java.util.Map;
 
 public class CoverManager {
 
-    public static final ModelProperty<CoverManager> PROPERTY = new ModelProperty<>();
     private static final String NBT_DIRECTION = "Direction";
     private static final String NBT_ITEM = "Item";
     private static final String NBT_TYPE = "Type";

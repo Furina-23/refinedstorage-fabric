@@ -27,9 +27,10 @@ sourceSets {
     main {
         resources.srcDir 'src/generated/resources'
         java {
-            // Forge's data generator API is build-time only. Existing generated
-            // resources remain packaged while its Fabric replacement is added.
-            exclude 'com/refinedmods/refinedstorage/datageneration/**'
+            // Model generation still uses Forge's generator DSL. Server data
+            // providers run through Fabric's data generation entrypoint.
+            exclude 'com/refinedmods/refinedstorage/datageneration/BlockModelGenerator.java'
+            exclude 'com/refinedmods/refinedstorage/datageneration/BlockModels.java'
             exclude 'com/refinedmods/refinedstorage/integration/jei/CoverCraftingCategoryExtension.java'
             exclude 'com/refinedmods/refinedstorage/integration/jei/GhostIngredientHandler.java'
             exclude 'com/refinedmods/refinedstorage/integration/jei/GridRecipeTransferHandler.java'
@@ -41,11 +42,17 @@ sourceSets {
             exclude 'com/refinedmods/refinedstorage/integration/jei/RecipeTransferCraftingGridError.java'
             exclude 'com/refinedmods/refinedstorage/integration/jei/RecipeTransferPatternGridError.java'
             exclude 'com/refinedmods/refinedstorage/integration/jei/RSJeiPlugin.java'
-            exclude 'com/refinedmods/refinedstorage/render/model/**'
-            exclude 'com/refinedmods/refinedstorage/render/color/PatternItemColor.java'
+            exclude 'com/refinedmods/refinedstorage/render/model/DiskDriveGeometryLoader.java'
+            exclude 'com/refinedmods/refinedstorage/render/model/DiskManipulatorGeometryLoader.java'
+            exclude 'com/refinedmods/refinedstorage/render/model/PortableGridGeometryLoader.java'
             exclude 'com/refinedmods/refinedstorage/setup/ClientSetup.java'
-            exclude 'com/refinedmods/refinedstorage/screen/KeyInputListener.java'
         }
+    }
+}
+
+fabricApi {
+    configureDataGeneration {
+        outputDirectory = file('src/generated/resources')
     }
 }
 

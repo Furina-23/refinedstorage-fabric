@@ -2,25 +2,33 @@ package com.refinedmods.refinedstorage.render.model.baked;
 
 import com.refinedmods.refinedstorage.RS;
 import com.refinedmods.refinedstorage.RSBlocks;
+import com.refinedmods.refinedstorage.api.network.node.ICoverable;
 import com.refinedmods.refinedstorage.apiimpl.network.node.cover.Cover;
 import com.refinedmods.refinedstorage.apiimpl.network.node.cover.CoverManager;
 import com.refinedmods.refinedstorage.block.BaseBlock;
+import com.refinedmods.refinedstorage.blockentity.NetworkNodeBlockEntity;
 import com.refinedmods.refinedstorage.render.ConstantsCable;
 import com.refinedmods.refinedstorage.render.model.CubeBuilder;
 import com.refinedmods.refinedstorage.util.RenderUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderType;
+import net.fabricmc.fabric.api.renderer.v1.RendererAccess;
+import net.fabricmc.fabric.api.renderer.v1.material.RenderMaterial;
+import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
+import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.client.model.BakedModelWrapper;
-import net.minecraftforge.client.model.data.ModelData;
 import org.joml.Vector3f;
 
 import javax.annotation.Nonnull;
@@ -28,8 +36,9 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Supplier;
 
-public class CableCoverBakedModel extends BakedModelWrapper<BakedModel> {
+public class CableCoverBakedModel extends BakedModelWrapper<BakedModel> implements FabricBakedModel {
 
     private static TextureAtlasSprite BORDER_SPRITE;
 
@@ -359,22 +368,40 @@ public class CableCoverBakedModel extends BakedModelWrapper<BakedModel> {
     }
 
     @Override
-    public List<BakedQuad> getQuads(@Nullable final BlockState state,
-                                    @Nullable final Direction side,
-                                    @Nonnull final RandomSource rand,
-                                    @Nonnull final ModelData extraData,
-                                    @Nullable final RenderType renderType) {
-        List<BakedQuad> quads = new ArrayList<>(super.getQuads(state, side, rand, extraData, renderType));
-        if (extraData.has(CoverManager.PROPERTY)) {
-            CoverManager manager = extraData.get(CoverManager.PROPERTY);
-            addCover(quads, manager.getCover(Direction.NORTH), Direction.NORTH, side, rand, manager, state, true);
-            addCover(quads, manager.getCover(Direction.SOUTH), Direction.SOUTH, side, rand, manager, state, true);
-            addCover(quads, manager.getCover(Direction.EAST), Direction.EAST, side, rand, manager, state, true);
-            addCover(quads, manager.getCover(Direction.WEST), Direction.WEST, side, rand, manager, state, true);
-            addCover(quads, manager.getCover(Direction.DOWN), Direction.DOWN, side, rand, manager, state, true);
-            addCover(quads, manager.getCover(Direction.UP), Direction.UP, side, rand, manager, state, true);
+    public boolean isVanillaAdapter() {
+        return false;
+    }
+
+    @Override
+    public ItemOverrides getOverrides() {
+        return originalModel.getOverrides();
+    }
+
+    @Override
+    public void emitBlockQuads(BlockAndTintGetter blockView, BlockState state, BlockPos pos,
+                               Supplier<RandomSource> randomSupplier, RenderContext context) {
+        ((FabricBakedModel) originalModel).emitBlockQuads(blockView, state, pos, randomSupplier, context);
+        if (!(blockView.getBlockEntity(pos) instanceof NetworkNodeBlockEntity<?> blockEntity)
+            || !(blockEntity.getNode() instanceof ICoverable coverable)) {
+            return;
         }
-        return quads;
+
+        CoverManager manager = coverable.getCoverManager();
+        List<BakedQuad> quads = new ArrayList<>();
+        RandomSource random = randomSupplier.get();
+        for (Direction direction : Direction.values()) {
+            addCover(quads, manager.getCover(direction), direction, null, random, manager, state, true);
+        }
+
+        RenderMaterial material = RendererAccess.INSTANCE.getRenderer().materialFinder().find();
+        for (BakedQuad quad : quads) {
+            context.getEmitter().fromVanilla(quad, material, null).emit();
+        }
+    }
+
+    @Override
+    public void emitItemQuads(ItemStack stack, Supplier<RandomSource> randomSupplier, RenderContext context) {
+        ((FabricBakedModel) originalModel).emitItemQuads(stack, randomSupplier, context);
     }
 }
 

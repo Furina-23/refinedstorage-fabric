@@ -1,10 +1,10 @@
 package com.refinedmods.refinedstorage.config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import com.refinedmods.refinedstorage.config.ConfigSpec;
 
 public class ServerConfig {
-    private final ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
-    private final ForgeConfigSpec spec;
+    private final ConfigSpec.Builder builder = new ConfigSpec.Builder();
+    private final ConfigSpec spec;
 
     private final Upgrades upgrades;
     private final Controller controller;
@@ -72,7 +72,7 @@ public class ServerConfig {
         spec = builder.build();
     }
 
-    public ForgeConfigSpec getSpec() {
+    public ConfigSpec getSpec() {
         return spec;
     }
 
@@ -197,10 +197,10 @@ public class ServerConfig {
     }
 
     public class Controller {
-        private final ForgeConfigSpec.BooleanValue useEnergy;
-        private final ForgeConfigSpec.IntValue capacity;
-        private final ForgeConfigSpec.IntValue baseUsage;
-        private final ForgeConfigSpec.IntValue maxTransfer;
+        private final ConfigSpec.BooleanValue useEnergy;
+        private final ConfigSpec.IntValue capacity;
+        private final ConfigSpec.IntValue baseUsage;
+        private final ConfigSpec.IntValue maxTransfer;
 
         public Controller() {
             builder.push("controller");
@@ -231,7 +231,7 @@ public class ServerConfig {
     }
 
     public class Cable {
-        private final ForgeConfigSpec.IntValue usage;
+        private final ConfigSpec.IntValue usage;
 
         public Cable() {
             builder.push("cable");
@@ -247,8 +247,8 @@ public class ServerConfig {
     }
 
     public class DiskDrive {
-        private final ForgeConfigSpec.IntValue usage;
-        private final ForgeConfigSpec.IntValue diskUsage;
+        private final ConfigSpec.IntValue usage;
+        private final ConfigSpec.IntValue diskUsage;
 
         public DiskDrive() {
             builder.push("diskDrive");
@@ -269,10 +269,10 @@ public class ServerConfig {
     }
 
     public class Grid {
-        private final ForgeConfigSpec.IntValue gridUsage;
-        private final ForgeConfigSpec.IntValue craftingGridUsage;
-        private final ForgeConfigSpec.IntValue patternGridUsage;
-        private final ForgeConfigSpec.IntValue fluidGridUsage;
+        private final ConfigSpec.IntValue gridUsage;
+        private final ConfigSpec.IntValue craftingGridUsage;
+        private final ConfigSpec.IntValue patternGridUsage;
+        private final ConfigSpec.IntValue fluidGridUsage;
 
         public Grid() {
             builder.push("grid");
@@ -303,15 +303,15 @@ public class ServerConfig {
     }
 
     public class Upgrades {
-        private final ForgeConfigSpec.IntValue rangeUpgradeUsage;
-        private final ForgeConfigSpec.IntValue speedUpgradeUsage;
-        private final ForgeConfigSpec.IntValue craftingUpgradeUsage;
-        private final ForgeConfigSpec.IntValue stackUpgradeUsage;
-        private final ForgeConfigSpec.IntValue silkTouchUpgradeUsage;
-        private final ForgeConfigSpec.IntValue fortune1UpgradeUsage;
-        private final ForgeConfigSpec.IntValue fortune2UpgradeUsage;
-        private final ForgeConfigSpec.IntValue fortune3UpgradeUsage;
-        private final ForgeConfigSpec.IntValue regulatorUpgradeUsage;
+        private final ConfigSpec.IntValue rangeUpgradeUsage;
+        private final ConfigSpec.IntValue speedUpgradeUsage;
+        private final ConfigSpec.IntValue craftingUpgradeUsage;
+        private final ConfigSpec.IntValue stackUpgradeUsage;
+        private final ConfigSpec.IntValue silkTouchUpgradeUsage;
+        private final ConfigSpec.IntValue fortune1UpgradeUsage;
+        private final ConfigSpec.IntValue fortune2UpgradeUsage;
+        private final ConfigSpec.IntValue fortune3UpgradeUsage;
+        private final ConfigSpec.IntValue regulatorUpgradeUsage;
 
         public Upgrades() {
             builder.push("upgrades");
@@ -367,11 +367,11 @@ public class ServerConfig {
     }
 
     public class StorageBlock {
-        private final ForgeConfigSpec.IntValue oneKUsage;
-        private final ForgeConfigSpec.IntValue fourKUsage;
-        private final ForgeConfigSpec.IntValue sixteenKUsage;
-        private final ForgeConfigSpec.IntValue sixtyFourKUsage;
-        private final ForgeConfigSpec.IntValue creativeUsage;
+        private final ConfigSpec.IntValue oneKUsage;
+        private final ConfigSpec.IntValue fourKUsage;
+        private final ConfigSpec.IntValue sixteenKUsage;
+        private final ConfigSpec.IntValue sixtyFourKUsage;
+        private final ConfigSpec.IntValue creativeUsage;
 
         public StorageBlock() {
             builder.push("storageBlock");
@@ -407,11 +407,11 @@ public class ServerConfig {
     }
 
     public class FluidStorageBlock {
-        private final ForgeConfigSpec.IntValue sixtyFourKUsage;
-        private final ForgeConfigSpec.IntValue twoHundredFiftySixKUsage;
-        private final ForgeConfigSpec.IntValue thousandTwentyFourKUsage;
-        private final ForgeConfigSpec.IntValue fourThousandNinetySixKUsage;
-        private final ForgeConfigSpec.IntValue creativeUsage;
+        private final ConfigSpec.IntValue sixtyFourKUsage;
+        private final ConfigSpec.IntValue twoHundredFiftySixKUsage;
+        private final ConfigSpec.IntValue thousandTwentyFourKUsage;
+        private final ConfigSpec.IntValue fourThousandNinetySixKUsage;
+        private final ConfigSpec.IntValue creativeUsage;
 
         public FluidStorageBlock() {
             builder.push("fluidStorageBlock");
@@ -447,7 +447,7 @@ public class ServerConfig {
     }
 
     public class ExternalStorage {
-        private final ForgeConfigSpec.IntValue usage;
+        private final ConfigSpec.IntValue usage;
 
         public ExternalStorage() {
             builder.push("externalStorage");
@@ -463,7 +463,7 @@ public class ServerConfig {
     }
 
     public class Importer {
-        private final ForgeConfigSpec.IntValue usage;
+        private final ConfigSpec.IntValue usage;
 
         public Importer() {
             builder.push("importer");
@@ -479,7 +479,7 @@ public class ServerConfig {
     }
 
     public class Exporter {
-        private final ForgeConfigSpec.IntValue usage;
+        private final ConfigSpec.IntValue usage;
 
         public Exporter() {
             builder.push("exporter");
@@ -495,7 +495,7 @@ public class ServerConfig {
     }
 
     public class NetworkReceiver {
-        private final ForgeConfigSpec.IntValue usage;
+        private final ConfigSpec.IntValue usage;
 
         public NetworkReceiver() {
             builder.push("networkReceiver");
@@ -511,7 +511,7 @@ public class ServerConfig {
     }
 
     public class NetworkTransmitter {
-        private final ForgeConfigSpec.IntValue usage;
+        private final ConfigSpec.IntValue usage;
 
         public NetworkTransmitter() {
             builder.push("networkTransmitter");
@@ -527,7 +527,7 @@ public class ServerConfig {
     }
 
     public class Relay {
-        private final ForgeConfigSpec.IntValue usage;
+        private final ConfigSpec.IntValue usage;
 
         public Relay() {
             builder.push("relay");
@@ -543,7 +543,7 @@ public class ServerConfig {
     }
 
     public class Detector {
-        private final ForgeConfigSpec.IntValue usage;
+        private final ConfigSpec.IntValue usage;
 
         public Detector() {
             builder.push("detector");
@@ -559,8 +559,8 @@ public class ServerConfig {
     }
 
     public class SecurityManager {
-        private final ForgeConfigSpec.IntValue usage;
-        private final ForgeConfigSpec.IntValue usagePerCard;
+        private final ConfigSpec.IntValue usage;
+        private final ConfigSpec.IntValue usagePerCard;
 
         public SecurityManager() {
             builder.push("securityManager");
@@ -581,7 +581,7 @@ public class ServerConfig {
     }
 
     public class Interface {
-        private final ForgeConfigSpec.IntValue usage;
+        private final ConfigSpec.IntValue usage;
 
         public Interface() {
             builder.push("interface");
@@ -597,7 +597,7 @@ public class ServerConfig {
     }
 
     public class FluidInterface {
-        private final ForgeConfigSpec.IntValue usage;
+        private final ConfigSpec.IntValue usage;
 
         public FluidInterface() {
             builder.push("fluidInterface");
@@ -613,9 +613,9 @@ public class ServerConfig {
     }
 
     public class WirelessTransmitter {
-        private final ForgeConfigSpec.IntValue usage;
-        private final ForgeConfigSpec.IntValue baseRange;
-        private final ForgeConfigSpec.IntValue rangePerUpgrade;
+        private final ConfigSpec.IntValue usage;
+        private final ConfigSpec.IntValue baseRange;
+        private final ConfigSpec.IntValue rangePerUpgrade;
 
         public WirelessTransmitter() {
             builder.push("wirelessTransmitter");
@@ -641,7 +641,7 @@ public class ServerConfig {
     }
 
     public class StorageMonitor {
-        private final ForgeConfigSpec.IntValue usage;
+        private final ConfigSpec.IntValue usage;
 
         public StorageMonitor() {
             builder.push("storageMonitor");
@@ -657,11 +657,11 @@ public class ServerConfig {
     }
 
     public class WirelessGrid {
-        private final ForgeConfigSpec.BooleanValue useEnergy;
-        private final ForgeConfigSpec.IntValue capacity;
-        private final ForgeConfigSpec.IntValue openUsage;
-        private final ForgeConfigSpec.IntValue extractUsage;
-        private final ForgeConfigSpec.IntValue insertUsage;
+        private final ConfigSpec.BooleanValue useEnergy;
+        private final ConfigSpec.IntValue capacity;
+        private final ConfigSpec.IntValue openUsage;
+        private final ConfigSpec.IntValue extractUsage;
+        private final ConfigSpec.IntValue insertUsage;
 
         public WirelessGrid() {
             builder.push("wirelessGrid");
@@ -697,11 +697,11 @@ public class ServerConfig {
     }
 
     public class WirelessFluidGrid {
-        private final ForgeConfigSpec.BooleanValue useEnergy;
-        private final ForgeConfigSpec.IntValue capacity;
-        private final ForgeConfigSpec.IntValue openUsage;
-        private final ForgeConfigSpec.IntValue extractUsage;
-        private final ForgeConfigSpec.IntValue insertUsage;
+        private final ConfigSpec.BooleanValue useEnergy;
+        private final ConfigSpec.IntValue capacity;
+        private final ConfigSpec.IntValue openUsage;
+        private final ConfigSpec.IntValue extractUsage;
+        private final ConfigSpec.IntValue insertUsage;
 
         public WirelessFluidGrid() {
             builder.push("wirelessFluidGrid");
@@ -737,11 +737,11 @@ public class ServerConfig {
     }
 
     public class PortableGrid {
-        private final ForgeConfigSpec.BooleanValue useEnergy;
-        private final ForgeConfigSpec.IntValue capacity;
-        private final ForgeConfigSpec.IntValue openUsage;
-        private final ForgeConfigSpec.IntValue extractUsage;
-        private final ForgeConfigSpec.IntValue insertUsage;
+        private final ConfigSpec.BooleanValue useEnergy;
+        private final ConfigSpec.IntValue capacity;
+        private final ConfigSpec.IntValue openUsage;
+        private final ConfigSpec.IntValue extractUsage;
+        private final ConfigSpec.IntValue insertUsage;
 
         public PortableGrid() {
             builder.push("portableGrid");
@@ -777,7 +777,7 @@ public class ServerConfig {
     }
 
     public class Constructor {
-        private final ForgeConfigSpec.IntValue usage;
+        private final ConfigSpec.IntValue usage;
 
         public Constructor() {
             builder.push("constructor");
@@ -793,7 +793,7 @@ public class ServerConfig {
     }
 
     public class Destructor {
-        private final ForgeConfigSpec.IntValue usage;
+        private final ConfigSpec.IntValue usage;
 
         public Destructor() {
             builder.push("destructor");
@@ -809,7 +809,7 @@ public class ServerConfig {
     }
 
     public class DiskManipulator {
-        private final ForgeConfigSpec.IntValue usage;
+        private final ConfigSpec.IntValue usage;
 
         public DiskManipulator() {
             builder.push("diskManipulator");
@@ -825,8 +825,8 @@ public class ServerConfig {
     }
 
     public class Crafter {
-        private final ForgeConfigSpec.IntValue usage;
-        private final ForgeConfigSpec.IntValue patternUsage;
+        private final ConfigSpec.IntValue usage;
+        private final ConfigSpec.IntValue patternUsage;
 
         public Crafter() {
             builder.push("crafter");
@@ -847,7 +847,7 @@ public class ServerConfig {
     }
 
     public class CrafterManager {
-        private final ForgeConfigSpec.IntValue usage;
+        private final ConfigSpec.IntValue usage;
 
         public CrafterManager() {
             builder.push("crafterManager");
@@ -863,7 +863,7 @@ public class ServerConfig {
     }
 
     public class CraftingMonitor {
-        private final ForgeConfigSpec.IntValue usage;
+        private final ConfigSpec.IntValue usage;
 
         public CraftingMonitor() {
             builder.push("craftingMonitor");
@@ -879,11 +879,11 @@ public class ServerConfig {
     }
 
     public class WirelessCraftingMonitor {
-        private final ForgeConfigSpec.BooleanValue useEnergy;
-        private final ForgeConfigSpec.IntValue capacity;
-        private final ForgeConfigSpec.IntValue openUsage;
-        private final ForgeConfigSpec.IntValue cancelUsage;
-        private final ForgeConfigSpec.IntValue cancelAllUsage;
+        private final ConfigSpec.BooleanValue useEnergy;
+        private final ConfigSpec.IntValue capacity;
+        private final ConfigSpec.IntValue openUsage;
+        private final ConfigSpec.IntValue cancelUsage;
+        private final ConfigSpec.IntValue cancelAllUsage;
 
         public WirelessCraftingMonitor() {
             builder.push("wirelessCraftingMonitor");
@@ -919,7 +919,7 @@ public class ServerConfig {
     }
 
     public class Autocrafting {
-        private final ForgeConfigSpec.IntValue calculationTimeoutMs;
+        private final ConfigSpec.IntValue calculationTimeoutMs;
 
         public Autocrafting() {
             builder.push("autocrafting");

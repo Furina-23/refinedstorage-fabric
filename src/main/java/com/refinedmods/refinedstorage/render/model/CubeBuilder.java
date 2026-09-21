@@ -3,7 +3,6 @@ package com.refinedmods.refinedstorage.render.model;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
-import net.minecraftforge.client.model.pipeline.QuadBakingVertexConsumer;
 import org.joml.Vector3f;
 
 import java.util.ArrayList;
@@ -61,56 +60,51 @@ public class CubeBuilder {
     }
 
     private BakedQuad bakeFace(Direction facing, Face cubeFace) {
-        List<BakedQuad> quad = new ArrayList<>();
-        QuadBakingVertexConsumer builder = new QuadBakingVertexConsumer(quad::add);
-
-        builder.setSprite(cubeFace.sprite);
-        builder.setDirection(facing);
-        builder.setTintIndex(-1);
-        builder.setShade(true);
+        int[] vertices = new int[32];
+        int[] vertexIndex = {0};
 
         Uv uv = getDefaultUv(facing, cubeFace.sprite, from.x(), from.y(), from.z(), to.x(), to.y(), to.z());
 
         switch (facing) {
             case DOWN:
-                addVertexTopRight(builder, cubeFace, to.x(), from.y(), from.z(), uv);
-                addVertexBottomRight(builder, cubeFace, to.x(), from.y(), to.z(), uv);
-                addVertexBottomLeft(builder, cubeFace, from.x(), from.y(), to.z(), uv);
-                addVertexTopLeft(builder, cubeFace, from.x(), from.y(), from.z(), uv);
+                addVertexTopRight(vertices, vertexIndex, cubeFace, to.x(), from.y(), from.z(), uv);
+                addVertexBottomRight(vertices, vertexIndex, cubeFace, to.x(), from.y(), to.z(), uv);
+                addVertexBottomLeft(vertices, vertexIndex, cubeFace, from.x(), from.y(), to.z(), uv);
+                addVertexTopLeft(vertices, vertexIndex, cubeFace, from.x(), from.y(), from.z(), uv);
                 break;
             case UP:
-                addVertexTopLeft(builder, cubeFace, from.x(), to.y(), from.z(), uv);
-                addVertexBottomLeft(builder, cubeFace, from.x(), to.y(), to.z(), uv);
-                addVertexBottomRight(builder, cubeFace, to.x(), to.y(), to.z(), uv);
-                addVertexTopRight(builder, cubeFace, to.x(), to.y(), from.z(), uv);
+                addVertexTopLeft(vertices, vertexIndex, cubeFace, from.x(), to.y(), from.z(), uv);
+                addVertexBottomLeft(vertices, vertexIndex, cubeFace, from.x(), to.y(), to.z(), uv);
+                addVertexBottomRight(vertices, vertexIndex, cubeFace, to.x(), to.y(), to.z(), uv);
+                addVertexTopRight(vertices, vertexIndex, cubeFace, to.x(), to.y(), from.z(), uv);
                 break;
             case NORTH:
-                addVertexBottomRight(builder, cubeFace, to.x(), to.y(), from.z(), uv);
-                addVertexTopRight(builder, cubeFace, to.x(), from.y(), from.z(), uv);
-                addVertexTopLeft(builder, cubeFace, from.x(), from.y(), from.z(), uv);
-                addVertexBottomLeft(builder, cubeFace, from.x(), to.y(), from.z(), uv);
+                addVertexBottomRight(vertices, vertexIndex, cubeFace, to.x(), to.y(), from.z(), uv);
+                addVertexTopRight(vertices, vertexIndex, cubeFace, to.x(), from.y(), from.z(), uv);
+                addVertexTopLeft(vertices, vertexIndex, cubeFace, from.x(), from.y(), from.z(), uv);
+                addVertexBottomLeft(vertices, vertexIndex, cubeFace, from.x(), to.y(), from.z(), uv);
                 break;
             case SOUTH:
-                addVertexBottomLeft(builder, cubeFace, from.x(), to.y(), to.z(), uv);
-                addVertexTopLeft(builder, cubeFace, from.x(), from.y(), to.z(), uv);
-                addVertexTopRight(builder, cubeFace, to.x(), from.y(), to.z(), uv);
-                addVertexBottomRight(builder, cubeFace, to.x(), to.y(), to.z(), uv);
+                addVertexBottomLeft(vertices, vertexIndex, cubeFace, from.x(), to.y(), to.z(), uv);
+                addVertexTopLeft(vertices, vertexIndex, cubeFace, from.x(), from.y(), to.z(), uv);
+                addVertexTopRight(vertices, vertexIndex, cubeFace, to.x(), from.y(), to.z(), uv);
+                addVertexBottomRight(vertices, vertexIndex, cubeFace, to.x(), to.y(), to.z(), uv);
                 break;
             case WEST:
-                addVertexTopLeft(builder, cubeFace, from.x(), from.y(), from.z(), uv);
-                addVertexTopRight(builder, cubeFace, from.x(), from.y(), to.z(), uv);
-                addVertexBottomRight(builder, cubeFace, from.x(), to.y(), to.z(), uv);
-                addVertexBottomLeft(builder, cubeFace, from.x(), to.y(), from.z(), uv);
+                addVertexTopLeft(vertices, vertexIndex, cubeFace, from.x(), from.y(), from.z(), uv);
+                addVertexTopRight(vertices, vertexIndex, cubeFace, from.x(), from.y(), to.z(), uv);
+                addVertexBottomRight(vertices, vertexIndex, cubeFace, from.x(), to.y(), to.z(), uv);
+                addVertexBottomLeft(vertices, vertexIndex, cubeFace, from.x(), to.y(), from.z(), uv);
                 break;
             case EAST:
-                addVertexBottomRight(builder, cubeFace, to.x(), to.y(), from.z(), uv);
-                addVertexBottomLeft(builder, cubeFace, to.x(), to.y(), to.z(), uv);
-                addVertexTopLeft(builder, cubeFace, to.x(), from.y(), to.z(), uv);
-                addVertexTopRight(builder, cubeFace, to.x(), from.y(), from.z(), uv);
+                addVertexBottomRight(vertices, vertexIndex, cubeFace, to.x(), to.y(), from.z(), uv);
+                addVertexBottomLeft(vertices, vertexIndex, cubeFace, to.x(), to.y(), to.z(), uv);
+                addVertexTopLeft(vertices, vertexIndex, cubeFace, to.x(), from.y(), to.z(), uv);
+                addVertexTopRight(vertices, vertexIndex, cubeFace, to.x(), from.y(), from.z(), uv);
                 break;
         }
 
-        return quad.get(0);
+        return new BakedQuad(vertices, -1, facing, cubeFace.sprite, true);
     }
 
     private Uv getDefaultUv(Direction face, TextureAtlasSprite texture, float fromX, float fromY, float fromZ, float toX, float toY, float toZ) {
@@ -158,7 +152,7 @@ public class CubeBuilder {
         return uv;
     }
 
-    private void addVertexTopLeft(QuadBakingVertexConsumer builder, Face face, float x, float y, float z, Uv uv) {
+    private void addVertexTopLeft(int[] vertices, int[] index, Face face, float x, float y, float z, Uv uv) {
         float u;
         float v;
 
@@ -182,10 +176,10 @@ public class CubeBuilder {
                 break;
         }
 
-        addVertex(builder, face, x, y, z, u, v);
+        addVertex(vertices, index, face, x, y, z, u, v);
     }
 
-    private void addVertexTopRight(QuadBakingVertexConsumer builder, Face face, float x, float y, float z, Uv uv) {
+    private void addVertexTopRight(int[] vertices, int[] index, Face face, float x, float y, float z, Uv uv) {
         float u;
         float v;
 
@@ -209,10 +203,10 @@ public class CubeBuilder {
                 break;
         }
 
-        addVertex(builder, face, x, y, z, u, v);
+        addVertex(vertices, index, face, x, y, z, u, v);
     }
 
-    private void addVertexBottomRight(QuadBakingVertexConsumer builder, Face face, float x, float y, float z, Uv uv) {
+    private void addVertexBottomRight(int[] vertices, int[] index, Face face, float x, float y, float z, Uv uv) {
         float u;
         float v;
 
@@ -236,10 +230,10 @@ public class CubeBuilder {
                 break;
         }
 
-        addVertex(builder, face, x, y, z, u, v);
+        addVertex(vertices, index, face, x, y, z, u, v);
     }
 
-    private void addVertexBottomLeft(QuadBakingVertexConsumer builder, Face face, float x, float y, float z, Uv uv) {
+    private void addVertexBottomLeft(int[] vertices, int[] index, Face face, float x, float y, float z, Uv uv) {
         float u;
         float v;
 
@@ -263,19 +257,25 @@ public class CubeBuilder {
                 break;
         }
 
-        addVertex(builder, face, x, y, z, u, v);
+        addVertex(vertices, index, face, x, y, z, u, v);
     }
 
-    private void addVertex(QuadBakingVertexConsumer builder, Face face, float x, float y, float z, float u, float v) {
-        builder.vertex(x, y, z);
-        builder.normal(face.face.getStepX(), face.face.getStepY(), face.face.getStepZ());
-        float r = (color >> 16 & 0xFF) / 255F;
-        float g = (color >> 8 & 0xFF) / 255F;
-        float b = (color & 0xFF) / 255F;
-        float a = (color >> 24 & 0xFF) / 255F;
-        builder.uv(u, v);
-        builder.color(r, g, b, a);
-        builder.endVertex();
+    private void addVertex(int[] vertices, int[] index, Face face, float x, float y, float z, float u, float v) {
+        int offset = index[0]++ * 8;
+        vertices[offset] = Float.floatToRawIntBits(x);
+        vertices[offset + 1] = Float.floatToRawIntBits(y);
+        vertices[offset + 2] = Float.floatToRawIntBits(z);
+        vertices[offset + 3] = color;
+        vertices[offset + 4] = Float.floatToRawIntBits(u);
+        vertices[offset + 5] = Float.floatToRawIntBits(v);
+        vertices[offset + 6] = 0;
+        vertices[offset + 7] = packNormal(face.face);
+    }
+
+    private int packNormal(Direction direction) {
+        return (direction.getStepX() * 127 & 0xFF)
+            | ((direction.getStepY() * 127 & 0xFF) << 8)
+            | ((direction.getStepZ() * 127 & 0xFF) << 16);
     }
 
     public enum UvRotation {
