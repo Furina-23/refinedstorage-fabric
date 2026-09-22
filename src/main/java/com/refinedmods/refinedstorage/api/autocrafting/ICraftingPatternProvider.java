@@ -21,3 +21,5 @@ public interface ICraftingPatternProvider {
     @Nonnull
     ICraftingPattern create(Level level, ItemStack stack, ICraftingPatternContainer container);
 }
+
+

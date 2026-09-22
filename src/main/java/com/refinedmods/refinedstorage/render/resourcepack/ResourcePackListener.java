@@ -48,3 +48,5 @@ public class ResourcePackListener extends SimplePreparableReloadListener<RSResou
         }
     }
 }
+
+

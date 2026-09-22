@@ -38,3 +38,5 @@ public class RelayScreen extends BaseScreen<RelayContainerMenu> {
         renderString(graphics, 7, 39, I18n.get("container.inventory"));
     }
 }
+
+

@@ -144,3 +144,5 @@ public abstract class NetworkNodeBlockEntity<N extends NetworkNode> extends Base
     public abstract N createNode(Level level, BlockPos pos);
 
 }
+
+

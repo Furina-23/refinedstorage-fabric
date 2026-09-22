@@ -62,3 +62,5 @@ public interface IQuantityFormatter {
      */
     String formatInBucketFormWithOnlyTrailingDigitsIfZero(int qty);
 }
+
+

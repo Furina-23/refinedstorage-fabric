@@ -8,7 +8,7 @@ import com.refinedmods.refinedstorage.item.blockitem.PortableGridBlockItem;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.network.NetworkEvent;
+import com.refinedmods.refinedstorage.network.fabric.NetworkEvent;
 
 import java.util.function.Supplier;
 
@@ -49,3 +49,5 @@ public class OpenNetworkItemMessage {
         ctx.get().setPacketHandled(true);
     }
 }
+
+

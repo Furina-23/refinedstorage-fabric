@@ -132,7 +132,9 @@ public class ControllerBlockEntity extends BaseBlockEntity implements INetworkNo
             manager.removeNetwork(worldPosition);
             manager.markForSaving();
 
-            network.onRemoved();
+            if (network != null) {
+                network.onRemoved();
+            }
         }
     }
 
@@ -157,3 +159,5 @@ public class ControllerBlockEntity extends BaseBlockEntity implements INetworkNo
     }
 
 }
+
+

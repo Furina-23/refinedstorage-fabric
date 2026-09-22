@@ -12,7 +12,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.network.NetworkHooks;
+import com.refinedmods.refinedstorage.network.fabric.NetworkHooks;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
@@ -85,3 +85,5 @@ public class GridManager implements IGridManager {
         return Pair.of(grid, blockEntity);
     }
 }
+
+

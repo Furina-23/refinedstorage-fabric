@@ -23,3 +23,5 @@ public class BakedModelOverrideRegistry {
         BakedModel create(BakedModel base, Map<ResourceLocation, BakedModel> registry);
     }
 }
+
+

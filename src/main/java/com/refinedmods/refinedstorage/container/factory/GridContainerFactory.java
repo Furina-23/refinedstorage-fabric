@@ -11,10 +11,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.network.IContainerFactory;
+import com.refinedmods.refinedstorage.container.factory.ContainerFactory;
 import org.apache.commons.lang3.tuple.Pair;
 
-public class GridContainerFactory implements IContainerFactory<GridContainerMenu> {
+public class GridContainerFactory implements ContainerFactory<GridContainerMenu> {
     @Override
     public GridContainerMenu create(int windowId, Inventory inv, FriendlyByteBuf data) {
         ResourceLocation id = data.readResourceLocation();
@@ -37,3 +37,6 @@ public class GridContainerFactory implements IContainerFactory<GridContainerMenu
         return new GridContainerMenu(grid.getLeft(), grid.getRight() instanceof BaseBlockEntity ? (BaseBlockEntity) grid.getRight() : null, inv.player, windowId);
     }
 }
+
+
+

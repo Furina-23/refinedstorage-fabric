@@ -17,3 +17,5 @@ public class AmountContainerMenu extends BaseContainerMenu {
         addSlot(new DisabledSlot(inventory, 0, 89, 48));
     }
 }
+
+

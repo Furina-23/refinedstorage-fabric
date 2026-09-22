@@ -10,7 +10,7 @@ import com.refinedmods.refinedstorage.network.ClientProxy;
 import com.refinedmods.refinedstorage.screen.CraftingMonitorScreen;
 import com.refinedmods.refinedstorage.blockentity.craftingmonitor.ICraftingMonitor;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import com.refinedmods.refinedstorage.network.fabric.NetworkEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -103,3 +103,5 @@ public class CraftingMonitorUpdateMessage {
         return tasks;
     }
 }
+
+

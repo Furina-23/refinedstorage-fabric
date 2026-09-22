@@ -8,7 +8,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandlerModifiable;
-import net.minecraftforge.items.SlotItemHandler;
+import com.refinedmods.refinedstorage.container.transfer.SlotItemHandler;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -116,3 +116,6 @@ public class TransferManager {
         return ItemStack.EMPTY;
     }
 }
+
+
+

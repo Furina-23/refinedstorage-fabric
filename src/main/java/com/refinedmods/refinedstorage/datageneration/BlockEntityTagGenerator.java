@@ -72,3 +72,5 @@ public final class BlockEntityTagGenerator extends FabricTagProvider<BlockEntity
         return "Refined Storage block entity type tags";
     }
 }
+
+

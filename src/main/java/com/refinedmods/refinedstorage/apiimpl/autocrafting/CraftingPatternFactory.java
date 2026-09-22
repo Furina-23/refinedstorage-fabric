@@ -17,7 +17,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
-import com.refinedmods.refinedstorage.registry.ForgeRegistries;
+import com.refinedmods.refinedstorage.registry.RSRegistries;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -104,8 +104,8 @@ public class CraftingPatternFactory {
             possibilities.add(input.copy());
 
             if (allowedTagList != null) {
-                Collection<ResourceLocation> tagsOfItem = ForgeRegistries.ITEMS.getResourceKey(input.getItem())
-                    .flatMap(ForgeRegistries.ITEMS::getHolder)
+                Collection<ResourceLocation> tagsOfItem = RSRegistries.ITEMS.getResourceKey(input.getItem())
+                    .flatMap(RSRegistries.ITEMS::getHolder)
                     .stream().flatMap(holder -> holder.tags()).map(TagKey::location).collect(Collectors.toSet());
                 Set<ResourceLocation> declaredAllowedTags = allowedTagList.getAllowedItemTags().get(i);
 
@@ -120,7 +120,7 @@ public class CraftingPatternFactory {
                         );
                     } else {
                         TagKey<Item> tagKey = TagKey.create(Registries.ITEM, declaredAllowedTag);
-                        ForgeRegistries.ITEMS.getTag(tagKey).ifPresent(tag -> tag.forEach(holder ->
+                        RSRegistries.ITEMS.getTag(tagKey).ifPresent(tag -> tag.forEach(holder ->
                             possibilities.add(new ItemStack(holder.value(), input.getCount()))));
                     }
                 }
@@ -145,8 +145,8 @@ public class CraftingPatternFactory {
             possibilities.add(input.copy());
 
             if (allowedTagList != null) {
-                Collection<ResourceLocation> tagsOfFluid = ForgeRegistries.FLUIDS.getResourceKey(input.getFluid())
-                    .flatMap(ForgeRegistries.FLUIDS::getHolder)
+                Collection<ResourceLocation> tagsOfFluid = RSRegistries.FLUIDS.getResourceKey(input.getFluid())
+                    .flatMap(RSRegistries.FLUIDS::getHolder)
                     .stream().flatMap(holder -> holder.tags()).map(TagKey::location).collect(Collectors.toSet());
                 Set<ResourceLocation> declaredAllowedTags = allowedTagList.getAllowedFluidTags().get(i);
 
@@ -161,7 +161,7 @@ public class CraftingPatternFactory {
                         );
                     } else {
                         TagKey<Fluid> tagKey = TagKey.create(Registries.FLUID, declaredAllowedTag);
-                        ForgeRegistries.FLUIDS.getTag(tagKey).ifPresent(tag -> tag.forEach(holder ->
+                        RSRegistries.FLUIDS.getTag(tagKey).ifPresent(tag -> tag.forEach(holder ->
                             possibilities.add(new FluidStack(holder.value(), input.getAmount()))));
                     }
                 }
@@ -194,3 +194,5 @@ public class CraftingPatternFactory {
         }
     }
 }
+
+

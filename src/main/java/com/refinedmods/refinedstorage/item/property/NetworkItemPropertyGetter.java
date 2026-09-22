@@ -14,3 +14,5 @@ public class NetworkItemPropertyGetter implements ItemPropertyFunction {
         return entity != null && NetworkItem.isValid(stack) ? 1.0f : 0.0f;
     }
 }
+
+

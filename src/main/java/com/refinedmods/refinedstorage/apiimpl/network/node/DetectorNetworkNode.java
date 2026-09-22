@@ -232,3 +232,5 @@ public class DetectorNetworkNode extends NetworkNode implements IComparable, ITy
         return fluidFilters;
     }
 }
+
+

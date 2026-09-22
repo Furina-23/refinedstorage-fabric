@@ -29,3 +29,5 @@ public class CraftingCalculatorException extends Exception {
         return recursedPattern;
     }
 }
+
+

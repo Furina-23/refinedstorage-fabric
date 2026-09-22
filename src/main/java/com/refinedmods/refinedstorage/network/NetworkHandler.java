@@ -11,9 +11,9 @@ import com.refinedmods.refinedstorage.network.sync.BlockEntitySynchronizationPar
 import com.refinedmods.refinedstorage.network.sync.BlockEntitySynchronizationParamaterUpdateMessage;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.simple.SimpleChannel;
+import com.refinedmods.refinedstorage.network.fabric.NetworkRegistry;
+import com.refinedmods.refinedstorage.network.fabric.PacketDistributor;
+import com.refinedmods.refinedstorage.network.fabric.simple.SimpleChannel;
 
 public class NetworkHandler {
     private final String protocolVersion = Integer.toString(1);
@@ -93,3 +93,5 @@ public class NetworkHandler {
         splitter.addPackagePart(communicationId, packetIndex, payload);
     }
 }
+
+

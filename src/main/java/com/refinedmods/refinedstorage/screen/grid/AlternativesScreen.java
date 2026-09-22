@@ -24,7 +24,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
 import com.refinedmods.refinedstorage.transfer.FluidType;
-import com.refinedmods.refinedstorage.registry.ForgeRegistries;
+import com.refinedmods.refinedstorage.registry.RSRegistries;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.*;
@@ -77,8 +77,8 @@ public class AlternativesScreen extends BaseScreen<AlternativesContainerMenu> {
         if (item != null) {
             lines.add(new ItemLine(item));
 
-            Collection<TagKey<Item>> tagsOfItem = ForgeRegistries.ITEMS.getResourceKey(item.getItem())
-                .flatMap(ForgeRegistries.ITEMS::getHolder)
+            Collection<TagKey<Item>> tagsOfItem = RSRegistries.ITEMS.getResourceKey(item.getItem())
+                .flatMap(RSRegistries.ITEMS::getHolder)
                 .stream()
                 .flatMap(holder -> holder.tags())
                 .collect(Collectors.toSet());
@@ -90,7 +90,7 @@ public class AlternativesScreen extends BaseScreen<AlternativesContainerMenu> {
 
                 ItemListLine line = new ItemListLine();
 
-                for (Holder<Item> itemHolder : ForgeRegistries.ITEMS.getTag(owningTag).orElseThrow()) {
+                for (Holder<Item> itemHolder : RSRegistries.ITEMS.getTag(owningTag).orElseThrow()) {
                     Item itemInTag = itemHolder.value();
                     if (itemCount > 0 && itemCount % 8 == 0) {
                         lines.add(line);
@@ -107,8 +107,8 @@ public class AlternativesScreen extends BaseScreen<AlternativesContainerMenu> {
         } else if (fluid != null) {
             lines.add(new FluidLine(fluid));
 
-            Collection<TagKey<Fluid>> tagsOfFluid = ForgeRegistries.FLUIDS.getResourceKey(fluid.getFluid())
-                .flatMap(ForgeRegistries.FLUIDS::getHolder)
+            Collection<TagKey<Fluid>> tagsOfFluid = RSRegistries.FLUIDS.getResourceKey(fluid.getFluid())
+                .flatMap(RSRegistries.FLUIDS::getHolder)
                 .stream()
                 .flatMap(holder -> holder.tags())
                 .collect(Collectors.toSet());
@@ -120,7 +120,7 @@ public class AlternativesScreen extends BaseScreen<AlternativesContainerMenu> {
 
                 FluidListLine line = new FluidListLine();
 
-                for (Holder<Fluid> fluidHolder : ForgeRegistries.FLUIDS.getTag(owningTag).orElseThrow()) {
+                for (Holder<Fluid> fluidHolder : RSRegistries.FLUIDS.getTag(owningTag).orElseThrow()) {
                     Fluid fluidInTag = fluidHolder.value();
                     if (fluidCount > 0 && fluidCount % 8 == 0) {
                         lines.add(line);
@@ -389,3 +389,5 @@ public class AlternativesScreen extends BaseScreen<AlternativesContainerMenu> {
         }
     }
 }
+
+

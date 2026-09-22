@@ -22,7 +22,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
-import net.minecraftforge.items.wrapper.CombinedInvWrapper;
+import com.refinedmods.refinedstorage.transfer.item.wrapper.CombinedInvWrapper;
 
 public class InterfaceNetworkNode extends NetworkNode implements IComparable {
     public static final ResourceLocation ID = new ResourceLocation(RS.ID, "interface");
@@ -226,3 +226,5 @@ public class InterfaceNetworkNode extends NetworkNode implements IComparable {
         return new CombinedInvWrapper(importItems, exportItems, upgrades);
     }
 }
+
+

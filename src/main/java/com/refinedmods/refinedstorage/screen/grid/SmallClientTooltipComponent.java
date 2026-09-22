@@ -32,3 +32,5 @@ public class SmallClientTooltipComponent implements ClientTooltipComponent {
         return (int) (font.width(component) * scale);
     }
 }
+
+

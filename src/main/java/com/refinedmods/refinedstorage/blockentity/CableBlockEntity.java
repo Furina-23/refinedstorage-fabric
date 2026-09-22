@@ -53,3 +53,5 @@ public class CableBlockEntity extends NetworkNodeBlockEntity<CableNetworkNode> {
         LevelUtils.updateBlock(level, worldPosition);
     }
 }
+
+

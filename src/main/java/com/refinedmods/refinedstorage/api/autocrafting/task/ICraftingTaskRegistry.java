@@ -27,3 +27,5 @@ public interface ICraftingTaskRegistry {
     @Nullable
     ICraftingTaskFactory get(ResourceLocation id);
 }
+
+

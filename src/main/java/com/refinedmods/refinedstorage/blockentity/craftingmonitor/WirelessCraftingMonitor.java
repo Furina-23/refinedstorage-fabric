@@ -160,3 +160,5 @@ public class WirelessCraftingMonitor implements ICraftingMonitor {
         return slot.getSlotIdInPlayerInventory();
     }
 }
+
+

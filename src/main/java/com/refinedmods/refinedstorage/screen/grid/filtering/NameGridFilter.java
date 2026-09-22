@@ -16,3 +16,5 @@ public class NameGridFilter implements Predicate<IGridStack> {
         return stack.getName().toLowerCase().contains(name);
     }
 }
+
+

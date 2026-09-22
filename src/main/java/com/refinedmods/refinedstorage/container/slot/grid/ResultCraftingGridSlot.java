@@ -26,3 +26,5 @@ public class ResultCraftingGridSlot extends ResultSlot {
         }
     }
 }
+
+

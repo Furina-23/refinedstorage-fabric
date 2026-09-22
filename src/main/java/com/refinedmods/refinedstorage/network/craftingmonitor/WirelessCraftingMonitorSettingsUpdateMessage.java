@@ -4,7 +4,7 @@ import com.refinedmods.refinedstorage.container.CraftingMonitorContainerMenu;
 import com.refinedmods.refinedstorage.blockentity.craftingmonitor.WirelessCraftingMonitor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkEvent;
+import com.refinedmods.refinedstorage.network.fabric.NetworkEvent;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -53,3 +53,5 @@ public class WirelessCraftingMonitorSettingsUpdateMessage {
         ctx.get().setPacketHandled(true);
     }
 }
+
+

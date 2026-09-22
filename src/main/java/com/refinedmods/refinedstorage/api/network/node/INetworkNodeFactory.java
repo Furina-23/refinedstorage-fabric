@@ -21,3 +21,5 @@ public interface INetworkNodeFactory {
     @Nonnull
     INetworkNode create(CompoundTag tag, Level level, BlockPos pos);
 }
+
+

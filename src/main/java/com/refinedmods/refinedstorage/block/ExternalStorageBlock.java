@@ -28,7 +28,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.NetworkHooks;
+import com.refinedmods.refinedstorage.network.fabric.NetworkHooks;
 
 public class ExternalStorageBlock extends CableBlock {
     private static final VoxelShape HEAD_NORTH = Shapes.or(box(3, 3, 0, 13, 13, 2), HOLDER_NORTH);
@@ -127,3 +127,5 @@ public class ExternalStorageBlock extends CableBlock {
         }
     }
 }
+
+

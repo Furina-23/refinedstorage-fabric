@@ -288,3 +288,5 @@ public class CraftingPreviewScreen extends BaseScreen<AbstractContainerMenu> {
         minecraft.setScreen(parent);
     }
 }
+
+

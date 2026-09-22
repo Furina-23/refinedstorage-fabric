@@ -71,3 +71,4 @@ public class BlockEntitySynchronizationParameter<T, E extends BlockEntity> {
         return value;
     }
 }
+

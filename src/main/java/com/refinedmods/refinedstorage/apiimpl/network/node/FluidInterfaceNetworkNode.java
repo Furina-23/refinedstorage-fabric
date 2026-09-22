@@ -28,7 +28,7 @@ import com.refinedmods.refinedstorage.transfer.FluidStack;
 import com.refinedmods.refinedstorage.transfer.fluid.IFluidHandler;
 import com.refinedmods.refinedstorage.transfer.fluid.FluidTank;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
-import net.minecraftforge.items.wrapper.CombinedInvWrapper;
+import com.refinedmods.refinedstorage.transfer.item.wrapper.CombinedInvWrapper;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class FluidInterfaceNetworkNode extends NetworkNode {
@@ -262,3 +262,5 @@ public class FluidInterfaceNetworkNode extends NetworkNode {
         return new CombinedInvWrapper(in, upgrades);
     }
 }
+
+

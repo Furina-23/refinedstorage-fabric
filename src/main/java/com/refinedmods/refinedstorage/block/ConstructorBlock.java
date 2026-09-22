@@ -24,7 +24,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.NetworkHooks;
+import com.refinedmods.refinedstorage.network.fabric.NetworkHooks;
 
 public class ConstructorBlock extends CableBlock {
     private static final VoxelShape HEAD_NORTH = Shapes.or(box(2, 2, 0, 14, 14, 2), HOLDER_NORTH);
@@ -112,3 +112,5 @@ public class ConstructorBlock extends CableBlock {
         return true;
     }
 }
+
+

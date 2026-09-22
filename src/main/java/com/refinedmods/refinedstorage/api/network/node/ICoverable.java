@@ -7,3 +7,5 @@ public interface ICoverable {
     CoverManager getCoverManager();
 
 }
+
+

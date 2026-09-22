@@ -20,3 +20,5 @@ public class BaseEnergyStorage extends EnergyStorage {
         this.energy = energy;
     }
 }
+
+

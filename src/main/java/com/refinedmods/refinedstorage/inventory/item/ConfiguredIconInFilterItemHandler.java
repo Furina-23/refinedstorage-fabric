@@ -22,3 +22,5 @@ public class ConfiguredIconInFilterItemHandler extends ItemStackHandler {
         FilterItem.setIcon(filterItem, getStackInSlot(0));
     }
 }
+
+

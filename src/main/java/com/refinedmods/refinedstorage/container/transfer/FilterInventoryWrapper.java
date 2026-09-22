@@ -23,3 +23,5 @@ class FilterInventoryWrapper implements IInventoryWrapper {
         return typeGetter.get() == IType.ITEMS ? item.insert(stack) : fluid.insert(stack);
     }
 }
+
+

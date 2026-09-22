@@ -33,3 +33,5 @@ public class WhitelistBlacklistSideButton extends SideButton {
         BlockEntitySynchronizationManager.setParameter(parameter, parameter.getValue() == IWhitelistBlacklist.WHITELIST ? IWhitelistBlacklist.BLACKLIST : IWhitelistBlacklist.WHITELIST);
     }
 }
+
+

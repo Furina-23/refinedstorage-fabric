@@ -6,9 +6,9 @@ import com.refinedmods.refinedstorage.blockentity.craftingmonitor.CraftingMonito
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraftforge.network.IContainerFactory;
+import com.refinedmods.refinedstorage.container.factory.ContainerFactory;
 
-public class CraftingMonitorContainerFactory implements IContainerFactory<CraftingMonitorContainerMenu> {
+public class CraftingMonitorContainerFactory implements ContainerFactory<CraftingMonitorContainerMenu> {
     @Override
     public CraftingMonitorContainerMenu create(int windowId, Inventory inv, FriendlyByteBuf data) {
         BlockPos pos = data.readBlockPos();
@@ -18,3 +18,6 @@ public class CraftingMonitorContainerFactory implements IContainerFactory<Crafti
         return new CraftingMonitorContainerMenu(RSContainerMenus.CRAFTING_MONITOR.get(), blockEntity.getNode(), blockEntity, inv.player, windowId);
     }
 }
+
+
+

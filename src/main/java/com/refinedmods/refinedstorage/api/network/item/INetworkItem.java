@@ -27,3 +27,5 @@ public interface INetworkItem {
      */
     void drainEnergy(int energy);
 }
+
+

@@ -8,7 +8,7 @@ import com.refinedmods.refinedstorage.screen.grid.stack.ItemGridStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
-import com.refinedmods.refinedstorage.registry.ForgeRegistries;
+import com.refinedmods.refinedstorage.registry.RSRegistries;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -36,7 +36,7 @@ public class FilterGridFilter implements Predicate<IGridStack> {
 
                 if (filter.isModFilter()) {
                     String stackModId = stack.getModId();
-                    ResourceLocation filterId = ForgeRegistries.ITEMS.getKey(stackInFilter.getItem());
+                    ResourceLocation filterId = RSRegistries.ITEMS.getKey(stackInFilter.getItem());
                     String filterModId = filterId == null ? null : filterId.getNamespace();
 
                     if (filterModId != null && filterModId.equals(stackModId)) {
@@ -49,7 +49,7 @@ public class FilterGridFilter implements Predicate<IGridStack> {
                 FluidStack stackInFilter = (FluidStack) filter.getStack();
 
                 if (filter.isModFilter()) {
-                    ResourceLocation stackInFilterRegistryName = ForgeRegistries.FLUIDS.getKey(stackInFilter.getFluid());
+                    ResourceLocation stackInFilterRegistryName = RSRegistries.FLUIDS.getKey(stackInFilter.getFluid());
 
                     if (stackInFilterRegistryName != null) {
                         String stackInFilterModId = stackInFilterRegistryName.getNamespace();
@@ -67,3 +67,5 @@ public class FilterGridFilter implements Predicate<IGridStack> {
         return lastMode != IFilter.MODE_WHITELIST;
     }
 }
+
+

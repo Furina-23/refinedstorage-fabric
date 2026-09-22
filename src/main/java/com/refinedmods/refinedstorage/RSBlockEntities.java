@@ -14,11 +14,11 @@ import com.refinedmods.refinedstorage.item.blockitem.PortableGridBlockItem;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import com.refinedmods.refinedstorage.registry.DeferredRegister;
-import com.refinedmods.refinedstorage.registry.ForgeRegistries;
+import com.refinedmods.refinedstorage.registry.RSRegistries;
 import com.refinedmods.refinedstorage.registry.RegistryObject;
 
 public final class RSBlockEntities {
-    public static final DeferredRegister<BlockEntityType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, RS.ID);
+    public static final DeferredRegister<BlockEntityType<?>> REGISTRY = DeferredRegister.create(RSRegistries.BLOCK_ENTITY_TYPES, RS.ID);
 
     public static final RegistryObject<BlockEntityType<ControllerBlockEntity>> CONTROLLER =
         REGISTRY.register("controller", () -> registerSynchronizationParameters(ControllerBlockEntity.SPEC, BlockEntityType.Builder.of((pos, state) -> new ControllerBlockEntity(NetworkType.NORMAL, pos, state), RSBlocks.CONTROLLER.getBlocks()).build(null)));
@@ -109,3 +109,5 @@ public final class RSBlockEntities {
     private RSBlockEntities() {
     }
 }
+
+

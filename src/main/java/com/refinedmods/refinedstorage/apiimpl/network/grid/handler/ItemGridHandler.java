@@ -173,7 +173,7 @@ public class ItemGridHandler implements IItemGridHandler {
 
         if (!took.isEmpty()) {
             if ((flags & EXTRACT_SHIFT) == EXTRACT_SHIFT) {
-                Optional<IItemHandler> playerInventory = Optional.of(new net.minecraftforge.items.wrapper.PlayerInvWrapper(player));
+                Optional<IItemHandler> playerInventory = Optional.of(new com.refinedmods.refinedstorage.transfer.item.wrapper.PlayerInvWrapper(player));
                 if (playerInventory.isPresent()) {
                     if (preferredSlot != -1) {
                         ItemStack remainder = playerInventory.get().insertItem(preferredSlot, took, true);
@@ -331,3 +331,5 @@ public class ItemGridHandler implements IItemGridHandler {
         onGridScroll(this, player, id, shift, up, network);
     }
 }
+
+

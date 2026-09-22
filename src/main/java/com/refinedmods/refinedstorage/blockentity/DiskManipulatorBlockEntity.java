@@ -87,3 +87,5 @@ public class DiskManipulatorBlockEntity extends NetworkNodeBlockEntity<DiskManip
         return new DiskManipulatorNetworkNode(level, pos);
     }
 }
+
+

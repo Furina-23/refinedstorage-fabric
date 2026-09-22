@@ -58,3 +58,5 @@ public class ListAutocraftingCommand extends NetworkCommand {
         return 0;
     }
 }
+
+

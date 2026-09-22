@@ -27,3 +27,5 @@ public interface IFilter {
      */
     boolean isModFilter();
 }
+
+

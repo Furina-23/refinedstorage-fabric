@@ -15,3 +15,5 @@ public class PlayerUtils {
         player.connection.send(new ClientboundContainerSetSlotPacket(-2, player.containerMenu.incrementStateId(), offHandSlot, player.getInventory().getItem(offHandSlot)));
     }
 }
+
+

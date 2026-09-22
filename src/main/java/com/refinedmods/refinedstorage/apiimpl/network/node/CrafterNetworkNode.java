@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import com.refinedmods.refinedstorage.transfer.fluid.IFluidHandler;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandlerModifiable;
-import net.minecraftforge.items.wrapper.CombinedInvWrapper;
+import com.refinedmods.refinedstorage.transfer.item.wrapper.CombinedInvWrapper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -460,3 +460,5 @@ public class CrafterNetworkNode extends NetworkNode implements ICraftingPatternC
 
 
 }
+
+

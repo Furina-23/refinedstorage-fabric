@@ -24,3 +24,5 @@ public class RelayBlockEntity extends NetworkNodeBlockEntity<RelayNetworkNode> {
         return new RelayNetworkNode(level, pos);
     }
 }
+
+

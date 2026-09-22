@@ -118,3 +118,5 @@ public class FluidStorageBlockItem extends BaseBlockItem {
         return disk.hasTag() && disk.getTag().hasUUID(FluidStorageNetworkNode.NBT_ID);
     }
 }
+
+

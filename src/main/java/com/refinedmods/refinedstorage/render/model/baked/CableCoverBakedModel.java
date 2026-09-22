@@ -28,7 +28,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.client.model.BakedModelWrapper;
 import org.joml.Vector3f;
 
 import javax.annotation.Nonnull;
@@ -38,7 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class CableCoverBakedModel extends BakedModelWrapper<BakedModel> implements FabricBakedModel {
+public class CableCoverBakedModel extends ForwardingBakedModel<BakedModel> implements FabricBakedModel {
 
     private static TextureAtlasSprite BORDER_SPRITE;
 
@@ -404,4 +403,6 @@ public class CableCoverBakedModel extends BakedModelWrapper<BakedModel> implemen
         ((FabricBakedModel) originalModel).emitItemQuads(stack, randomSupplier, context);
     }
 }
+
+
 

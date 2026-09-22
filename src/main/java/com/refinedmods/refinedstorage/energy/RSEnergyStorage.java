@@ -41,3 +41,5 @@ public final class RSEnergyStorage {
         ITEM.registerFallback((stack, context) -> ItemEnergyStorageFactory.get(stack));
     }
 }
+
+

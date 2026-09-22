@@ -17,7 +17,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.BakedModelWrapper;
 import org.joml.Vector3f;
 
 import javax.annotation.Nonnull;
@@ -29,7 +28,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class DiskDriveBakedModel extends BakedModelWrapper<BakedModel> implements FabricBakedModel {
+public class DiskDriveBakedModel extends ForwardingBakedModel<BakedModel> implements FabricBakedModel {
     private final Function<Direction, BakedModel> baseModelBakery;
     private final BiFunction<Direction, Vector3f, BakedModel> diskModelBakery;
     private final BiFunction<Direction, Vector3f, BakedModel> diskNearCapacityModelBakery;
@@ -204,3 +203,5 @@ public class DiskDriveBakedModel extends BakedModelWrapper<BakedModel> implement
         }
     }
 }
+
+

@@ -42,3 +42,5 @@ public interface INetworkItemManager {
      */
     void drainEnergy(Player player, int energy);
 }
+
+

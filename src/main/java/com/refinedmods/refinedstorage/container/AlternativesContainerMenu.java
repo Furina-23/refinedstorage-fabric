@@ -7,3 +7,5 @@ public class AlternativesContainerMenu extends BaseContainerMenu {
         super(null, null, player, 0);
     }
 }
+
+

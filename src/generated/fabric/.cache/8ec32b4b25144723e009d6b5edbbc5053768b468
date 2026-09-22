@@ -1,0 +1,17 @@
+// 1.20.1	2026-09-22T08:00:10.1025309	Refined Storage/Tags for minecraft:block
+397e26cb39c23760ee9187c46becbec1c4c95498 data\refinedstorage\tags\blocks\creative_controller.json
+481b1d4b530edb2186745db7cf2b73cde3dcfee0 data\refinedstorage\tags\blocks\detector.json
+00ebf9c49cb05ce5c88bba84378d77cc71920b7f data\refinedstorage\tags\blocks\fluid_grid.json
+9a3e79743ef6cba138c07178e6467a0ce9d0f96a data\refinedstorage\tags\blocks\disk_manipulator.json
+43ffa1b94f8ab296e6bdd7ce8a1c6a30f48d2c3b data\refinedstorage\tags\blocks\grid.json
+3c5ca7e6d698c8a388db5a7a04887dcb9044ff8d data\refinedstorage\tags\blocks\crafting_monitor.json
+efa718a8626251d36cdf5031b1d9e12ce967afc2 data\refinedstorage\tags\blocks\network_receiver.json
+4a4e42a31b822782a12e55174cb1c05794010b9f data\refinedstorage\tags\blocks\relay.json
+66b7d09dc99873ec6fba336057c6ea9fb7290945 data\refinedstorage\tags\blocks\controller.json
+df5569f2e7c3a7a3b1ca7377f4dda48ec377354e data\refinedstorage\tags\blocks\network_transmitter.json
+1c88361d683e7b78d1547fe49f63af42853bdab3 data\refinedstorage\tags\blocks\wireless_transmitter.json
+a3f1233ea8de8e11e0485f53afef1d69007e1ffc data\refinedstorage\tags\blocks\security_manager.json
+e0abe21b5979931f5efe659bada740b77a251dac data\refinedstorage\tags\blocks\pattern_grid.json
+a8463ed5c66c6a17a8f92a0ea508b7dab3166790 data\refinedstorage\tags\blocks\crafting_grid.json
+80efbcde2675d6c04ae79fb7d90a991c0f49ca44 data\refinedstorage\tags\blocks\crafter_manager.json
+87a5367f6ad0ec6ed3cb837da58f308143238daa data\refinedstorage\tags\blocks\crafter.json

@@ -19,3 +19,5 @@ public class CrafterManagerSearchBoxModeSideButton extends SearchBoxModeSideButt
         BlockEntitySynchronizationManager.setParameter(CrafterManagerBlockEntity.SEARCH_BOX_MODE, mode);
     }
 }
+
+

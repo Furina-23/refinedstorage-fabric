@@ -5,7 +5,7 @@ import com.refinedmods.refinedstorage.screen.BaseScreen;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.inventory.Slot;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
-import net.minecraftforge.network.NetworkEvent;
+import com.refinedmods.refinedstorage.network.fabric.NetworkEvent;
 
 import java.util.function.Supplier;
 
@@ -41,3 +41,5 @@ public class FluidFilterSlotUpdateMessage {
         ctx.get().setPacketHandled(true);
     }
 }
+
+

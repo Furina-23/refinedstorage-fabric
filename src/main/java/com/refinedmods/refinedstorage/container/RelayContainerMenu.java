@@ -11,3 +11,5 @@ public class RelayContainerMenu extends BaseContainerMenu {
         addPlayerInventory(8, 50);
     }
 }
+
+

@@ -166,3 +166,5 @@ public class TabListWidget<T extends AbstractContainerMenu> {
         void onPageChanged(int page);
     }
 }
+
+

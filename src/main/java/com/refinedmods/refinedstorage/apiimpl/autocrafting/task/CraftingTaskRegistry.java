@@ -22,3 +22,5 @@ public class CraftingTaskRegistry implements ICraftingTaskRegistry {
         return registry.get(id);
     }
 }
+
+

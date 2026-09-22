@@ -32,3 +32,5 @@ public interface IGridView {
 
     void removed();
 }
+
+

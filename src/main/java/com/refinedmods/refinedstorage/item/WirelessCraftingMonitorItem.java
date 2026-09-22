@@ -77,3 +77,5 @@ public class WirelessCraftingMonitorItem extends NetworkItem {
         CREATIVE
     }
 }
+
+

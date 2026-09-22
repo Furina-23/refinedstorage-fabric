@@ -47,3 +47,5 @@ public class ConstructorScreen extends BaseScreen<ConstructorContainerMenu> {
         renderString(graphics, 7, 43, I18n.get("container.inventory"));
     }
 }
+
+

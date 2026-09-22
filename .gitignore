@@ -2,6 +2,7 @@
 .nb-gradle/
 .settings/
 build/
+/build-*/
 eclipse/
 .classpath
 .nb-gradle-properties

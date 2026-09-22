@@ -22,3 +22,5 @@ public class StorageDiskRegistry implements IStorageDiskRegistry {
         return factories.get(id);
     }
 }
+
+

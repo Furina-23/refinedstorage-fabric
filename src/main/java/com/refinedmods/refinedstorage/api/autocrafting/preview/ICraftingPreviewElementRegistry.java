@@ -27,3 +27,5 @@ public interface ICraftingPreviewElementRegistry {
     @Nullable
     Function<FriendlyByteBuf, ICraftingPreviewElement> get(ResourceLocation id);
 }
+
+

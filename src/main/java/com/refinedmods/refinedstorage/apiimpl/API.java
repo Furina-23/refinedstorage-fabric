@@ -80,8 +80,8 @@ public class API implements IRSAPI {
     }
 
     public static void deliver() {
-        // Fabric has no Forge mod scan data. API consumers are wired through
-        // the Fabric entrypoint during migration, so there is nothing to scan.
+        // API consumers are wired through Fabric entrypoints, so there is no
+        // annotation-based discovery step to run.
     }
 
     @Nonnull
@@ -312,3 +312,5 @@ public class API implements IRSAPI {
         return result;
     }
 }
+
+

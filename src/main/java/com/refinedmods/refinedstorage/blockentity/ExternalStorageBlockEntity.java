@@ -99,3 +99,5 @@ public class ExternalStorageBlockEntity extends NetworkNodeBlockEntity<ExternalS
         LevelUtils.updateBlock(level, worldPosition);
     }
 }
+
+

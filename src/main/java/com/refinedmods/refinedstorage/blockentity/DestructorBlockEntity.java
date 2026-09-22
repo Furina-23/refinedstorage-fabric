@@ -71,3 +71,5 @@ public class DestructorBlockEntity extends NetworkNodeBlockEntity<DestructorNetw
         LevelUtils.updateBlock(level, worldPosition);
     }
 }
+
+

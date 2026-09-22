@@ -9,3 +9,5 @@ import com.refinedmods.refinedstorage.api.network.node.INetworkNode;
 public interface INetworkNodeGraphEntry {
     INetworkNode getNode();
 }
+
+

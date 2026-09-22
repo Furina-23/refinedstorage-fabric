@@ -68,3 +68,5 @@ public class CraftingSettingsScreen extends AmountSpecifyingScreen<CraftingSetti
         }
     }
 }
+
+

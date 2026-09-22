@@ -56,3 +56,5 @@ public class ProxyItemHandler implements IItemHandlerModifiable {
         return slot < insertHandler.getSlots() ? insertHandler.isItemValid(slot, stack) : extractHandler.isItemValid(slot - insertHandler.getSlots(), stack);
     }
 }
+
+

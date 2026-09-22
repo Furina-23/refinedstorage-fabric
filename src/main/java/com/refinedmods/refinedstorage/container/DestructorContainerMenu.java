@@ -6,7 +6,7 @@ import com.refinedmods.refinedstorage.container.slot.filter.FluidFilterSlot;
 import com.refinedmods.refinedstorage.blockentity.DestructorBlockEntity;
 import com.refinedmods.refinedstorage.blockentity.config.IType;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.items.SlotItemHandler;
+import com.refinedmods.refinedstorage.container.transfer.SlotItemHandler;
 
 public class DestructorContainerMenu extends BaseContainerMenu {
     public DestructorContainerMenu(DestructorBlockEntity destructor, Player player, int windowId) {
@@ -30,3 +30,6 @@ public class DestructorContainerMenu extends BaseContainerMenu {
         transferManager.addFilterTransfer(player.getInventory(), destructor.getNode().getItemFilters(), destructor.getNode().getFluidFilters(), destructor.getNode()::getType);
     }
 }
+
+
+

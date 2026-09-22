@@ -33,3 +33,5 @@ public class FilterTypeSideButton extends SideButton {
         filterScreen.sendUpdate();
     }
 }
+
+

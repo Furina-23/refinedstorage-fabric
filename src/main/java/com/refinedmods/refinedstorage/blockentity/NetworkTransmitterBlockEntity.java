@@ -41,3 +41,5 @@ public class NetworkTransmitterBlockEntity extends NetworkNodeBlockEntity<Networ
         return new NetworkTransmitterNetworkNode(level, pos);
     }
 }
+
+

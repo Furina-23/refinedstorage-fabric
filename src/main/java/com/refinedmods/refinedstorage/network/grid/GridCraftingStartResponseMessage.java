@@ -1,7 +1,7 @@
 package com.refinedmods.refinedstorage.network.grid;
 
 import com.refinedmods.refinedstorage.network.ClientProxy;
-import net.minecraftforge.network.NetworkEvent;
+import com.refinedmods.refinedstorage.network.fabric.NetworkEvent;
 
 import java.util.function.Supplier;
 
@@ -11,3 +11,5 @@ public class GridCraftingStartResponseMessage {
         ctx.get().setPacketHandled(true);
     }
 }
+
+

@@ -14,3 +14,5 @@ public final class DataGenerators implements DataGeneratorEntrypoint {
         pack.addProvider(LootTableGenerator::new);
     }
 }
+
+

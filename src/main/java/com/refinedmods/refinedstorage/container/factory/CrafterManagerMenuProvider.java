@@ -60,3 +60,5 @@ public class CrafterManagerMenuProvider implements MenuProvider {
         return container;
     }
 }
+
+

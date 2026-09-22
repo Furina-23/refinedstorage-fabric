@@ -83,3 +83,5 @@ public class CheckboxWidget extends Checkbox {
         graphics.drawString(font, this.getMessage(), this.getX() + 13, this.getY() + (this.height - 8) / 2, color, shadow);
     }
 }
+
+

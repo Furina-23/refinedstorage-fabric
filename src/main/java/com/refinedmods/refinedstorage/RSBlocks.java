@@ -10,7 +10,7 @@ import com.refinedmods.refinedstorage.util.ColorMap;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import com.refinedmods.refinedstorage.registry.DeferredRegister;
-import com.refinedmods.refinedstorage.registry.ForgeRegistries;
+import com.refinedmods.refinedstorage.registry.RSRegistries;
 import com.refinedmods.refinedstorage.registry.RegistryObject;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public final class RSBlocks {
     public static final RegistryObject<PortableGridBlock> PORTABLE_GRID;
     public static final RegistryObject<PortableGridBlock> CREATIVE_PORTABLE_GRID;
     public static final List<RegistryObject<? extends Block>> COLORED_BLOCKS = new ArrayList<>();
-    private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, RS.ID);
+    private static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(RSRegistries.BLOCKS, RS.ID);
     public static final ColorMap<CrafterBlock> CRAFTER = new ColorMap<>(BLOCKS);
     public static final ColorMap<RelayBlock> RELAY = new ColorMap<>(BLOCKS);
     public static final ColorMap<NetworkTransmitterBlock> NETWORK_TRANSMITTER = new ColorMap<>(BLOCKS);
@@ -106,3 +106,5 @@ public final class RSBlocks {
         BLOCKS.register();
     }
 }
+
+

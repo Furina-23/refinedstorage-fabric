@@ -5,7 +5,7 @@ import com.refinedmods.refinedstorage.container.slot.OutputSlot;
 import com.refinedmods.refinedstorage.container.slot.filter.FilterSlot;
 import com.refinedmods.refinedstorage.blockentity.InterfaceBlockEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.items.SlotItemHandler;
+import com.refinedmods.refinedstorage.container.transfer.SlotItemHandler;
 
 public class InterfaceContainerMenu extends BaseContainerMenu {
     public InterfaceContainerMenu(InterfaceBlockEntity blockEntity, Player player, int windowId) {
@@ -34,3 +34,6 @@ public class InterfaceContainerMenu extends BaseContainerMenu {
         transferManager.addTransfer(blockEntity.getNode().getExportItems(), player.getInventory());
     }
 }
+
+
+

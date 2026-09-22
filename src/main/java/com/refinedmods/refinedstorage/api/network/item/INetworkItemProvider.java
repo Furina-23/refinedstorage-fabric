@@ -22,3 +22,5 @@ public interface INetworkItemProvider {
     @Nonnull
     INetworkItem provide(INetworkItemManager handler, Player player, ItemStack stack, PlayerSlot slot);
 }
+
+

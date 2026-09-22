@@ -60,3 +60,5 @@ public class EnergyStorage implements IEnergyStorage {
         return maxReceive > 0;
     }
 }
+
+

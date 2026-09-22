@@ -21,7 +21,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.NetworkHooks;
+import com.refinedmods.refinedstorage.network.fabric.NetworkHooks;
 
 public class WirelessTransmitterBlock extends ColoredNetworkBlock {
     private static final VoxelShape SHAPE_DOWN = box(6.0D, 0.0D, 6.0D, 10.0D, 10.0D, 10.0D);
@@ -94,3 +94,5 @@ public class WirelessTransmitterBlock extends ColoredNetworkBlock {
         return InteractionResult.SUCCESS;
     }
 }
+
+

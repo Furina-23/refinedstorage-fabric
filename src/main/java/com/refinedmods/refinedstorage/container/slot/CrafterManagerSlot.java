@@ -22,3 +22,5 @@ public class CrafterManagerSlot extends BaseSlot {
         return y >= display.getTopHeight() && y < display.getTopHeight() + 18 * display.getVisibleRows() && visible && crafterManager.isActiveOnClient();
     }
 }
+
+

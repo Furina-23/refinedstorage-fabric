@@ -17,3 +17,5 @@ public class UpgradeItemValidator implements Predicate<ItemStack> {
         return stack.getItem() instanceof UpgradeItem && ((UpgradeItem) stack.getItem()).getType() == type;
     }
 }
+
+

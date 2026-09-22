@@ -36,16 +36,8 @@ public abstract class NetworkNode implements INetworkNode, INetworkNodeVisitor {
 
     @Nullable
     protected INetwork network;
-    // @Volatile: Mental note. At this moment world instances are retained in Minecraft (since 1.16).
-    // This means that during the entire server lifetime, all worlds are present and will not change their instance.
-    // However, due to the memory footprint of worlds and modded minecraft having the tendency to have lots of worlds,
-    // Forge is planning to unload (aka remove) worlds so their instances will change.
-    // This is problematic as this attribute will target the wrong world in that case.
-    // Idea: possibly change to a getter based on RegistryKey<Level>?
-    // Another note: this attribute isn't the *real* problem. Because network nodes are in SavedData in a tick handler,
-    // new instances of network nodes will be created when the world refreshes (causing this field to be different too).
-    // However, network nodes in the network graph *AREN'T* recreated when the world refreshes, causing the graph to have the incorrect instance, and even worse,
-    // having multiple different instances of the same network node.
+    // A direct level reference is valid while its ServerLevel remains loaded. If dynamic dimension
+    // unloading is supported later, resolve this from the dimension key instead.
     protected Level level;
     protected BlockPos pos;
     protected int ticks;
@@ -306,3 +298,5 @@ public abstract class NetworkNode implements INetworkNode, INetworkNodeVisitor {
         markDirty();
     }
 }
+
+

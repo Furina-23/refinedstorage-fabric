@@ -6,7 +6,7 @@ import com.refinedmods.refinedstorage.container.BaseContainerMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraftforge.network.NetworkEvent;
+import com.refinedmods.refinedstorage.network.fabric.NetworkEvent;
 
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
@@ -58,3 +58,5 @@ public class BlockEntitySynchronizationParamaterUpdateMessage {
         ctx.get().setPacketHandled(true);
     }
 }
+
+

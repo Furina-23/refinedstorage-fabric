@@ -1,8 +1,6 @@
 package com.refinedmods.refinedstorage.setup;
 
 import com.refinedmods.refinedstorage.RS;
-import com.refinedmods.refinedstorage.RSCreativeModeTabItems;
-import com.refinedmods.refinedstorage.RSLootFunctions;
 import com.refinedmods.refinedstorage.api.network.grid.GridType;
 import com.refinedmods.refinedstorage.api.network.node.INetworkNode;
 import com.refinedmods.refinedstorage.api.network.node.INetworkNodeProxy;
@@ -27,19 +25,10 @@ import com.refinedmods.refinedstorage.apiimpl.storage.disk.factory.FluidStorageD
 import com.refinedmods.refinedstorage.apiimpl.storage.disk.factory.ItemStorageDiskFactory;
 import com.refinedmods.refinedstorage.apiimpl.storage.externalstorage.FluidExternalStorageProvider;
 import com.refinedmods.refinedstorage.apiimpl.storage.externalstorage.ItemExternalStorageProvider;
-import com.refinedmods.refinedstorage.integration.craftingtweaks.CraftingTweaksIntegration;
-import com.refinedmods.refinedstorage.integration.inventorysorter.InventorySorterIntegration;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.registries.RegisterEvent;
 
 public final class CommonSetup {
     private CommonSetup() {
-    }
-
-    public static void onRegister(final RegisterEvent e) {
-        e.register(Registries.LOOT_FUNCTION_TYPE, helper -> RSLootFunctions.register());
-        e.register(Registries.CREATIVE_MODE_TAB, RSCreativeModeTabItems::register);
     }
 
     public static void initialize() {
@@ -105,13 +94,6 @@ public final class CommonSetup {
 
         API.instance().getCraftingTaskRegistry().add(CraftingTaskFactory.ID, new CraftingTaskFactory());
 
-        if (CraftingTweaksIntegration.isLoaded()) {
-            CraftingTweaksIntegration.register();
-        }
-
-        if (InventorySorterIntegration.isLoaded()) {
-            InventorySorterIntegration.register();
-        }
     }
 
     private static INetworkNode readAndReturn(CompoundTag tag, NetworkNode node) {
@@ -121,3 +103,5 @@ public final class CommonSetup {
     }
 
 }
+
+

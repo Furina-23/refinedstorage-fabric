@@ -39,3 +39,5 @@ public interface IStorageDiskProvider {
      */
     StorageType getType();
 }
+
+

@@ -84,3 +84,5 @@ public class WirelessTransmitterNetworkNode extends NetworkNode implements IWire
         operator.apply(level, pos.relative(Direction.DOWN), Direction.UP);
     }
 }
+
+

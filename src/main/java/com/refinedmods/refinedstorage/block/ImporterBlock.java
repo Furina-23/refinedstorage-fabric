@@ -24,7 +24,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.NetworkHooks;
+import com.refinedmods.refinedstorage.network.fabric.NetworkHooks;
 
 public class ImporterBlock extends CableBlock {
     private static final VoxelShape LINE_NORTH_1 = box(6, 6, 4, 10, 10, 6);
@@ -130,3 +130,5 @@ public class ImporterBlock extends CableBlock {
         return InteractionResult.SUCCESS;
     }
 }
+
+

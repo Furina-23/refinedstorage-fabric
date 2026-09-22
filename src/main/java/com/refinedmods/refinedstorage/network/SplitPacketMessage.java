@@ -2,7 +2,7 @@ package com.refinedmods.refinedstorage.network;
 
 import com.refinedmods.refinedstorage.RS;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import com.refinedmods.refinedstorage.network.fabric.NetworkEvent;
 
 import java.util.function.Supplier;
 
@@ -42,3 +42,5 @@ public class SplitPacketMessage {
         return true;
     }
 }
+
+

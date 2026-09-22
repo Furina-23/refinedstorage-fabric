@@ -17,3 +17,5 @@ public interface ICraftingPatternRenderHandler {
      */
     boolean canRenderOutput(ItemStack pattern);
 }
+
+

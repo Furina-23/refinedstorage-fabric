@@ -18,7 +18,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.network.NetworkHooks;
+import com.refinedmods.refinedstorage.network.fabric.NetworkHooks;
 
 import javax.annotation.Nullable;
 
@@ -70,3 +70,5 @@ public class StorageBlock extends NetworkNodeBlock {
         return InteractionResult.SUCCESS;
     }
 }
+
+

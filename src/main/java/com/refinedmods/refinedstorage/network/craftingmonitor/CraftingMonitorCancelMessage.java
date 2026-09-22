@@ -3,7 +3,7 @@ package com.refinedmods.refinedstorage.network.craftingmonitor;
 import com.refinedmods.refinedstorage.container.CraftingMonitorContainerMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkEvent;
+import com.refinedmods.refinedstorage.network.fabric.NetworkEvent;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -43,3 +43,5 @@ public class CraftingMonitorCancelMessage {
         ctx.get().setPacketHandled(true);
     }
 }
+
+

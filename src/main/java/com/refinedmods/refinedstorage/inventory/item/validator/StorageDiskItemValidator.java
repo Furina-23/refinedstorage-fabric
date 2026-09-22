@@ -11,3 +11,5 @@ public class StorageDiskItemValidator implements Predicate<ItemStack> {
         return stack.getItem() instanceof IStorageDiskProvider && ((IStorageDiskProvider) stack.getItem()).isValid(stack);
     }
 }
+
+

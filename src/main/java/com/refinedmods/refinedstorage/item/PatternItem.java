@@ -278,3 +278,5 @@ public class PatternItem extends Item implements ICraftingPatternProvider {
         return CraftingPatternFactory.INSTANCE.create(level, container, stack);
     }
 }
+
+

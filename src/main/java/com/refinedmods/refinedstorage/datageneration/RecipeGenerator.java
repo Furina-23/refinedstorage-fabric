@@ -63,3 +63,5 @@ public final class RecipeGenerator extends FabricRecipeProvider {
         );
     }
 }
+
+

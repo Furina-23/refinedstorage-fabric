@@ -40,3 +40,5 @@ public class StorageMonitorScreen extends BaseScreen<StorageMonitorContainerMenu
         renderString(graphics, 7, 43, I18n.get("container.inventory"));
     }
 }
+
+

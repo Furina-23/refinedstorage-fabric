@@ -29,3 +29,5 @@ public class CraftingSettingsContainerMenu extends BaseContainerMenu {
         }
     }
 }
+
+

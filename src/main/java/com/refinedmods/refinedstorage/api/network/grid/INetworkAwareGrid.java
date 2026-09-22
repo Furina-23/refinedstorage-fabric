@@ -14,3 +14,5 @@ public interface INetworkAwareGrid extends IGrid {
     @Nullable
     INetwork getNetwork();
 }
+
+

@@ -44,7 +44,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraft.locale.Language;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
@@ -495,17 +495,11 @@ public class GridScreen extends BaseScreen<GridContainerMenu> implements IScreen
     }
 
     private void drawGridTooltip(GuiGraphics graphics, IGridStack gridStack, int mouseX, int mouseY) {
-        ItemStack stackContext = gridStack instanceof ItemGridStack ? ((ItemGridStack) gridStack).getStack() : ItemStack.EMPTY;
-
         List<? extends FormattedText> textElements = gridStack.getTooltip(true);
-        List<ClientTooltipComponent> components = new ArrayList<>(ForgeHooksClient.gatherTooltipComponents(
-            stackContext,
-            textElements,
-            mouseX,
-            minecraft.getWindow().getGuiScaledWidth(),
-            minecraft.getWindow().getGuiScaledHeight(),
-            font
-        ));
+        List<ClientTooltipComponent> components = new ArrayList<>();
+        for (FormattedText textElement : textElements) {
+            components.add(ClientTooltipComponent.create(Language.getInstance().getVisualOrder(textElement)));
+        }
 
         if (RS.CLIENT_CONFIG.getGrid().getDetailedTooltip()) {
             final float scale = (minecraft != null && minecraft.isEnforceUnicode()) ? 1F : 0.7F;
@@ -769,3 +763,5 @@ public class GridScreen extends BaseScreen<GridContainerMenu> implements IScreen
         return doSort || (!hasShiftDown() && !hasControlDown());
     }
 }
+
+

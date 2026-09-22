@@ -56,3 +56,5 @@ public abstract class SearchBoxModeSideButton extends SideButton {
 
     protected abstract void setSearchBoxMode(int mode);
 }
+
+

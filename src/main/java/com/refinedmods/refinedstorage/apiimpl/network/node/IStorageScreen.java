@@ -9,3 +9,5 @@ public interface IStorageScreen {
 
     long getCapacity();
 }
+
+

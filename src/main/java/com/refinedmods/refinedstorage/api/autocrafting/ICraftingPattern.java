@@ -84,3 +84,5 @@ public interface ICraftingPattern {
      */
     ResourceLocation getCraftingTaskFactoryId();
 }
+
+

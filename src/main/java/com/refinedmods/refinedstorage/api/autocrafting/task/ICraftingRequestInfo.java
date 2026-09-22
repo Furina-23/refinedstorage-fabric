@@ -27,3 +27,5 @@ public interface ICraftingRequestInfo {
      */
     CompoundTag writeToNbt();
 }
+
+

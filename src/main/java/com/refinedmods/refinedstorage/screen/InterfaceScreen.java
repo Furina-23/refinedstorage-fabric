@@ -43,3 +43,5 @@ public class InterfaceScreen extends BaseScreen<InterfaceContainerMenu> {
         renderString(graphics, 7, 122, I18n.get("container.inventory"));
     }
 }
+
+

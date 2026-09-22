@@ -25,3 +25,5 @@ public interface IStorageDiskSync {
      */
     void sendRequest(UUID id);
 }
+
+

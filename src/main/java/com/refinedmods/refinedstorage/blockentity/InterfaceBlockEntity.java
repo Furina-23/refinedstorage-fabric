@@ -31,3 +31,5 @@ public class InterfaceBlockEntity extends NetworkNodeBlockEntity<InterfaceNetwor
         return new InterfaceNetworkNode(level, pos);
     }
 }
+
+

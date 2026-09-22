@@ -19,3 +19,5 @@ public interface ISecurityCard {
      */
     boolean hasPermission(Permission permission);
 }
+
+

@@ -8,7 +8,7 @@ import com.refinedmods.refinedstorage.util.StackUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.network.NetworkEvent;
+import com.refinedmods.refinedstorage.network.fabric.NetworkEvent;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -70,3 +70,5 @@ public class GridTransferMessage {
         ctx.get().setPacketHandled(true);
     }
 }
+
+

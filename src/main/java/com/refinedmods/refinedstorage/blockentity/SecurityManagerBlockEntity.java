@@ -24,3 +24,5 @@ public class SecurityManagerBlockEntity extends NetworkNodeBlockEntity<SecurityM
         return new SecurityManagerNetworkNode(level, pos);
     }
 }
+
+

@@ -41,3 +41,5 @@ public class GridViewTypeSideButton extends SideButton {
         grid.onViewTypeChanged(type);
     }
 }
+
+

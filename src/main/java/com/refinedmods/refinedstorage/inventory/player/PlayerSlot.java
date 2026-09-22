@@ -1,6 +1,5 @@
 package com.refinedmods.refinedstorage.inventory.player;
 
-import com.refinedmods.refinedstorage.integration.curios.CuriosIntegration;
 import com.refinedmods.refinedstorage.util.PacketBufferUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.InteractionHand;
@@ -37,9 +36,8 @@ public class PlayerSlot {
     }
 
     public ItemStack getStackFromSlot(Player player) {
-        // Curios is an optional Forge integration and is unavailable on the
-        // Fabric baseline. Curio slots therefore remain empty until a Fabric
-        // accessory API adapter is provided.
+        // Accessory slots remain serialized for protocol compatibility, but no
+        // accessory API is part of the current Fabric baseline.
         return curioSlot == null ? player.getInventory().getItem(slot) : ItemStack.EMPTY;
     }
 
@@ -58,3 +56,5 @@ public class PlayerSlot {
         return slot;
     }
 }
+
+

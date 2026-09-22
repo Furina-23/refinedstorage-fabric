@@ -35,3 +35,5 @@ public class CraftingMonitorMenuProvider implements MenuProvider {
         return new CraftingMonitorContainerMenu(containerType, craftingMonitor, blockEntity, playerEntity, windowId);
     }
 }
+
+

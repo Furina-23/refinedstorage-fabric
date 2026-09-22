@@ -34,3 +34,5 @@ public class FluidInterfaceBlockEntity extends NetworkNodeBlockEntity<FluidInter
         return new FluidInterfaceNetworkNode(level, pos);
     }
 }
+
+

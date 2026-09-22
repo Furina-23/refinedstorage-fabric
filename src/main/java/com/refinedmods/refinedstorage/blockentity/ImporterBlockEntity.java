@@ -62,3 +62,5 @@ public class ImporterBlockEntity extends NetworkNodeBlockEntity<ImporterNetworkN
         LevelUtils.updateBlock(level, worldPosition);
     }
 }
+
+

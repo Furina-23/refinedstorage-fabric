@@ -21,7 +21,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.BakedModelWrapper;
 import org.joml.Vector3f;
 
 import javax.annotation.Nonnull;
@@ -33,7 +32,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class DiskManipulatorBakedModel extends BakedModelWrapper<BakedModel> implements FabricBakedModel {
+public class DiskManipulatorBakedModel extends ForwardingBakedModel<BakedModel> implements FabricBakedModel {
     private final BiFunction<Direction, DyeColor, BakedModel> baseConnectedModelBakery;
     private final Function<Direction, BakedModel> baseDisconnectedModelBakery;
     private final BiFunction<Direction, Vector3f, BakedModel> diskModelBakery;
@@ -223,3 +222,5 @@ public class DiskManipulatorBakedModel extends BakedModelWrapper<BakedModel> imp
         }
     }
 }
+
+

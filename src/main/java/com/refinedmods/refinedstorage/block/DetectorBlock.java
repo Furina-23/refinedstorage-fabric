@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.NetworkHooks;
+import com.refinedmods.refinedstorage.network.fabric.NetworkHooks;
 
 public class DetectorBlock extends ColoredNetworkBlock {
     public static final BooleanProperty POWERED = BooleanProperty.create("powered");
@@ -100,3 +100,5 @@ public class DetectorBlock extends ColoredNetworkBlock {
         return new DetectorBlockEntity(pos, state);
     }
 }
+
+

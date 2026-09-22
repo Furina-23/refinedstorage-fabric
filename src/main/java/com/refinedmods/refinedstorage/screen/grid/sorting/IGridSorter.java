@@ -8,3 +8,5 @@ public interface IGridSorter {
 
     int compare(IGridStack left, IGridStack right, SortingDirection direction);
 }
+
+

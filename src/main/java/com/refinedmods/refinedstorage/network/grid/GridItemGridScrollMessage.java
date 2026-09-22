@@ -3,7 +3,7 @@ package com.refinedmods.refinedstorage.network.grid;
 import com.refinedmods.refinedstorage.container.GridContainerMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkEvent;
+import com.refinedmods.refinedstorage.network.fabric.NetworkEvent;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -45,3 +45,5 @@ public class GridItemGridScrollMessage {
         ctx.get().setPacketHandled(true);
     }
 }
+
+

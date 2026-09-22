@@ -6,3 +6,5 @@ public final class FluidType {
     private FluidType() {
     }
 }
+
+

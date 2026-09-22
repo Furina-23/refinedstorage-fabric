@@ -47,3 +47,5 @@ public final class LootTableGenerator extends FabricBlockLootTableProvider {
                 .when(ExplosionCondition.survivesExplosion())));
     }
 }
+
+

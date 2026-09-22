@@ -23,3 +23,5 @@ public final class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         );
     }
 }
+
+

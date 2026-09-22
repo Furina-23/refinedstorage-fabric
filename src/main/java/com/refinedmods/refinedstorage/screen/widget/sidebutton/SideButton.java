@@ -47,3 +47,5 @@ public abstract class SideButton extends Button {
 
     protected abstract String getSideButtonTooltip();
 }
+
+

@@ -6,10 +6,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
 import com.refinedmods.refinedstorage.transfer.FluidType;
 import org.joml.Matrix4f;
@@ -38,11 +36,7 @@ public class FluidRenderer {
     }
 
     private static TextureAtlasSprite getStillFluidSprite(FluidStack fluidStack) {
-        Minecraft minecraft = Minecraft.getInstance();
-        Fluid fluid = fluidStack.getFluid();
-        IClientFluidTypeExtensions attributes = IClientFluidTypeExtensions.of(fluid);
-        ResourceLocation fluidStill = attributes.getStillTexture(fluidStack);
-        return minecraft.getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(fluidStill);
+        return FabricFluidRendering.getStillSprite(fluidStack.getFluid());
     }
 
     private static void setGLColorFromInt(int color) {
@@ -92,8 +86,7 @@ public class FluidRenderer {
 
         TextureAtlasSprite fluidStillSprite = getStillFluidSprite(fluidStack);
 
-        IClientFluidTypeExtensions attributes = IClientFluidTypeExtensions.of(fluid);
-        int fluidColor = attributes.getTintColor(fluidStack);
+        int fluidColor = FabricFluidRendering.getColor(fluid);
 
         int amount = fluidStack.getAmount();
         int scaledAmount = (amount * height) / capacityMb;
@@ -135,3 +128,5 @@ public class FluidRenderer {
         }
     }
 }
+
+

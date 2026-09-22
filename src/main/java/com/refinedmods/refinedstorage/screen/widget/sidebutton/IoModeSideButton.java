@@ -29,3 +29,5 @@ public class IoModeSideButton extends SideButton {
         BlockEntitySynchronizationManager.setParameter(DiskManipulatorBlockEntity.IO_MODE, DiskManipulatorBlockEntity.IO_MODE.getValue() == DiskManipulatorNetworkNode.IO_MODE_INSERT ? DiskManipulatorNetworkNode.IO_MODE_EXTRACT : DiskManipulatorNetworkNode.IO_MODE_INSERT);
     }
 }
+
+

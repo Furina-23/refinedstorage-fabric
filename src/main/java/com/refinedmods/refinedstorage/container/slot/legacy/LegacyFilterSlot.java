@@ -31,3 +31,5 @@ public class LegacyFilterSlot extends LegacyBaseSlot {
         super.set(stack);
     }
 }
+
+

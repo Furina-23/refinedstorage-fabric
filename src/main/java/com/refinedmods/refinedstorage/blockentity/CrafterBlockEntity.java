@@ -34,3 +34,5 @@ public class CrafterBlockEntity extends NetworkNodeBlockEntity<CrafterNetworkNod
         return new CrafterNetworkNode(level, pos);
     }
 }
+
+

@@ -25,3 +25,5 @@ public class RSResourcePackSectionDeserializer implements MetadataSectionSeriali
         return new RSResourcePackSection(primaryColor, secondaryColor);
     }
 }
+
+

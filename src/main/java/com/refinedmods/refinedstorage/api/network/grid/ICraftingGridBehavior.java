@@ -39,3 +39,5 @@ public interface ICraftingGridBehavior {
      */
     void onRecipeTransfer(INetworkAwareGrid grid, Player player, ItemStack[][] recipe);
 }
+
+

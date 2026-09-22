@@ -16,3 +16,4 @@ public class TagGridFilter implements Predicate<IGridStack> {
         return stack.getTags().stream().anyMatch(name -> name.toLowerCase().contains(this.tagName));
     }
 }
+

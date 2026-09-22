@@ -25,3 +25,5 @@ public final class RSLootFunctions {
         CONTROLLER = Registry.register(BuiltInRegistries.LOOT_FUNCTION_TYPE, new ResourceLocation(RS.ID, "controller"), new LootItemFunctionType(new ControllerLootFunction.Serializer()));
     }
 }
+
+

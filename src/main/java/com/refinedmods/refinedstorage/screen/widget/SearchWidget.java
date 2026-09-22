@@ -171,3 +171,5 @@ public class SearchWidget extends EditBox {
         super.renderWidget(graphics, mouseX, mouseY, partialTicks);
     }
 }
+
+

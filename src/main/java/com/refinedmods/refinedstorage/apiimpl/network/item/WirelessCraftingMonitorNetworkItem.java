@@ -16,7 +16,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import com.refinedmods.refinedstorage.transfer.energy.IEnergyStorage;
-import net.minecraftforge.network.NetworkHooks;
+import com.refinedmods.refinedstorage.network.fabric.NetworkHooks;
 
 public class WirelessCraftingMonitorNetworkItem implements INetworkItem {
     private final INetworkItemManager handler;
@@ -91,3 +91,5 @@ public class WirelessCraftingMonitorNetworkItem implements INetworkItem {
         player.sendSystemMessage(Component.translatable("misc.refinedstorage.network_item.out_of_energy", Component.translatable(stack.getItem().getDescriptionId())));
     }
 }
+
+

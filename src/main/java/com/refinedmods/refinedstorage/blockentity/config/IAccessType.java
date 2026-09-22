@@ -16,3 +16,4 @@ public interface IAccessType {
 
     void setAccessType(AccessType accessType);
 }
+

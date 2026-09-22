@@ -24,3 +24,5 @@ public class NetworkReceiverBlockEntity extends NetworkNodeBlockEntity<NetworkRe
         return new NetworkReceiverNetworkNode(level, pos);
     }
 }
+
+

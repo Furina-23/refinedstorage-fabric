@@ -5,7 +5,7 @@ import com.refinedmods.refinedstorage.container.GridContainerMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraftforge.network.NetworkEvent;
+import com.refinedmods.refinedstorage.network.fabric.NetworkEvent;
 
 import java.util.UUID;
 import java.util.function.Supplier;
@@ -61,3 +61,5 @@ public class GridCraftingStartRequestMessage {
         ctx.get().setPacketHandled(true);
     }
 }
+
+

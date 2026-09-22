@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
-import net.minecraftforge.network.NetworkEvent;
+import com.refinedmods.refinedstorage.network.fabric.NetworkEvent;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -79,3 +79,5 @@ public class SetFluidFilterSlotMessage {
         }
     }
 }
+
+

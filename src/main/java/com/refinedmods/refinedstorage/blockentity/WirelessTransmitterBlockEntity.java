@@ -31,3 +31,5 @@ public class WirelessTransmitterBlockEntity extends NetworkNodeBlockEntity<Wirel
         return new WirelessTransmitterNetworkNode(level, pos);
     }
 }
+
+

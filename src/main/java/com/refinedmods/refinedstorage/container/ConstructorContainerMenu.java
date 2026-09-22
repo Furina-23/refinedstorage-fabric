@@ -6,7 +6,7 @@ import com.refinedmods.refinedstorage.container.slot.filter.FluidFilterSlot;
 import com.refinedmods.refinedstorage.blockentity.ConstructorBlockEntity;
 import com.refinedmods.refinedstorage.blockentity.config.IType;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.items.SlotItemHandler;
+import com.refinedmods.refinedstorage.container.transfer.SlotItemHandler;
 
 public class ConstructorContainerMenu extends BaseContainerMenu {
     public ConstructorContainerMenu(ConstructorBlockEntity constructor, Player player, int windowId) {
@@ -25,3 +25,6 @@ public class ConstructorContainerMenu extends BaseContainerMenu {
         transferManager.addFilterTransfer(player.getInventory(), constructor.getNode().getItemFilters(), constructor.getNode().getFluidFilters(), constructor.getNode()::getType);
     }
 }
+
+
+

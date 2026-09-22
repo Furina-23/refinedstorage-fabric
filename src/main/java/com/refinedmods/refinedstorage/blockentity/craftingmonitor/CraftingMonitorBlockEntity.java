@@ -50,3 +50,5 @@ public class CraftingMonitorBlockEntity extends NetworkNodeBlockEntity<CraftingM
         return new CraftingMonitorNetworkNode(level, pos);
     }
 }
+
+

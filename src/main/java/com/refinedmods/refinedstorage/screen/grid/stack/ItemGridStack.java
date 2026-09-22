@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
 import net.fabricmc.loader.api.FabricLoader;
-import com.refinedmods.refinedstorage.registry.ForgeRegistries;
+import com.refinedmods.refinedstorage.registry.RSRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -92,7 +92,7 @@ public class ItemGridStack implements IGridStack {
             try {
                 cachedName = stack.getHoverName().getString();
             } catch (Throwable t) {
-                LOGGER.warn("Could not retrieve item name of {}", ForgeRegistries.ITEMS.getKey(stack.getItem()));
+                LOGGER.warn("Could not retrieve item name of {}", RSRegistries.ITEMS.getKey(stack.getItem()));
 
                 cachedName = ERROR_PLACEHOLDER;
             }
@@ -104,7 +104,7 @@ public class ItemGridStack implements IGridStack {
     @Override
     public String getModId() {
         if (cachedModId == null) {
-            ResourceLocation id = ForgeRegistries.ITEMS.getKey(stack.getItem());
+            ResourceLocation id = RSRegistries.ITEMS.getKey(stack.getItem());
             cachedModId = id == null ? ERROR_PLACEHOLDER : id.getNamespace();
 
             cachedModId = cachedModId.toLowerCase().replace(" ", "");
@@ -129,8 +129,8 @@ public class ItemGridStack implements IGridStack {
     @Override
     public Set<String> getTags() {
         if (cachedTags == null) {
-            cachedTags = ForgeRegistries.ITEMS.getResourceKey(stack.getItem())
-                .flatMap(ForgeRegistries.ITEMS::getHolder)
+            cachedTags = RSRegistries.ITEMS.getResourceKey(stack.getItem())
+                .flatMap(RSRegistries.ITEMS::getHolder)
                 .stream()
                 .flatMap(holder -> holder.tags())
                 .map(TagKey::location)
@@ -148,7 +148,7 @@ public class ItemGridStack implements IGridStack {
             try {
                 tooltip = RenderUtils.getTooltipFromItem(stack);
             } catch (Throwable t) {
-                LOGGER.warn("Could not retrieve item tooltip of {}", ForgeRegistries.ITEMS.getKey(stack.getItem()));
+                LOGGER.warn("Could not retrieve item tooltip of {}", RSRegistries.ITEMS.getKey(stack.getItem()));
 
                 tooltip = new ArrayList<>();
                 tooltip.add(Component.literal(ERROR_PLACEHOLDER));
@@ -221,3 +221,5 @@ public class ItemGridStack implements IGridStack {
         this.entry = entry;
     }
 }
+
+

@@ -54,3 +54,5 @@ public class CableNetworkNode extends NetworkNode implements ICoverable {
         return super.write(tag);
     }
 }
+
+

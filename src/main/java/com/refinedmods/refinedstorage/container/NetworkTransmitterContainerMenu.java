@@ -3,7 +3,7 @@ package com.refinedmods.refinedstorage.container;
 import com.refinedmods.refinedstorage.RSContainerMenus;
 import com.refinedmods.refinedstorage.blockentity.NetworkTransmitterBlockEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.items.SlotItemHandler;
+import com.refinedmods.refinedstorage.container.transfer.SlotItemHandler;
 
 public class NetworkTransmitterContainerMenu extends BaseContainerMenu {
     public NetworkTransmitterContainerMenu(NetworkTransmitterBlockEntity networkTransmitter, Player player, int windowId) {
@@ -16,3 +16,6 @@ public class NetworkTransmitterContainerMenu extends BaseContainerMenu {
         transferManager.addBiTransfer(player.getInventory(), networkTransmitter.getNode().getNetworkCard());
     }
 }
+
+
+

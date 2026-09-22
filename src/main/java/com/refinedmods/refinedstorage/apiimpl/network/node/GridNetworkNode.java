@@ -46,8 +46,8 @@ import com.refinedmods.refinedstorage.transfer.FluidStack;
 import com.refinedmods.refinedstorage.transfer.FluidType;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandlerModifiable;
-import net.minecraftforge.items.wrapper.CombinedInvWrapper;
-import net.minecraftforge.items.wrapper.InvWrapper;
+import com.refinedmods.refinedstorage.transfer.item.wrapper.CombinedInvWrapper;
+import com.refinedmods.refinedstorage.transfer.item.wrapper.InvWrapper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -778,3 +778,5 @@ public class GridNetworkNode extends NetworkNode implements INetworkAwareGrid, I
 
 
 }
+
+

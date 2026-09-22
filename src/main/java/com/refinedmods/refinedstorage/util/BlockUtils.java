@@ -17,3 +17,5 @@ public final class BlockUtils {
         return Component.translatable(block.getDescriptionId());
     }
 }
+
+

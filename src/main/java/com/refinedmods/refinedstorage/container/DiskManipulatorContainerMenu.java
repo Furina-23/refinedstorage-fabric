@@ -6,7 +6,7 @@ import com.refinedmods.refinedstorage.container.slot.filter.FluidFilterSlot;
 import com.refinedmods.refinedstorage.blockentity.DiskManipulatorBlockEntity;
 import com.refinedmods.refinedstorage.blockentity.config.IType;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.items.SlotItemHandler;
+import com.refinedmods.refinedstorage.container.transfer.SlotItemHandler;
 
 public class DiskManipulatorContainerMenu extends BaseContainerMenu {
     public DiskManipulatorContainerMenu(DiskManipulatorBlockEntity diskManipulator, Player player, int windowId) {
@@ -40,3 +40,6 @@ public class DiskManipulatorContainerMenu extends BaseContainerMenu {
         transferManager.addFilterTransfer(player.getInventory(), diskManipulator.getNode().getItemFilters(), diskManipulator.getNode().getFluidFilters(), diskManipulator.getNode()::getType);
     }
 }
+
+
+

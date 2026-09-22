@@ -250,3 +250,5 @@ public class CableBlock extends NetworkNodeBlock implements SimpleWaterloggedBlo
         builder.add(NORTH, EAST, SOUTH, WEST, UP, DOWN, WATERLOGGED);
     }
 }
+
+

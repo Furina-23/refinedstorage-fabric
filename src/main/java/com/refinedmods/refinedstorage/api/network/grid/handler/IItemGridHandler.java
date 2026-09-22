@@ -102,3 +102,5 @@ public interface IItemGridHandler {
      */
     void onGridScroll(ServerPlayer player, @Nullable UUID id, boolean shift, boolean up);
 }
+
+

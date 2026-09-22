@@ -38,3 +38,5 @@ public class BlockEntityMenuProvider<T extends BlockEntity> implements MenuProvi
         AbstractContainerMenu create(T blockEntity, int windowId, Inventory inventory, Player player);
     }
 }
+
+

@@ -11,3 +11,5 @@ public interface SlotAccessor {
     @Accessor("y")
     void refinedstorage$setY(int y);
 }
+
+

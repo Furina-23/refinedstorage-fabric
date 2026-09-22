@@ -7,3 +7,5 @@ public class QuartzEnrichedIronBlock extends BaseBlock {
         super(BlockUtils.DEFAULT_ROCK_PROPERTIES);
     }
 }
+
+

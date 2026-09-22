@@ -13,3 +13,5 @@ public class CraftingPatternFactoryException extends Exception {
         return errorMessage;
     }
 }
+
+

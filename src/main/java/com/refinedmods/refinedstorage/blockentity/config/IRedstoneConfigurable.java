@@ -5,3 +5,5 @@ public interface IRedstoneConfigurable {
 
     void setRedstoneMode(RedstoneMode mode);
 }
+
+

@@ -27,7 +27,7 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
-import com.refinedmods.refinedstorage.registry.ForgeRegistries;
+import com.refinedmods.refinedstorage.registry.RSRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
@@ -283,7 +283,7 @@ public abstract class BaseScreen<T extends AbstractContainerMenu> extends Abstra
                 renderQuantity(graphics, x, y, text, textColor);
             }
         } catch (Throwable t) {
-            logger.warn("Couldn't render stack: {}", ForgeRegistries.ITEMS.getKey(stack.getItem()));
+            logger.warn("Couldn't render stack: {}", RSRegistries.ITEMS.getKey(stack.getItem()));
         }
     }
 
@@ -334,3 +334,5 @@ public abstract class BaseScreen<T extends AbstractContainerMenu> extends Abstra
 
     public abstract void renderForeground(GuiGraphics graphics, int mouseX, int mouseY);
 }
+
+

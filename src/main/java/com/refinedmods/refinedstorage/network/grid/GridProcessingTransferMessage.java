@@ -11,7 +11,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
-import net.minecraftforge.network.NetworkEvent;
+import com.refinedmods.refinedstorage.network.fabric.NetworkEvent;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -164,3 +164,5 @@ public class GridProcessingTransferMessage {
         }
     }
 }
+
+

@@ -32,3 +32,5 @@ public class RedstoneModeSideButton extends SideButton {
         BlockEntitySynchronizationManager.setParameter(parameter, parameter.getValue() + 1);
     }
 }
+
+

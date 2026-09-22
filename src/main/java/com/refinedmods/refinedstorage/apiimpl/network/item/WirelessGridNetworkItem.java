@@ -82,3 +82,5 @@ public class WirelessGridNetworkItem implements INetworkItem {
         player.sendSystemMessage(Component.translatable("misc.refinedstorage.network_item.out_of_energy", Component.translatable(stack.getItem().getDescriptionId())));
     }
 }
+
+

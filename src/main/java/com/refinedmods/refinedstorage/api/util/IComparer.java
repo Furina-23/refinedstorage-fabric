@@ -54,3 +54,5 @@ public interface IComparer {
      */
     boolean isEqual(@Nonnull FluidStack left, @Nonnull FluidStack right, int flags);
 }
+
+

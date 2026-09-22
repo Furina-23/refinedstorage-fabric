@@ -33,7 +33,7 @@ import com.refinedmods.refinedstorage.transfer.FluidType;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandlerModifiable;
-import net.minecraftforge.items.wrapper.CombinedInvWrapper;
+import com.refinedmods.refinedstorage.transfer.item.wrapper.CombinedInvWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -542,3 +542,5 @@ public class DiskManipulatorNetworkNode extends NetworkNode implements IComparab
         return AccessType.INSERT_EXTRACT;
     }
 }
+
+

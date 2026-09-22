@@ -25,8 +25,8 @@ import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.minecraftforge.items.wrapper.InvWrapper;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
+import com.refinedmods.refinedstorage.transfer.item.wrapper.InvWrapper;
+import com.refinedmods.refinedstorage.transfer.item.wrapper.SidedInvWrapper;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -109,3 +109,5 @@ public final class LevelUtils {
         return level.clip(new ClipContext(base, target, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, player));
     }
 }
+
+

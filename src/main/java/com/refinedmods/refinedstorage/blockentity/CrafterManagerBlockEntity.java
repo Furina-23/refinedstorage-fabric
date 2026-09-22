@@ -43,3 +43,5 @@ public class CrafterManagerBlockEntity extends NetworkNodeBlockEntity<CrafterMan
         return new CrafterManagerNetworkNode(level, pos);
     }
 }
+
+

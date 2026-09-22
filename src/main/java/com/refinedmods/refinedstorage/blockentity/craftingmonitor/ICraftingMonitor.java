@@ -40,3 +40,5 @@ public interface ICraftingMonitor {
 
     int getSlotId();
 }
+
+

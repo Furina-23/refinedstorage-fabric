@@ -7,3 +7,5 @@ public enum StorageType {
     ITEM,
     FLUID
 }
+
+

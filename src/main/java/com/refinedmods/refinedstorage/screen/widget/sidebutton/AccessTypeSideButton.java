@@ -33,3 +33,5 @@ public class AccessTypeSideButton extends SideButton {
         BlockEntitySynchronizationManager.setParameter(parameter, AccessTypeUtils.getAccessType(parameter.getValue().getId() + 1));
     }
 }
+
+

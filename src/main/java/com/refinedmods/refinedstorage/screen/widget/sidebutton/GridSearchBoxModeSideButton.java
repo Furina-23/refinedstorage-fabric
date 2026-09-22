@@ -18,3 +18,5 @@ public class GridSearchBoxModeSideButton extends SearchBoxModeSideButton {
         ((GridScreen) screen).getSearchField().setMode(mode);
     }
 }
+
+

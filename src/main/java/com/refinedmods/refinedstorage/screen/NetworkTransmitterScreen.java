@@ -56,3 +56,5 @@ public class NetworkTransmitterScreen extends BaseScreen<NetworkTransmitterConta
         renderString(graphics, 7, 42, I18n.get("container.inventory"));
     }
 }
+
+

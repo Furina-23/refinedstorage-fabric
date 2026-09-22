@@ -7,3 +7,5 @@ public class MachineCasingBlock extends BaseBlock {
         super(BlockUtils.DEFAULT_ROCK_PROPERTIES);
     }
 }
+
+

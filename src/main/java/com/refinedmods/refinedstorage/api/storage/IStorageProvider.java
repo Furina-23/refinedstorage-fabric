@@ -19,3 +19,5 @@ public interface IStorageProvider {
      */
     void addFluidStorages(List<IStorage<FluidStack>> storages);
 }
+
+

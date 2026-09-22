@@ -15,3 +15,5 @@ public class HollowCoverItem extends CoverItem {
         return new Cover(stack, CoverType.HOLLOW);
     }
 }
+
+

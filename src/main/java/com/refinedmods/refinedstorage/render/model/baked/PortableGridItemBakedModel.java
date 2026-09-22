@@ -6,14 +6,13 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.BakedModelWrapper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PortableGridItemBakedModel extends BakedModelWrapper<BakedModel> {
+public class PortableGridItemBakedModel extends ForwardingBakedModel<BakedModel> {
     @Nullable
     private final BakedModel disk;
 
@@ -40,3 +39,5 @@ public class PortableGridItemBakedModel extends BakedModelWrapper<BakedModel> {
         return quads;
     }
 }
+
+

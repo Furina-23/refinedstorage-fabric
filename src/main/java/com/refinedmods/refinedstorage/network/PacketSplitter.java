@@ -3,9 +3,9 @@ package com.refinedmods.refinedstorage.network;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.simple.SimpleChannel;
+import com.refinedmods.refinedstorage.network.fabric.NetworkEvent;
+import com.refinedmods.refinedstorage.network.fabric.PacketDistributor;
+import com.refinedmods.refinedstorage.network.fabric.simple.SimpleChannel;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -41,3 +41,5 @@ public final class PacketSplitter {
 
     public void addPackagePart(int communicationId, int packetIndex, byte[] payload) { }
 }
+
+

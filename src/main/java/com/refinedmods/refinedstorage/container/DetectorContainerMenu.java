@@ -19,3 +19,5 @@ public class DetectorContainerMenu extends BaseContainerMenu {
         transferManager.addFilterTransfer(player.getInventory(), detector.getNode().getItemFilters(), detector.getNode().getFluidFilters(), detector.getNode()::getType);
     }
 }
+
+

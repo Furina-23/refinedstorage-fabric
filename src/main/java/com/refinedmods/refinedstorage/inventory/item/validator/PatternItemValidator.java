@@ -23,3 +23,5 @@ public class PatternItemValidator implements Predicate<ItemStack> {
         return stack.getItem() instanceof ICraftingPatternProvider && ((ICraftingPatternProvider) stack.getItem()).create(level, stack, null).isValid();
     }
 }
+
+

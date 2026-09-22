@@ -47,3 +47,5 @@ public class DestructorScreen extends BaseScreen<DestructorContainerMenu> {
         renderString(graphics, 7, 43, I18n.get("container.inventory"));
     }
 }
+
+

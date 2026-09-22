@@ -33,3 +33,5 @@ public class SlottedCraftingRequest {
         return Objects.hash(node, slot);
     }
 }
+
+

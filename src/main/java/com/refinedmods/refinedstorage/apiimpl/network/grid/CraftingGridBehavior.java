@@ -21,9 +21,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import com.refinedmods.refinedstorage.transfer.item.ItemHandlerHelper;
-import net.minecraftforge.items.wrapper.InvWrapper;
-import net.minecraftforge.items.wrapper.PlayerInvWrapper;
-import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
+import com.refinedmods.refinedstorage.transfer.item.wrapper.InvWrapper;
+import com.refinedmods.refinedstorage.transfer.item.wrapper.PlayerInvWrapper;
+import com.refinedmods.refinedstorage.transfer.item.wrapper.PlayerMainInvWrapper;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -304,3 +304,5 @@ public class CraftingGridBehavior implements ICraftingGridBehavior {
     }
 
 }
+
+

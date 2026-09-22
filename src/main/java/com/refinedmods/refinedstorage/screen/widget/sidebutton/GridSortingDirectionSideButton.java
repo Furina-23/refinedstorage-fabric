@@ -39,3 +39,5 @@ public class GridSortingDirectionSideButton extends SideButton {
         grid.onSortingDirectionChanged(dir);
     }
 }
+
+

@@ -110,3 +110,5 @@ public class CoverRecipe extends CustomRecipe {
         return SERIALIZER;
     }
 }
+
+

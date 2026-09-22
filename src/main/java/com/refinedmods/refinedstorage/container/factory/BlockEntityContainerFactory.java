@@ -5,9 +5,9 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.network.IContainerFactory;
+import com.refinedmods.refinedstorage.container.factory.ContainerFactory;
 
-public class BlockEntityContainerFactory<C extends AbstractContainerMenu, T extends BlockEntity> implements IContainerFactory<C> {
+public class BlockEntityContainerFactory<C extends AbstractContainerMenu, T extends BlockEntity> implements ContainerFactory<C> {
     private final Factory<C, T> factory;
 
     public BlockEntityContainerFactory(Factory<C, T> factory) {
@@ -27,3 +27,6 @@ public class BlockEntityContainerFactory<C extends AbstractContainerMenu, T exte
         C create(int windowId, Inventory inv, T blockEntity);
     }
 }
+
+
+

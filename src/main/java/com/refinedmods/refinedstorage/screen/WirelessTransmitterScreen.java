@@ -40,3 +40,5 @@ public class WirelessTransmitterScreen extends BaseScreen<WirelessTransmitterCon
         renderString(graphics, 7, 43, I18n.get("container.inventory"));
     }
 }
+
+

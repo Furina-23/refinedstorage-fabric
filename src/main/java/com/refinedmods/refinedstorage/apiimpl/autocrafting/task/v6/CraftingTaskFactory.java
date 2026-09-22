@@ -22,3 +22,4 @@ public class CraftingTaskFactory implements ICraftingTaskFactory {
         return new CraftingTask(network, tag);
     }
 }
+

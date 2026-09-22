@@ -26,33 +26,16 @@ dependencies {
 sourceSets {
     main {
         resources.srcDir 'src/generated/resources'
-        java {
-            // Model generation still uses Forge's generator DSL. Server data
-            // providers run through Fabric's data generation entrypoint.
-            exclude 'com/refinedmods/refinedstorage/datageneration/BlockModelGenerator.java'
-            exclude 'com/refinedmods/refinedstorage/datageneration/BlockModels.java'
-            exclude 'com/refinedmods/refinedstorage/integration/jei/CoverCraftingCategoryExtension.java'
-            exclude 'com/refinedmods/refinedstorage/integration/jei/GhostIngredientHandler.java'
-            exclude 'com/refinedmods/refinedstorage/integration/jei/GridRecipeTransferHandler.java'
-            exclude 'com/refinedmods/refinedstorage/integration/jei/GuiContainerHandler.java'
-            exclude 'com/refinedmods/refinedstorage/integration/jei/HollowCoverCraftingCategoryExtension.java'
-            exclude 'com/refinedmods/refinedstorage/integration/jei/Ingredient.java'
-            exclude 'com/refinedmods/refinedstorage/integration/jei/IngredientTracker.java'
-            exclude 'com/refinedmods/refinedstorage/integration/jei/JeiHelper.java'
-            exclude 'com/refinedmods/refinedstorage/integration/jei/RecipeTransferCraftingGridError.java'
-            exclude 'com/refinedmods/refinedstorage/integration/jei/RecipeTransferPatternGridError.java'
-            exclude 'com/refinedmods/refinedstorage/integration/jei/RSJeiPlugin.java'
-            exclude 'com/refinedmods/refinedstorage/render/model/DiskDriveGeometryLoader.java'
-            exclude 'com/refinedmods/refinedstorage/render/model/DiskManipulatorGeometryLoader.java'
-            exclude 'com/refinedmods/refinedstorage/render/model/PortableGridGeometryLoader.java'
-            exclude 'com/refinedmods/refinedstorage/setup/ClientSetup.java'
-        }
+        resources.srcDir 'src/generated/fabric'
     }
 }
 
 fabricApi {
     configureDataGeneration {
-        outputDirectory = file('src/generated/resources')
+        // Keep Fabric's cache and server data separate from the legacy Forge
+        // model output. Fabric datagen removes stale files referenced by caches
+        // in its output root, so sharing this directory can delete block models.
+        outputDirectory = file('src/generated/fabric')
     }
 }
 

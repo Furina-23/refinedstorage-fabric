@@ -27,3 +27,5 @@ public interface ICraftingMonitorElementRegistry {
     @Nullable
     Function<FriendlyByteBuf, ICraftingMonitorElement> get(ResourceLocation id);
 }
+
+

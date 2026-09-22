@@ -24,3 +24,5 @@ public class ExternalStorageContainerMenu extends BaseContainerMenu {
         transferManager.addFilterTransfer(player.getInventory(), externalStorage.getNode().getItemFilters(), externalStorage.getNode().getFluidFilters(), externalStorage.getNode()::getType);
     }
 }
+
+

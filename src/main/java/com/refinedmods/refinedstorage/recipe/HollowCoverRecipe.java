@@ -86,3 +86,5 @@ public class HollowCoverRecipe extends CustomRecipe {
         return SERIALIZER;
     }
 }
+
+

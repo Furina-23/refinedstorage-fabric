@@ -75,3 +75,5 @@ public interface IStorage<T> {
      */
     int getCacheDelta(int storedPreInsertion, int size, @Nullable T remainder);
 }
+
+

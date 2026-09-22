@@ -34,3 +34,5 @@ public interface IStorageCacheListener<T> {
      */
     void onChangedBulk(List<StackListResult<T>> deltas);
 }
+
+

@@ -97,3 +97,5 @@ public class StorageMonitorBlockEntity extends NetworkNodeBlockEntity<StorageMon
         return fluidStack;
     }
 }
+
+

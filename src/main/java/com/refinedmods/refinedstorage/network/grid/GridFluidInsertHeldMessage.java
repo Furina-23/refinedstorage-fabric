@@ -4,7 +4,7 @@ import com.refinedmods.refinedstorage.api.network.grid.IGrid;
 import com.refinedmods.refinedstorage.container.GridContainerMenu;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraftforge.network.NetworkEvent;
+import com.refinedmods.refinedstorage.network.fabric.NetworkEvent;
 
 import java.util.function.Supplier;
 
@@ -29,3 +29,5 @@ public class GridFluidInsertHeldMessage {
         ctx.get().setPacketHandled(true);
     }
 }
+
+

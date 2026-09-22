@@ -97,3 +97,5 @@ public abstract class NetworkNodeBlock extends BaseBlock implements EntityBlock 
         return false;
     }
 }
+
+

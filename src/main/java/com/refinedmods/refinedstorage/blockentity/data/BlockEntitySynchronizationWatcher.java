@@ -56,3 +56,5 @@ public class BlockEntitySynchronizationWatcher {
         RS.NETWORK_HANDLER.sendTo(player, new BlockEntitySynchronizationParameterMessage(manager.getBlockEntity(), parameter, initial));
     }
 }
+
+

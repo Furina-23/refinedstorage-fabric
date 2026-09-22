@@ -63,3 +63,5 @@ public class StorageBlockEntity extends NetworkNodeBlockEntity<StorageNetworkNod
         return new StorageNetworkNode(level, pos, type);
     }
 }
+
+

@@ -27,3 +27,5 @@ public class PatternItemColor implements ItemColor {
         return 0xFFFFFF;
     }
 }
+
+

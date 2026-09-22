@@ -39,3 +39,5 @@ public class DetectorModeSideButton extends SideButton {
         BlockEntitySynchronizationManager.setParameter(DetectorBlockEntity.MODE, mode);
     }
 }
+
+

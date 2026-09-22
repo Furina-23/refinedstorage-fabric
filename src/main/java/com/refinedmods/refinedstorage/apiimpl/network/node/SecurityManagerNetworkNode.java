@@ -18,7 +18,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
-import net.minecraftforge.items.wrapper.CombinedInvWrapper;
+import com.refinedmods.refinedstorage.transfer.item.wrapper.CombinedInvWrapper;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -167,3 +167,5 @@ public class SecurityManagerNetworkNode extends NetworkNode implements ISecurity
 
 
 }
+
+

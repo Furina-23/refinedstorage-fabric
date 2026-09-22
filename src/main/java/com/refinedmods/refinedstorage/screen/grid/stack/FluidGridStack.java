@@ -12,7 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
-import com.refinedmods.refinedstorage.registry.ForgeRegistries;
+import com.refinedmods.refinedstorage.registry.RSRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -84,7 +84,7 @@ public class FluidGridStack implements IGridStack {
             try {
                 cachedName = stack.getDisplayName().getString();
             } catch (Throwable t) {
-                LOGGER.warn("Could not retrieve fluid name of {}", ForgeRegistries.FLUIDS.getKey(stack.getFluid()));
+                LOGGER.warn("Could not retrieve fluid name of {}", RSRegistries.FLUIDS.getKey(stack.getFluid()));
 
                 cachedName = ERROR_PLACEHOLDER;
             }
@@ -96,7 +96,7 @@ public class FluidGridStack implements IGridStack {
     @Override
     public String getModId() {
         if (cachedModId == null) {
-            ResourceLocation registryName = ForgeRegistries.FLUIDS.getKey(stack.getFluid());
+            ResourceLocation registryName = RSRegistries.FLUIDS.getKey(stack.getFluid());
 
             if (registryName != null) {
                 cachedModId = registryName.getNamespace();
@@ -124,8 +124,8 @@ public class FluidGridStack implements IGridStack {
     @Override
     public Set<String> getTags() {
         if (cachedTags == null) {
-            cachedTags = ForgeRegistries.FLUIDS.getResourceKey(stack.getFluid())
-                .flatMap(ForgeRegistries.FLUIDS::getHolder)
+            cachedTags = RSRegistries.FLUIDS.getResourceKey(stack.getFluid())
+                .flatMap(RSRegistries.FLUIDS::getHolder)
                 .stream()
                 .flatMap(holder -> holder.tags())
                 .map(TagKey::location)
@@ -143,7 +143,7 @@ public class FluidGridStack implements IGridStack {
             try {
                 tooltip = Lists.newArrayList(stack.getDisplayName());
             } catch (Throwable t) {
-                LOGGER.warn("Could not retrieve fluid tooltip of {}", ForgeRegistries.FLUIDS.getKey(stack.getFluid()));
+                LOGGER.warn("Could not retrieve fluid tooltip of {}", RSRegistries.FLUIDS.getKey(stack.getFluid()));
                 tooltip = Lists.newArrayList(Component.literal(ERROR_PLACEHOLDER));
             }
 
@@ -216,3 +216,5 @@ public class FluidGridStack implements IGridStack {
         this.entry = entry;
     }
 }
+
+

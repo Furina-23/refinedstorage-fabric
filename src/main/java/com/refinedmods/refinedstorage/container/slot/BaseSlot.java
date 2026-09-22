@@ -1,7 +1,7 @@
 package com.refinedmods.refinedstorage.container.slot;
 
 import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
+import com.refinedmods.refinedstorage.container.transfer.SlotItemHandler;
 
 import java.util.function.BooleanSupplier;
 
@@ -23,3 +23,6 @@ public class BaseSlot extends SlotItemHandler {
         return enableHandler.getAsBoolean();
     }
 }
+
+
+

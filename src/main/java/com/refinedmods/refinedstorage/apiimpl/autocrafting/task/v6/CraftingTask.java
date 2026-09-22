@@ -322,3 +322,5 @@ public class CraftingTask implements ICraftingTask, NodeListener {
         network.getCraftingManager().onTaskChanged();
     }
 }
+
+

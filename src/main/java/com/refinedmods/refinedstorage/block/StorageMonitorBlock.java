@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.network.NetworkHooks;
+import com.refinedmods.refinedstorage.network.fabric.NetworkHooks;
 
 public class StorageMonitorBlock extends NetworkNodeBlock {
     public StorageMonitorBlock() {
@@ -88,3 +88,5 @@ public class StorageMonitorBlock extends NetworkNodeBlock {
         return true;
     }
 }
+
+

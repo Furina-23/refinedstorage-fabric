@@ -58,3 +58,5 @@ public class FluidFilterSlot extends BaseSlot {
         return !fluidInventory.getFluid(getSlotIndex()).isEmpty();
     }
 }
+
+

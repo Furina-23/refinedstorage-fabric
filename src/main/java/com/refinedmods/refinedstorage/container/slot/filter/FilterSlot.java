@@ -64,3 +64,5 @@ public class FilterSlot extends BaseSlot {
         return (flags & FILTER_ALLOW_ALTERNATIVES) == FILTER_ALLOW_ALTERNATIVES;
     }
 }
+
+

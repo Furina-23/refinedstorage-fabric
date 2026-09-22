@@ -27,3 +27,5 @@ public class CraftingPatternOutputs {
         return fluidOutputs;
     }
 }
+
+

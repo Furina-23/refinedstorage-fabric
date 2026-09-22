@@ -88,3 +88,5 @@ public class DetectorScreen extends BaseScreen<DetectorContainerMenu> {
         return super.keyPressed(key, scanCode, modifiers);
     }
 }
+
+

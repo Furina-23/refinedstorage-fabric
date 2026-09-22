@@ -129,3 +129,5 @@ public class DiskDriveBlockEntity extends NetworkNodeBlockEntity<DiskDriveNetwor
         return new DiskDriveNetworkNode(level, pos);
     }
 }
+
+

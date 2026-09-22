@@ -17,3 +17,5 @@ public final class ShapeCache {
         return CACHE.computeIfAbsent(state, shapeFactory);
     }
 }
+
+

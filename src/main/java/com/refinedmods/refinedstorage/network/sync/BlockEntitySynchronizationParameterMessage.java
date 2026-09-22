@@ -5,7 +5,7 @@ import com.refinedmods.refinedstorage.blockentity.data.BlockEntitySynchronizatio
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.network.NetworkEvent;
+import com.refinedmods.refinedstorage.network.fabric.NetworkEvent;
 
 import java.util.function.Supplier;
 
@@ -48,3 +48,5 @@ public class BlockEntitySynchronizationParameterMessage {
         ctx.get().setPacketHandled(true);
     }
 }
+
+

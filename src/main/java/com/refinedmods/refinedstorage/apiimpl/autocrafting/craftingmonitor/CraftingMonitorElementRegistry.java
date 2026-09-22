@@ -24,3 +24,5 @@ public class CraftingMonitorElementRegistry implements ICraftingMonitorElementRe
         return registry.get(id);
     }
 }
+
+

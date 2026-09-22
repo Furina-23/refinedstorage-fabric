@@ -45,3 +45,5 @@ public class ClientProxy {
         BaseScreen.executeLater(CraftingMonitorScreen.class, craftingMonitor -> craftingMonitor.setTasks(message.getTasks()));
     }
 }
+
+

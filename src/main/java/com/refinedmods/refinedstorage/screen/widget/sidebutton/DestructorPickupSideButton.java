@@ -29,3 +29,5 @@ public class DestructorPickupSideButton extends SideButton {
         BlockEntitySynchronizationManager.setParameter(DestructorBlockEntity.PICKUP, !DestructorBlockEntity.PICKUP.getValue());
     }
 }
+
+

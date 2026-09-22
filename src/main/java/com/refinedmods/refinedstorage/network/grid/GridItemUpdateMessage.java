@@ -10,7 +10,7 @@ import com.refinedmods.refinedstorage.screen.grid.view.GridViewImpl;
 import com.refinedmods.refinedstorage.util.StackUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.network.NetworkEvent;
+import com.refinedmods.refinedstorage.network.fabric.NetworkEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,3 +76,5 @@ public class GridItemUpdateMessage {
         ctx.get().setPacketHandled(true);
     }
 }
+
+

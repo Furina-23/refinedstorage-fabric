@@ -28,3 +28,5 @@ public class CrafterModeSideButton extends SideButton {
         BlockEntitySynchronizationManager.setParameter(CrafterBlockEntity.MODE, CrafterBlockEntity.MODE.getValue() + 1);
     }
 }
+
+

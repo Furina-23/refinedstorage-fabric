@@ -24,3 +24,5 @@ public final class ItemStackKey {
         return API.instance().getItemStackHashCode(stack);
     }
 }
+
+

@@ -25,7 +25,7 @@ import com.refinedmods.refinedstorage.transfer.fluid.IFluidHandlerItem;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandlerModifiable;
 import com.refinedmods.refinedstorage.transfer.item.ItemHandlerHelper;
-import com.refinedmods.refinedstorage.registry.ForgeRegistries;
+import com.refinedmods.refinedstorage.registry.RSRegistries;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -41,7 +41,7 @@ public final class StackUtils {
 
     private static final String NBT_INVENTORY = "Inventory_%d";
     private static final String NBT_SLOT = "Slot";
-    private static final String NBT_FORGE_CAPS = "ForgeCaps"; // @Volatile
+    private static final String NBT_LEGACY_FORGE_CAPS = "ForgeCaps";
 
     private static final Logger LOGGER = LogManager.getLogger(StackUtils.class);
     private static final String NBT_ITEM_ID = "Id";
@@ -314,7 +314,7 @@ public final class StackUtils {
 
         CompoundTag itemTag = new CompoundTag();
 
-        ResourceLocation key = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(stack.getItem()), "Item is not registered");
+        ResourceLocation key = Objects.requireNonNull(RSRegistries.ITEMS.getKey(stack.getItem()), "Item is not registered");
         itemTag.putString(NBT_ITEM_ID, key.toString());
         itemTag.putInt(NBT_ITEM_QUANTITY, stack.getCount());
 
@@ -322,12 +322,12 @@ public final class StackUtils {
             itemTag.put(NBT_ITEM_NBT, stack.getTag());
         }
 
-        // @Volatile
+        // Preserve capability data when importing stacks written by the legacy Forge build.
         stack.save(dummy);
-        if (dummy.contains(NBT_FORGE_CAPS)) {
-            itemTag.put(NBT_ITEM_CAPS, dummy.get(NBT_FORGE_CAPS));
+        if (dummy.contains(NBT_LEGACY_FORGE_CAPS)) {
+            itemTag.put(NBT_ITEM_CAPS, dummy.get(NBT_LEGACY_FORGE_CAPS));
         }
-        dummy.remove(NBT_FORGE_CAPS);
+        dummy.remove(NBT_LEGACY_FORGE_CAPS);
 
         return itemTag;
     }
@@ -336,7 +336,7 @@ public final class StackUtils {
     public static ItemStack deserializeStackFromNbt(CompoundTag tag) {
         Item item;
         if (tag.contains(NBT_ITEM_ID)) {
-            item = ForgeRegistries.ITEMS.get(new ResourceLocation(tag.getString(NBT_ITEM_ID)));
+            item = RSRegistries.ITEMS.get(new ResourceLocation(tag.getString(NBT_ITEM_ID)));
 
             if (item == null) {
                 LOGGER.warn("Could not deserialize item from string ID {}, it no longer exists", tag.getString(NBT_ITEM_ID));
@@ -356,3 +356,5 @@ public final class StackUtils {
         return stack;
     }
 }
+
+

@@ -19,7 +19,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.BakedModelWrapper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -29,7 +28,7 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class PortableGridBakedModel extends BakedModelWrapper<BakedModel> implements FabricBakedModel {
+public class PortableGridBakedModel extends ForwardingBakedModel<BakedModel> implements FabricBakedModel {
     private final Function<Direction, BakedModel> baseConnectedModelBakery;
     private final Function<Direction, BakedModel> baseDisconnectedModelBakery;
     private final Function<Direction, BakedModel> diskModelBakery;
@@ -153,3 +152,5 @@ public class PortableGridBakedModel extends BakedModelWrapper<BakedModel> implem
     }
 
 }
+
+

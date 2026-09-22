@@ -14,3 +14,5 @@ public class SecurityCardItemPropertyGetter implements ItemPropertyFunction {
         return entity != null && SecurityCardItem.isValid(stack) ? 1.0f : 0.0f;
     }
 }
+
+

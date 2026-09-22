@@ -4,3 +4,5 @@ enum InsertionResultType {
     CONTINUE_IF_POSSIBLE,
     STOP
 }
+
+

@@ -25,3 +25,5 @@ public enum CalculationResultType {
      */
     RECURSIVE;
 }
+
+

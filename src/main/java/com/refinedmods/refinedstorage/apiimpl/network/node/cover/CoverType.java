@@ -11,3 +11,5 @@ public enum CoverType {
         return new ItemStack(this == NORMAL ? RSItems.COVER.get() : RSItems.HOLLOW_COVER.get());
     }
 }
+
+

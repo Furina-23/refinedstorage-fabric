@@ -44,3 +44,5 @@ public enum RedstoneMode {
         tag.putInt(NBT, ordinal());
     }
 }
+
+

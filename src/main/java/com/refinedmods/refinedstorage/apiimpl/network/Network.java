@@ -616,3 +616,5 @@ public class Network implements INetwork, IRedstoneConfigurable {
         return type;
     }
 }
+
+

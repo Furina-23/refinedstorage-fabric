@@ -25,3 +25,5 @@ public interface IStorageDiskRegistry {
     @Nullable
     IStorageDiskFactory get(ResourceLocation id);
 }
+
+

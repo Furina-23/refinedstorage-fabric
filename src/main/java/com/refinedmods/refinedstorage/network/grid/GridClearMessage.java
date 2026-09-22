@@ -3,7 +3,7 @@ package com.refinedmods.refinedstorage.network.grid;
 import com.refinedmods.refinedstorage.container.GridContainerMenu;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraftforge.network.NetworkEvent;
+import com.refinedmods.refinedstorage.network.fabric.NetworkEvent;
 
 import java.util.function.Supplier;
 
@@ -24,3 +24,5 @@ public class GridClearMessage {
         ctx.get().setPacketHandled(true);
     }
 }
+
+

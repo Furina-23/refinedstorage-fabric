@@ -473,3 +473,5 @@ public class CraftingManager implements ICraftingManager {
         return fluidPatternsByOutput.get(new FluidStackKey(pattern));
     }
 }
+
+

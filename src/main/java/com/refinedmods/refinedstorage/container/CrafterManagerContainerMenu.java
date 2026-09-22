@@ -198,3 +198,5 @@ public class CrafterManagerContainerMenu extends BaseContainerMenu {
         return stack;
     }
 }
+
+

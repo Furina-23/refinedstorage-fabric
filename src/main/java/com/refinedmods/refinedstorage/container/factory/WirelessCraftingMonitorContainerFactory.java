@@ -7,9 +7,9 @@ import com.refinedmods.refinedstorage.blockentity.craftingmonitor.WirelessCrafti
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.network.IContainerFactory;
+import com.refinedmods.refinedstorage.container.factory.ContainerFactory;
 
-public class WirelessCraftingMonitorContainerFactory implements IContainerFactory<CraftingMonitorContainerMenu> {
+public class WirelessCraftingMonitorContainerFactory implements ContainerFactory<CraftingMonitorContainerMenu> {
     @Override
     public CraftingMonitorContainerMenu create(int windowId, Inventory inv, FriendlyByteBuf data) {
 
@@ -22,3 +22,6 @@ public class WirelessCraftingMonitorContainerFactory implements IContainerFactor
         return new CraftingMonitorContainerMenu(RSContainerMenus.WIRELESS_CRAFTING_MONITOR.get(), wirelessCraftingMonitor, null, inv.player, windowId);
     }
 }
+
+
+

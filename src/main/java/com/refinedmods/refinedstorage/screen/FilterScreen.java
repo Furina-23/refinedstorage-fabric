@@ -138,3 +138,5 @@ public class FilterScreen extends BaseScreen<FilterContainerMenu> {
         RS.NETWORK_HANDLER.sendToServer(new FilterUpdateMessage(compare, mode, modFilter, nameField.getValue(), type));
     }
 }
+
+

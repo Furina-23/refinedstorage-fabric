@@ -5,7 +5,7 @@ import com.refinedmods.refinedstorage.apiimpl.API;
 import com.refinedmods.refinedstorage.network.ClientProxy;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.network.NetworkEvent;
+import com.refinedmods.refinedstorage.network.fabric.NetworkEvent;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -75,3 +75,5 @@ public class GridCraftingPreviewResponseMessage {
         return fluids;
     }
 }
+
+

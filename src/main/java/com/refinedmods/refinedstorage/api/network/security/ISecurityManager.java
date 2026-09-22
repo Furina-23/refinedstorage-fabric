@@ -18,3 +18,5 @@ public interface ISecurityManager {
      */
     void invalidate();
 }
+
+

@@ -29,3 +29,5 @@ public interface ICraftingTaskFactory {
      */
     ICraftingTask createFromNbt(INetwork network, CompoundTag tag) throws CraftingTaskReadException;
 }
+
+

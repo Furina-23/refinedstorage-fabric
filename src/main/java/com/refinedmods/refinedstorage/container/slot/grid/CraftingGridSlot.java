@@ -8,3 +8,5 @@ public class CraftingGridSlot extends Slot {
         super(inventory, inventoryIndex, x, y);
     }
 }
+
+

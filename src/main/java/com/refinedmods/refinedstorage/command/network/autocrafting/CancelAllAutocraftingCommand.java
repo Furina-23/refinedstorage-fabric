@@ -35,3 +35,5 @@ public class CancelAllAutocraftingCommand extends NetworkCommand {
         return 0;
     }
 }
+
+

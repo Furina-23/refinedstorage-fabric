@@ -1,0 +1,14 @@
+{
+  "item.goat_horn.play": {
+    "sounds": []
+  },
+  "entity.goat.screaming.horn_break": {
+    "sounds": [
+      {
+        "name": "minecraft:entity.goat.horn_break",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.goat.horn_break"
+  }
+}

@@ -11,3 +11,5 @@ public class ControllerContainerMenu extends BaseContainerMenu {
         addPlayerInventory(8, 99);
     }
 }
+
+

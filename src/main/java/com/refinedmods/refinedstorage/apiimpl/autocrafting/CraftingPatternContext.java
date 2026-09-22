@@ -20,3 +20,5 @@ public class CraftingPatternContext {
         return stack;
     }
 }
+
+

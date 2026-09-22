@@ -64,3 +64,5 @@ public class CalculationResult implements ICalculationResult {
         return recursedPattern;
     }
 }
+
+

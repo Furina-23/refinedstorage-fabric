@@ -7,7 +7,7 @@ import com.refinedmods.refinedstorage.item.UpgradeItem;
 import com.refinedmods.refinedstorage.blockentity.ExporterBlockEntity;
 import com.refinedmods.refinedstorage.blockentity.config.IType;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.items.SlotItemHandler;
+import com.refinedmods.refinedstorage.container.transfer.SlotItemHandler;
 
 public class ExporterContainerMenu extends BaseContainerMenu {
     private final ExporterBlockEntity exporter;
@@ -74,3 +74,6 @@ public class ExporterContainerMenu extends BaseContainerMenu {
         transferManager.addFilterTransfer(getPlayer().getInventory(), exporter.getNode().getItemFilters(), exporter.getNode().getFluidFilters(), exporter.getNode()::getType);
     }
 }
+
+
+

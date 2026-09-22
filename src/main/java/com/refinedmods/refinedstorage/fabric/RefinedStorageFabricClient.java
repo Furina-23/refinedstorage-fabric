@@ -127,3 +127,5 @@ public final class RefinedStorageFabricClient implements ClientModInitializer {
         ItemProperties.register(RSItems.CREATIVE_WIRELESS_FLUID_GRID.get(), connected, (stack, level, entity, seed) -> network.call(stack, level, entity, seed));
     }
 }
+
+

@@ -59,3 +59,5 @@ public class GridSortingTypeSideButton extends SideButton {
         grid.onSortingTypeChanged(type);
     }
 }
+
+

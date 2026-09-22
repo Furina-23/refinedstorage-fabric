@@ -16,7 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.network.NetworkHooks;
+import com.refinedmods.refinedstorage.network.fabric.NetworkHooks;
 
 public class DiskDriveBlock extends NetworkNodeBlock {
     public DiskDriveBlock() {
@@ -51,3 +51,5 @@ public class DiskDriveBlock extends NetworkNodeBlock {
         return InteractionResult.SUCCESS;
     }
 }
+
+

@@ -18,8 +18,10 @@ import com.refinedmods.refinedstorage.util.NetworkUtils;
 import com.refinedmods.refinedstorage.util.PlayerUtils;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import com.refinedmods.refinedstorage.blockentity.BaseBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.commands.CommandSourceStack;
@@ -30,13 +32,18 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
 
-/** Registers the Fabric equivalents for the server-side Forge event hooks. */
+/** Registers server-side lifecycle and gameplay callbacks. */
 public final class FabricEventRegistration {
     private FabricEventRegistration() {
     }
 
     public static void register() {
         ServerTickEvents.END_WORLD_TICK.register(FabricEventRegistration::tickWorld);
+        ServerChunkEvents.CHUNK_UNLOAD.register((level, chunk) -> chunk.getBlockEntities().values().forEach(blockEntity -> {
+            if (blockEntity instanceof BaseBlockEntity baseBlockEntity) {
+                baseBlockEntity.onChunkUnloaded();
+            }
+        }));
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> registerCommands(dispatcher));
         UseBlockCallback.EVENT.register(FabricEventRegistration::beforeBlockUse);
         PlayerBlockBreakEvents.BEFORE.register((level, player, pos, state, blockEntity) -> canBreak(level, player, pos));
@@ -106,3 +113,5 @@ public final class FabricEventRegistration {
         return true;
     }
 }
+
+

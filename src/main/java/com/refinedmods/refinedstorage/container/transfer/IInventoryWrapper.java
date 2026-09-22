@@ -5,3 +5,5 @@ import net.minecraft.world.item.ItemStack;
 interface IInventoryWrapper {
     InsertionResult insert(ItemStack stack);
 }
+
+

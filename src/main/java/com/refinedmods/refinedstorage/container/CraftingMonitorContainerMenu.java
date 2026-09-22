@@ -102,3 +102,5 @@ public class CraftingMonitorContainerMenu extends BaseContainerMenu implements I
         RS.NETWORK_HANDLER.sendTo((ServerPlayer) getPlayer(), new CraftingMonitorUpdateMessage(craftingMonitor));
     }
 }
+
+

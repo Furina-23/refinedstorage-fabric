@@ -56,3 +56,5 @@ public class FilterContainerMenu extends BaseContainerMenu {
         return getPlayer().getInventory().selected;
     }
 }
+
+

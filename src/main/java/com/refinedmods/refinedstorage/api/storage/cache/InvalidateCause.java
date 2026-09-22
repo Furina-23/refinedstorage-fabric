@@ -8,3 +8,5 @@ public enum InvalidateCause {
     INITIAL_TICK_INVALIDATION,
     NEIGHBOR_CHANGED
 }
+
+

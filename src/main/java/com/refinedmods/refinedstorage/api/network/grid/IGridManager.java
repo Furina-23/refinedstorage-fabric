@@ -53,3 +53,5 @@ public interface IGridManager {
     @Nullable
     Pair<IGrid, BlockEntity> createGrid(ResourceLocation id, Player player, @Nullable ItemStack stack, @Nullable BlockPos pos, PlayerSlot slot);
 }
+
+

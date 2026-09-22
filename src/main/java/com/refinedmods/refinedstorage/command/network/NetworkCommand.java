@@ -31,3 +31,5 @@ public abstract class NetworkCommand implements Command<CommandSourceStack> {
 
     protected abstract int run(CommandContext<CommandSourceStack> context, INetwork network) throws CommandSyntaxException;
 }
+
+

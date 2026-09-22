@@ -25,3 +25,5 @@ public class ControllerItemPropertyGetter implements ItemPropertyFunction {
         return ControllerBlock.EnergyType.ON.ordinal();
     }
 }
+
+

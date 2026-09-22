@@ -151,3 +151,5 @@ public class CraftingMonitorNetworkNode extends NetworkNode implements ICrafting
         return -1;
     }
 }
+
+

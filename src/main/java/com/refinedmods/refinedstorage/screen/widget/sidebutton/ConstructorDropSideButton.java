@@ -28,3 +28,5 @@ public class ConstructorDropSideButton extends SideButton {
         BlockEntitySynchronizationManager.setParameter(ConstructorBlockEntity.DROP, !ConstructorBlockEntity.DROP.getValue());
     }
 }
+
+

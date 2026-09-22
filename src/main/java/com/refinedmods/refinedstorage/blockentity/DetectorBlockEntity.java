@@ -68,3 +68,5 @@ public class DetectorBlockEntity extends NetworkNodeBlockEntity<DetectorNetworkN
         return new DetectorNetworkNode(level, pos);
     }
 }
+
+

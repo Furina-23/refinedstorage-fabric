@@ -10,7 +10,7 @@ import com.refinedmods.refinedstorage.screen.grid.stack.IGridStack;
 import com.refinedmods.refinedstorage.util.StackUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.network.NetworkEvent;
+import com.refinedmods.refinedstorage.network.fabric.NetworkEvent;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
@@ -68,3 +68,5 @@ public class GridItemDeltaMessage {
         ctx.get().setPacketHandled(true);
     }
 }
+
+

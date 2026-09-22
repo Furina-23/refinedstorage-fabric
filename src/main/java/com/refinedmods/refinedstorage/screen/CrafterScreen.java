@@ -37,3 +37,5 @@ public class CrafterScreen extends BaseScreen<CrafterContainerMenu> {
         renderString(graphics, 7, 43, I18n.get("container.inventory"));
     }
 }
+
+

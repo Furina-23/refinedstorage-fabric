@@ -13,12 +13,11 @@ import net.minecraft.world.item.ItemStack;
 import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.util.RandomSource;
-import net.minecraftforge.client.model.BakedModelWrapper;
 
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
-public class PatternBakedModel extends BakedModelWrapper<BakedModel> implements FabricBakedModel {
+public class PatternBakedModel extends ForwardingBakedModel<BakedModel> implements FabricBakedModel {
     public PatternBakedModel(BakedModel base) {
         super(base);
     }
@@ -62,3 +61,5 @@ public class PatternBakedModel extends BakedModelWrapper<BakedModel> implements 
         ((FabricBakedModel) originalModel).emitItemQuads(stack, randomSupplier, context);
     }
 }
+
+

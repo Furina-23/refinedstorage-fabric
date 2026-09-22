@@ -24,12 +24,20 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.minecraftforge.common.util.TransformationHelper;
+import com.refinedmods.refinedstorage.render.FabricFluidRendering;
 import com.refinedmods.refinedstorage.transfer.FluidStack;
 import org.joml.Vector3f;
 
 public class StorageMonitorBlockEntityRenderer implements BlockEntityRenderer<StorageMonitorBlockEntity> {
+    private static org.joml.Quaternionf rotationXYZ(Vector3f rotation, boolean degrees) {
+        float factor = degrees ? (float) (Math.PI / 180.0) : 1.0F;
+        return new org.joml.Quaternionf().rotationXYZ(
+            rotation.x() * factor,
+            rotation.y() * factor,
+            rotation.z() * factor
+        );
+    }
+
     @Override
     public void render(StorageMonitorBlockEntity blockEntity, float partialTicks, PoseStack poseStack, MultiBufferSource renderTypeBuffer, int i, int i1) {
         Direction direction = Direction.NORTH;
@@ -74,8 +82,8 @@ public class StorageMonitorBlockEntityRenderer implements BlockEntityRenderer<St
             ((float) direction.getStepZ() * 0.501F) - (direction.getStepX() * stringOffset)
         );
 
-        poseStack.mulPose(TransformationHelper.quatFromXYZ(new Vector3f(direction.getStepX() * 180, 0, direction.getStepZ() * 180), true));
-        poseStack.mulPose(TransformationHelper.quatFromXYZ(new Vector3f(0, rotation, 0), false));
+        poseStack.mulPose(rotationXYZ(new Vector3f(direction.getStepX() * 180, 0, direction.getStepZ() * 180), true));
+        poseStack.mulPose(new org.joml.Quaternionf().rotationY(rotation));
 
         poseStack.scale(0.01F, 0.01F, 0.01F);
 
@@ -101,13 +109,13 @@ public class StorageMonitorBlockEntityRenderer implements BlockEntityRenderer<St
         // Put it in the middle, outwards, and facing the correct direction
         poseStack.translate(0.5D, 0.5D, 0.5D);
         poseStack.translate((float) direction.getStepX() * 0.501F, 0, (float) direction.getStepZ() * 0.501F);
-        poseStack.mulPose(TransformationHelper.quatFromXYZ(new Vector3f(0, rotation, 0), false));
+        poseStack.mulPose(rotationXYZ(new Vector3f(0, rotation, 0), false));
 
         // Make it look "flat"
         poseStack.scale(0.5F, -0.5F, -0.00005f);
 
         // Fix rotation after making it look flat
-        poseStack.mulPose(TransformationHelper.quatFromXYZ(new Vector3f(0, 0, 180), true));
+        poseStack.mulPose(rotationXYZ(new Vector3f(0, 0, 180), true));
 
         BakedModel itemModel = Minecraft.getInstance().getItemRenderer().getModel(itemStack, null, null, 0);
         boolean render3D = itemModel.isGui3d();
@@ -137,15 +145,13 @@ public class StorageMonitorBlockEntityRenderer implements BlockEntityRenderer<St
 
         poseStack.translate(0.5D, 0.5D, 0.5D);
         poseStack.translate((float) direction.getStepX() * 0.51F, 0.5F, (float) direction.getStepZ() * 0.51F);
-        poseStack.mulPose(TransformationHelper.quatFromXYZ(new Vector3f(0, rotation, 0), false));
+        poseStack.mulPose(rotationXYZ(new Vector3f(0, rotation, 0), false));
 
         poseStack.scale(0.5F, 0.5F, 0.5F);
 
         final Fluid fluid = fluidStack.getFluid();
-        final IClientFluidTypeExtensions attributes = IClientFluidTypeExtensions.of(fluid);
-        final ResourceLocation fluidStill = attributes.getStillTexture(fluidStack);
-        final TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(fluidStill);
-        final int fluidColor = attributes.getTintColor(fluidStack);
+        final TextureAtlasSprite sprite = FabricFluidRendering.getStillSprite(fluid);
+        final int fluidColor = FabricFluidRendering.getColor(fluid);
 
         final VertexConsumer buffer = renderTypeBuffer.getBuffer(RenderType.text(sprite.atlasLocation()));
 
@@ -178,3 +184,5 @@ public class StorageMonitorBlockEntityRenderer implements BlockEntityRenderer<St
         poseStack.popPose();
     }
 }
+
+

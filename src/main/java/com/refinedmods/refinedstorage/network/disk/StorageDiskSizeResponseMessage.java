@@ -4,7 +4,7 @@ import com.refinedmods.refinedstorage.api.storage.disk.StorageDiskSyncData;
 import com.refinedmods.refinedstorage.apiimpl.API;
 import com.refinedmods.refinedstorage.apiimpl.storage.disk.StorageDiskSync;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import com.refinedmods.refinedstorage.network.fabric.NetworkEvent;
 
 import java.util.UUID;
 import java.util.function.Supplier;
@@ -35,3 +35,5 @@ public class StorageDiskSizeResponseMessage {
         ctx.get().setPacketHandled(true);
     }
 }
+
+

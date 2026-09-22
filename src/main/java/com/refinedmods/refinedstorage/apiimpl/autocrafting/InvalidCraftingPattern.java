@@ -89,3 +89,5 @@ public class InvalidCraftingPattern implements ICraftingPattern {
         throw new UnsupportedOperationException(EXCEPTION_MESSAGE);
     }
 }
+
+

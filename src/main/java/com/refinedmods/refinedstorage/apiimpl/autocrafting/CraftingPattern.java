@@ -283,3 +283,5 @@ public class CraftingPattern implements ICraftingPattern {
         }
     }
 }
+
+

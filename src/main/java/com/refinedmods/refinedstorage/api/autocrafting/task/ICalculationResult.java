@@ -39,3 +39,5 @@ public interface ICalculationResult {
     @Nullable
     ICraftingPattern getRecursedPattern();
 }
+
+

@@ -25,3 +25,5 @@ public interface INetworkNodeRegistry {
     @Nullable
     INetworkNodeFactory get(ResourceLocation id);
 }
+
+

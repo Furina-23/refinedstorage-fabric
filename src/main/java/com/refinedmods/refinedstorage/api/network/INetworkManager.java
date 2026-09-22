@@ -43,3 +43,5 @@ public interface INetworkManager {
      */
     void markForSaving();
 }
+
+

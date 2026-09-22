@@ -3,7 +3,7 @@ package com.refinedmods.refinedstorage.container;
 import com.refinedmods.refinedstorage.RSContainerMenus;
 import com.refinedmods.refinedstorage.blockentity.SecurityManagerBlockEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.items.SlotItemHandler;
+import com.refinedmods.refinedstorage.container.transfer.SlotItemHandler;
 
 public class SecurityManagerContainerMenu extends BaseContainerMenu {
     public SecurityManagerContainerMenu(SecurityManagerBlockEntity securityManager, Player player, int windowId) {
@@ -31,3 +31,6 @@ public class SecurityManagerContainerMenu extends BaseContainerMenu {
         transferManager.addTransfer(securityManager.getNode().getEditCard(), player.getInventory());
     }
 }
+
+
+

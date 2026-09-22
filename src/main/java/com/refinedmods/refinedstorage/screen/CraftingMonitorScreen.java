@@ -320,3 +320,5 @@ public class CraftingMonitorScreen extends BaseScreen<CraftingMonitorContainerMe
         }
     }
 }
+
+

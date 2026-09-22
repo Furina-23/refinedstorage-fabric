@@ -37,3 +37,5 @@ public class ModGridFilter implements Predicate<IGridStack> {
         return input.toLowerCase().replace(" ", "");
     }
 }
+
+

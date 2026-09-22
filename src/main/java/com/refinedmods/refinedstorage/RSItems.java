@@ -15,13 +15,13 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import com.refinedmods.refinedstorage.registry.DeferredRegister;
-import com.refinedmods.refinedstorage.registry.ForgeRegistries;
+import com.refinedmods.refinedstorage.registry.RSRegistries;
 import com.refinedmods.refinedstorage.registry.RegistryObject;
 
 import java.util.*;
 
 public final class RSItems {
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, RS.ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(RSRegistries.ITEMS, RS.ID);
 
     public static final RegistryObject<QuartzEnrichedIronItem> QUARTZ_ENRICHED_IRON;
     public static final RegistryObject<SiliconItem> SILICON;
@@ -225,3 +225,5 @@ public final class RSItems {
         ITEMS.register();
     }
 }
+
+

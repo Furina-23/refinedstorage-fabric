@@ -16,7 +16,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import com.refinedmods.refinedstorage.registry.ForgeRegistries;
+import com.refinedmods.refinedstorage.registry.RSRegistries;
 
 public class UpgradeWithEnchantedBookRecipe extends ShapedRecipe {
     private final EnchantmentInstance enchant;
@@ -56,7 +56,7 @@ public class UpgradeWithEnchantedBookRecipe extends ShapedRecipe {
                 CompoundTag enchantmentNbt = enchantments.getCompound(i);
 
                 // @Volatile: NBT tags from EnchantedBookItem
-                if (ForgeRegistries.ENCHANTMENTS.get(new ResourceLocation(enchantmentNbt.getString("id"))) == enchant.enchantment &&
+                if (RSRegistries.ENCHANTMENTS.get(new ResourceLocation(enchantmentNbt.getString("id"))) == enchant.enchantment &&
                     enchantmentNbt.getShort("lvl") == enchant.level) {
                     return true;
                 }
@@ -66,3 +66,5 @@ public class UpgradeWithEnchantedBookRecipe extends ShapedRecipe {
         return false;
     }
 }
+
+

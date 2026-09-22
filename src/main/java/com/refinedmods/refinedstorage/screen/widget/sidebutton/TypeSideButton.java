@@ -32,3 +32,5 @@ public class TypeSideButton extends SideButton {
         BlockEntitySynchronizationManager.setParameter(type, type.getValue() == IType.ITEMS ? IType.FLUIDS : IType.ITEMS);
     }
 }
+
+

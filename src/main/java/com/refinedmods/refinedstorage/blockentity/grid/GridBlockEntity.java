@@ -121,3 +121,5 @@ public class GridBlockEntity extends NetworkNodeBlockEntity<GridNetworkNode> {
         return new GridNetworkNode(level, pos, type);
     }
 }
+
+

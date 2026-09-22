@@ -145,3 +145,5 @@ public class ColorMap<T> {
         return InteractionResult.SUCCESS;
     }
 }
+
+

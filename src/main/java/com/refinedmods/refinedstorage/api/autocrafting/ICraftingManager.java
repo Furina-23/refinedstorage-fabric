@@ -169,3 +169,5 @@ public interface ICraftingManager {
      */
     Set<ICraftingPatternContainer> getAllContainers(ICraftingPattern pattern);
 }
+
+

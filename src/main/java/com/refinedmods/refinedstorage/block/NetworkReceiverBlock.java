@@ -33,3 +33,5 @@ public class NetworkReceiverBlock extends ColoredNetworkBlock {
         return RSBlocks.NETWORK_RECEIVER.changeBlockColor(state, player.getItemInHand(hand), level, pos, player);
     }
 }
+
+

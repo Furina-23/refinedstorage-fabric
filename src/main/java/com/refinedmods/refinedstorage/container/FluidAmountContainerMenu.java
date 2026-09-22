@@ -16,3 +16,5 @@ public class FluidAmountContainerMenu extends BaseContainerMenu {
         addSlot(new DisabledFluidFilterSlot(inventory, 0, 89, 48, 0));
     }
 }
+
+
