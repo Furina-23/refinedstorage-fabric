@@ -19,7 +19,24 @@ public final class ItemHandlerHelper {
     }
 
     public static ItemStack insertItemStacked(IItemHandler handler, ItemStack stack, boolean simulate) {
-        return insertItem(handler, stack, simulate);
+        ItemStack remainder = stack;
+
+        // Match Forge's stacked insertion behavior: fill compatible stacks first,
+        // then use empty slots for anything left over.
+        for (int i = 0; i < handler.getSlots() && !remainder.isEmpty(); ++i) {
+            ItemStack existing = handler.getStackInSlot(i);
+            if (!existing.isEmpty() && ItemStack.isSameItemSameTags(existing, remainder)) {
+                remainder = handler.insertItem(i, remainder, simulate);
+            }
+        }
+
+        for (int i = 0; i < handler.getSlots() && !remainder.isEmpty(); ++i) {
+            if (handler.getStackInSlot(i).isEmpty()) {
+                remainder = handler.insertItem(i, remainder, simulate);
+            }
+        }
+
+        return remainder;
     }
 
     public static void giveItemToPlayer(net.minecraft.server.level.ServerPlayer player, ItemStack stack) {

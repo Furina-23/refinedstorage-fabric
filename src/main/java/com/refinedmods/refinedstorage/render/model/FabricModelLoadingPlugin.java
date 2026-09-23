@@ -73,7 +73,7 @@ public final class FabricModelLoadingPlugin {
     private static boolean isPortableGridItem(ResourceLocation id) {
         return id instanceof ModelResourceLocation modelId
             && RS.ID.equals(modelId.getNamespace())
-            && "portable_grid".equals(modelId.getPath())
+            && ("portable_grid".equals(modelId.getPath()) || "creative_portable_grid".equals(modelId.getPath()))
             && "inventory".equals(modelId.getVariant());
     }
 }
