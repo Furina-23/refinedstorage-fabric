@@ -20,6 +20,7 @@ import com.refinedmods.refinedstorage.screen.*;
 import com.refinedmods.refinedstorage.screen.factory.CrafterManagerScreenFactory;
 import com.refinedmods.refinedstorage.screen.factory.GridScreenFactory;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
@@ -27,8 +28,10 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -40,6 +43,7 @@ public final class RefinedStorageFabricClient implements ClientModInitializer {
         FabricModelLoadingPlugin.register();
         RS.CLIENT_CONFIG.getSpec().load(FabricLoader.getInstance().getConfigDir().resolve("refinedstorage-client.json"));
         registerScreens();
+        registerBlockRenderLayers();
         registerKeyBindings();
         registerItemProperties();
         registerPatternRenderHandlers();
@@ -47,6 +51,12 @@ public final class RefinedStorageFabricClient implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(KeyInputListener::onClientTick);
         ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new ResourcePackListener());
         BlockEntityRenderers.register(RSBlockEntities.STORAGE_MONITOR.get(), context -> new StorageMonitorBlockEntityRenderer());
+    }
+
+    private static void registerBlockRenderLayers() {
+        BuiltInRegistries.BLOCK.stream()
+            .filter(block -> RS.ID.equals(BuiltInRegistries.BLOCK.getKey(block).getNamespace()))
+            .forEach(block -> BlockRenderLayerMap.INSTANCE.putBlock(block, RenderType.cutout()));
     }
 
     private static void registerScreens() {

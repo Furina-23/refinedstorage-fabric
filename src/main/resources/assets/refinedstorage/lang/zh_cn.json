@@ -52,6 +52,7 @@
     "gui.refinedstorage.network_transmitter.distance": "%d 个方块",
     "gui.refinedstorage.network_transmitter.dimension": "维度 %d",
     "gui.refinedstorage.network_transmitter.missing_card": "缺失网卡",
+    "gui.refinedstorage.network_transmitter.unlinked_card": "网卡未绑定",
     "gui.refinedstorage.fluid_interface": "流体面板",
     "gui.refinedstorage.fluid_interface.in": "输入",
     "gui.refinedstorage.fluid_interface.out": "输出",

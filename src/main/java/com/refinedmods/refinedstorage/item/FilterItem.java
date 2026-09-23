@@ -5,6 +5,7 @@ import com.refinedmods.refinedstorage.RSItems;
 import com.refinedmods.refinedstorage.api.util.IComparer;
 import com.refinedmods.refinedstorage.api.util.IFilter;
 import com.refinedmods.refinedstorage.container.FilterContainerMenu;
+import com.refinedmods.refinedstorage.network.fabric.NetworkHooks;
 import com.refinedmods.refinedstorage.inventory.fluid.ConfiguredFluidsInFilterItemHandler;
 import com.refinedmods.refinedstorage.inventory.item.ConfiguredItemsInFilterItemHandler;
 import com.refinedmods.refinedstorage.render.Styles;
@@ -12,6 +13,7 @@ import com.refinedmods.refinedstorage.blockentity.config.IType;
 import com.refinedmods.refinedstorage.util.RenderUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -143,7 +145,7 @@ public class FilterItem extends Item {
                 return new InteractionResultHolder<>(InteractionResult.SUCCESS, new ItemStack(RSItems.FILTER.get()));
             }
 
-            player.openMenu(new MenuProvider() {
+            NetworkHooks.openScreen((ServerPlayer) player, new MenuProvider() {
                 @Override
                 public Component getDisplayName() {
                     return Component.translatable("gui.refinedstorage.filter");

@@ -44,8 +44,10 @@ public class NetworkTransmitterScreen extends BaseScreen<NetworkTransmitterConta
         Optional<ResourceLocation> receiverDim = NetworkTransmitterBlockEntity.RECEIVER_DIMENSION.getValue();
         int distance = NetworkTransmitterBlockEntity.DISTANCE.getValue();
 
-        if (!receiverDim.isPresent()) {
+        if (!menu.getSlot(0).hasItem()) {
             text = I18n.get("gui.refinedstorage.network_transmitter.missing_card");
+        } else if (!receiverDim.isPresent()) {
+            text = I18n.get("gui.refinedstorage.network_transmitter.unlinked_card");
         } else if (distance != -1) {
             text = I18n.get("gui.refinedstorage.network_transmitter.distance", distance);
         } else {

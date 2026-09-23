@@ -185,7 +185,8 @@ public class ItemGridHandler implements IItemGridHandler {
                     }
 
                     if (!took.isEmpty() && ItemHandlerHelper.insertItemStacked(playerInventory.get(), took, true).isEmpty()) {
-                        took = network.extractItem(item, size, Action.PERFORM);
+                        int remainderCount = took.getCount();
+                        took = network.extractItem(item, remainderCount, Action.PERFORM);
 
                         ItemHandlerHelper.insertItemStacked(playerInventory.get(), took, false);
                     }

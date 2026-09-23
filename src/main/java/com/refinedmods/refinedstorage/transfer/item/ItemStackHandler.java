@@ -112,7 +112,7 @@ public class ItemStackHandler implements IItemHandlerModifiable {
     protected void onContentsChanged(int slot) {
     }
 
-    private void validateSlotIndex(int slot) {
+    protected void validateSlotIndex(int slot) {
         if (slot < 0 || slot >= stacks.size()) {
             throw new IndexOutOfBoundsException("Invalid slot " + slot);
         }

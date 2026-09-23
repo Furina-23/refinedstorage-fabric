@@ -104,7 +104,8 @@ public class PortableItemGridHandler implements IItemGridHandler {
                     }
 
                     if (!took.isEmpty() && ItemHandlerHelper.insertItemStacked(playerInventory, took, true).isEmpty()) {
-                        took = portableGrid.getItemStorage().extract(item, size, IComparer.COMPARE_NBT, Action.PERFORM);
+                        int remainderCount = took.getCount();
+                        took = portableGrid.getItemStorage().extract(item, remainderCount, IComparer.COMPARE_NBT, Action.PERFORM);
 
                         ItemHandlerHelper.insertItemStacked(playerInventory, took, false);
                     }

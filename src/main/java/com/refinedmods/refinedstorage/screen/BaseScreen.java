@@ -128,13 +128,13 @@ public abstract class BaseScreen<T extends AbstractContainerMenu> extends Abstra
         for (int i = 0; i < this.menu.slots.size(); ++i) {
             Slot slot = menu.slots.get(i);
 
-            if (slot.isActive() && slot instanceof FluidFilterSlot) {
-                FluidStack stack = ((FluidFilterSlot) slot).getFluidInventory().getFluid(slot.index);
+            if (slot.isActive() && slot instanceof FluidFilterSlot fluidSlot) {
+                FluidStack stack = fluidSlot.getFluidInventory().getFluid(fluidSlot.getSlotIndex());
 
                 if (!stack.isEmpty()) {
                     FluidRenderer.INSTANCE.render(graphics, leftPos + slot.x, topPos + slot.y, stack);
 
-                    if (((FluidFilterSlot) slot).isSizeAllowed()) {
+                    if (fluidSlot.isSizeAllowed()) {
                         renderQuantity(graphics, leftPos + slot.x, topPos + slot.y, API.instance().getQuantityFormatter().formatInBucketForm(stack.getAmount()), RenderSettings.INSTANCE.getSecondaryColor());
 
                         GL11.glDisable(GL11.GL_LIGHTING);
@@ -156,8 +156,8 @@ public abstract class BaseScreen<T extends AbstractContainerMenu> extends Abstra
         for (int i = 0; i < this.menu.slots.size(); ++i) {
             Slot slot = menu.slots.get(i);
 
-            if (slot.isActive() && slot instanceof FluidFilterSlot) {
-                FluidStack stack = ((FluidFilterSlot) slot).getFluidInventory().getFluid(slot.index);
+            if (slot.isActive() && slot instanceof FluidFilterSlot fluidSlot) {
+                FluidStack stack = fluidSlot.getFluidInventory().getFluid(fluidSlot.getSlotIndex());
 
                 if (!stack.isEmpty() && RenderUtils.inBounds(slot.x, slot.y, 17, 17, mouseX, mouseY)) {
                     renderTooltip(graphics, mouseX, mouseY, stack.getDisplayName().getString());
@@ -197,31 +197,32 @@ public abstract class BaseScreen<T extends AbstractContainerMenu> extends Abstra
                     ));
                 }
             }
-        } else if (valid && slot instanceof FluidFilterSlot && slot.isActive() && ((FluidFilterSlot) slot).isSizeAllowed()) {
-            FluidStack stack = ((FluidFilterSlot) slot).getFluidInventory().getFluid(slot.index);
+        } else if (valid && slot instanceof FluidFilterSlot fluidSlot && slot.isActive() && fluidSlot.isSizeAllowed()) {
+            int fluidSlotIndex = fluidSlot.getSlotIndex();
+            FluidStack stack = fluidSlot.getFluidInventory().getFluid(fluidSlotIndex);
 
             if (!stack.isEmpty()) {
-                if (((FluidFilterSlot) slot).isAlternativesAllowed() && hasControlDown()) {
+                if (fluidSlot.isAlternativesAllowed() && hasControlDown()) {
                     minecraft.setScreen(new AlternativesScreen(
                         this,
                         minecraft.player,
                         ALTERNATIVES_TEXT,
                         stack,
-                        slot.index
+                        fluidSlotIndex
                     ));
                 } else {
                     minecraft.setScreen(new FluidAmountScreen(
                         this,
                         minecraft.player,
-                        slot.index,
+                        fluidSlotIndex,
                         stack,
-                        ((FluidFilterSlot) slot).getFluidInventory().getMaxAmount(),
-                        ((FluidFilterSlot) slot).isAlternativesAllowed() ? (parent -> new AlternativesScreen(
+                        fluidSlot.getFluidInventory().getMaxAmount(),
+                        fluidSlot.isAlternativesAllowed() ? (parent -> new AlternativesScreen(
                             this,
                             minecraft.player,
                             ALTERNATIVES_TEXT,
                             stack,
-                            slot.index
+                            fluidSlotIndex
                         )) : null
                     ));
                 }

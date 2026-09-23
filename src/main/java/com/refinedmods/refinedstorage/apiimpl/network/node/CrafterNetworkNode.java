@@ -97,8 +97,8 @@ public class CrafterNetworkNode extends NetworkNode implements ICraftingPatternC
         for (int i = 0; i < patternsInventory.getSlots(); ++i) {
             ItemStack patternStack = patternsInventory.getStackInSlot(i);
 
-            if (!patternStack.isEmpty()) {
-                ICraftingPattern pattern = ((ICraftingPatternProvider) patternStack.getItem()).create(level, patternStack, this);
+            if (!patternStack.isEmpty() && patternStack.getItem() instanceof ICraftingPatternProvider provider) {
+                ICraftingPattern pattern = provider.create(level, patternStack, this);
 
                 if (pattern.isValid()) {
                     patterns.add(pattern);

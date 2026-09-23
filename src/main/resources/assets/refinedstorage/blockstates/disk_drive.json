@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "direction=north": {
       "model": "refinedstorage:block/disk_drive"
+    },
+    "direction=east": {
+      "model": "refinedstorage:block/disk_drive",
+      "y": 90
+    },
+    "direction=south": {
+      "model": "refinedstorage:block/disk_drive",
+      "y": 180
+    },
+    "direction=west": {
+      "model": "refinedstorage:block/disk_drive",
+      "y": 270
     }
   }
 }

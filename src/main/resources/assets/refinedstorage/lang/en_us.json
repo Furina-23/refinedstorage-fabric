@@ -55,6 +55,7 @@
   "gui.refinedstorage.network_transmitter": "Network Transmitter",
   "gui.refinedstorage.network_transmitter.distance": "%d block(s)",
   "gui.refinedstorage.network_transmitter.missing_card": "Missing Network Card",
+  "gui.refinedstorage.network_transmitter.unlinked_card": "Unlinked Network Card",
   "gui.refinedstorage.fluid_interface": "Fluid Interface",
   "gui.refinedstorage.fluid_interface.in": "In",
   "gui.refinedstorage.fluid_interface.out": "Out",

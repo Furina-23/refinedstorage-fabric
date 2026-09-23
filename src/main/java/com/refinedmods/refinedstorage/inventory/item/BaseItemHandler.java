@@ -50,6 +50,23 @@ public class BaseItemHandler extends ItemStackHandler {
     }
 
     @Override
+    public boolean isItemValid(int slot, ItemStack stack) {
+        validateSlotIndex(slot);
+
+        if (stack.isEmpty() || validators.isEmpty()) {
+            return !stack.isEmpty();
+        }
+
+        for (Predicate<ItemStack> validator : validators) {
+            if (validator.test(stack)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
     protected void onContentsChanged(int slot) {
         super.onContentsChanged(slot);
 

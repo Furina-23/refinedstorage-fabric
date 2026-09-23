@@ -3,7 +3,6 @@ package com.refinedmods.refinedstorage.render.model;
 import com.mojang.math.Transformation;
 import com.refinedmods.refinedstorage.RS;
 import com.refinedmods.refinedstorage.render.model.baked.DiskDriveBakedModel;
-import com.refinedmods.refinedstorage.util.RenderUtils;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.*;
@@ -55,10 +54,7 @@ public class DiskDriveUnbakedGeometry implements UnbakedModel {
 
     private Function<Direction, BakedModel> getBaseModelBaker(final ModelState state,
                                                               final ModelBaker baker) {
-        return direction -> {
-            final Transformation rotation = new Transformation(null, RenderUtils.getQuaternion(direction), null, null);
-            return baker.bake(BASE_MODEL, transformedState(state, rotation));
-        };
+        return direction -> baker.bake(BASE_MODEL, state);
     }
 
     private BiFunction<Direction, Vector3f, BakedModel> getDiskModelBaker(final ResourceLocation id,
@@ -66,8 +62,7 @@ public class DiskDriveUnbakedGeometry implements UnbakedModel {
                                                                           final ModelBaker baker) {
         return (direction, trans) -> {
             final Transformation translation = new Transformation(trans, null, null, null);
-            final Transformation rotation = new Transformation(null, RenderUtils.getQuaternion(direction), null, null);
-            return baker.bake(id, transformedState(state, rotation.compose(translation)));
+            return baker.bake(id, transformedState(state, translation));
         };
     }
 
@@ -75,7 +70,7 @@ public class DiskDriveUnbakedGeometry implements UnbakedModel {
         return new ModelState() {
             @Override
             public Transformation getRotation() {
-                return transformation.compose(state.getRotation());
+                return state.getRotation().compose(transformation);
             }
 
             @Override
