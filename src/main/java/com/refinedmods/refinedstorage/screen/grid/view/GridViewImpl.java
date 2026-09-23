@@ -168,11 +168,16 @@ public class GridViewImpl implements IGridView {
             map.put(stack.getId(), stack);
             existing = stack;
 
-            if (craftingStack != null && shouldSort && activeFilters.test(existing)) {
+            if (craftingStack != null && activeFilters.test(existing)) {
                 stacks.remove(craftingStack);
             }
 
             deltaListeners.forEach(consumer -> consumer.accept(stack));
+
+            if (!shouldSort && activeFilters.test(existing)) {
+                // Keep the visible list complete while Shift suppresses reordering.
+                stacks.add(existing);
+            }
 
         } else {
             if (shouldSort) {
@@ -182,6 +187,9 @@ public class GridViewImpl implements IGridView {
             if (existing.getQuantity() <= 0) {
                 map.remove(existing.getId());
                 stillExists = false;
+
+                // Removing an entry must not be deferred just because sorting is disabled.
+                stacks.remove(existing);
 
                 if (craftingStack != null && shouldSort && activeFilters.test(existing) && activeFilters.test(craftingStack)) {
                     addStack(craftingStack);
@@ -196,6 +204,8 @@ public class GridViewImpl implements IGridView {
                 addStack(existing);
             }
             this.screen.updateScrollbar();
+        } else if (!stillExists && craftingStack != null && activeFilters.test(craftingStack)) {
+            stacks.add(craftingStack);
         }
     }
 
