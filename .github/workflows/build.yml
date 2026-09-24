@@ -1,14 +1,41 @@
 name: Build
+
 on:
   push:
-    branches:
-      - develop
-      - main
   pull_request:
-    types: [ opened, synchronize, reopened ]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
-    uses: refinedmods/refinedarchitect/.github/workflows/build.yml@v0.7.1
-    with:
-      mutation-testing: false
-    secrets: inherit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Make Gradle wrapper executable
+        run: chmod +x ./gradlew
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build and test
+        run: ./gradlew --no-daemon clean check build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: refinedstorage-jars
+          path: build/libs/*.jar
+          if-no-files-found: error
