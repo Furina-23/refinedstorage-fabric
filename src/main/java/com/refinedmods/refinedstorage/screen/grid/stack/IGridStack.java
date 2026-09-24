@@ -32,6 +32,10 @@ public interface IGridStack {
 
     void setQuantity(int amount);
 
+    boolean isZeroed();
+
+    boolean isSameType(IGridStack other);
+
     String getFormattedFullQuantity();
 
     void draw(GuiGraphics graphics, BaseScreen<?> screen, int x, int y);

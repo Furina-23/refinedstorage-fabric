@@ -1,8 +1,5 @@
 package com.refinedmods.refinedstorage.render.model.baked;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import com.refinedmods.refinedstorage.RSBlocks;
 import com.refinedmods.refinedstorage.apiimpl.network.node.DiskState;
 import com.refinedmods.refinedstorage.block.DiskManipulatorBlock;
@@ -23,10 +20,7 @@ import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Vector3f;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -39,56 +33,6 @@ public class DiskManipulatorBakedModel extends ForwardingBakedModel<BakedModel> 
     private final BiFunction<Direction, Vector3f, BakedModel> diskNearCapacityModelBakery;
     private final BiFunction<Direction, Vector3f, BakedModel> diskFullModelBakery;
     private final BiFunction<Direction, Vector3f, BakedModel> diskDisconnectedModelBakery;
-
-    private final LoadingCache<CacheKey, List<BakedQuad>> cache = CacheBuilder.newBuilder().build(new CacheLoader<CacheKey, List<BakedQuad>>() {
-        @Override
-        @SuppressWarnings("deprecation")
-        public List<BakedQuad> load(CacheKey key) {
-            Direction facing = key.state.getValue(RSBlocks.DISK_MANIPULATOR.get(ColorMap.DEFAULT_COLOR).get().getDirection().getProperty());
-            boolean connected = key.state.getValue(NetworkNodeBlock.CONNECTED);
-            List<BakedQuad> quads;
-            if (connected) {
-                quads = new ArrayList<>(baseConnectedModelBakery.apply(facing, key.color).getQuads(key.state, key.side, key.random));
-            } else {
-                quads = new ArrayList<>(baseDisconnectedModelBakery.apply(facing).getQuads(key.state, key.side, key.random));
-            }
-
-            int x = 0;
-            int y = 0;
-            for (int i = 0; i < 6; ++i) {
-                if (key.diskState[i] != DiskState.NONE) {
-                    BakedModel diskModel = getDiskModelBakery(key.diskState[i]).apply(facing, getDiskTranslation(facing, x, y));
-                    quads.addAll(diskModel.getQuads(key.state, key.side, key.random));
-                }
-
-                y++;
-                if ((i + 1) % 3 == 0) {
-                    x++;
-                    y = 0;
-                }
-            }
-
-            return quads;
-        }
-
-        private BiFunction<Direction, Vector3f, BakedModel> getDiskModelBakery(DiskState diskState) {
-            return switch (diskState) {
-                case DISCONNECTED -> diskDisconnectedModelBakery;
-                case NEAR_CAPACITY -> diskNearCapacityModelBakery;
-                case FULL -> diskFullModelBakery;
-                default -> diskModelBakery;
-            };
-        }
-
-        private Vector3f getDiskTranslation(Direction facing, int x, int y) {
-            Vector3f translation = new Vector3f();
-
-            translation.add((2F / 16F + ((float) x * 7F) / 16F) * -1, 0, 0); // Add to X
-            translation.add(0, -((6F / 16F) + (3F * y) / 16F), 0); // Remove from Y
-
-            return translation;
-        }
-    });
 
     public DiskManipulatorBakedModel(BakedModel originalModel, BiFunction<Direction, DyeColor, BakedModel> baseConnectedModelBakery, Function<Direction, BakedModel> baseDisconnectedModelBakery, BiFunction<Direction, Vector3f, BakedModel> diskModelBakery, BiFunction<Direction, Vector3f, BakedModel> diskNearCapacityModelBakery, BiFunction<Direction, Vector3f, BakedModel> diskFullModelBakery, BiFunction<Direction, Vector3f, BakedModel> diskDisconnectedModelBakery) {
         super(originalModel);
@@ -151,7 +95,19 @@ public class DiskManipulatorBakedModel extends ForwardingBakedModel<BakedModel> 
 
     @Override
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, RandomSource rand) {
-        return super.getQuads(state, side, rand);
+        if (state == null) {
+            return super.getQuads(null, side, rand);
+        }
+
+        Direction facing = state.getValue(RSBlocks.DISK_MANIPULATOR.get(ColorMap.DEFAULT_COLOR).get().getDirection().getProperty());
+        BakedModel base;
+        if (state.getValue(NetworkNodeBlock.CONNECTED)) {
+            DyeColor color = RSBlocks.DISK_MANIPULATOR.getColorFromObject((DiskManipulatorBlock) state.getBlock());
+            base = baseConnectedModelBakery.apply(facing, color);
+        } else {
+            base = baseDisconnectedModelBakery.apply(facing);
+        }
+        return base.getQuads(state, side, rand);
     }
 
     private BiFunction<Direction, Vector3f, BakedModel> getDiskModelBakery(DiskState diskState) {
@@ -171,56 +127,6 @@ public class DiskManipulatorBakedModel extends ForwardingBakedModel<BakedModel> 
         );
     }
 
-    private static class CacheKey {
-        private final BlockState state;
-        private final Direction side;
-        private final DiskState[] diskState;
-        private final RandomSource random;
-        private final DyeColor color;
-
-        CacheKey(BlockState state, @Nullable Direction side, DiskState[] diskState, RandomSource random, DyeColor color) {
-            this.state = state;
-            this.side = side;
-            this.diskState = Arrays.copyOf(diskState, diskState.length);
-            this.random = random;
-            this.color = color;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-
-            CacheKey cacheKey = (CacheKey) o;
-
-            if (!state.equals(cacheKey.state)) {
-                return false;
-            }
-
-            if (side != cacheKey.side) {
-                return false;
-            }
-
-            if (color != cacheKey.color) {
-                return false;
-            }
-
-            return Arrays.equals(diskState, cacheKey.diskState);
-        }
-
-        @Override
-        public int hashCode() {
-            int result = state.hashCode();
-            result = 31 * result + (side != null ? side.hashCode() : 0);
-            result = 31 * result + Arrays.hashCode(diskState);
-            return result;
-        }
-    }
 }
 
 

@@ -28,12 +28,14 @@ public final class ConfigSpec {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     private final Map<String, Value<?>> values;
+    private Path loadedPath;
 
     private ConfigSpec(Map<String, Value<?>> values) {
         this.values = Collections.unmodifiableMap(new LinkedHashMap<>(values));
     }
 
     public synchronized void load(Path path) {
+        loadedPath = path;
         if (Files.isRegularFile(path)) {
             try (Reader reader = Files.newBufferedReader(path)) {
                 JsonElement parsed = JsonParser.parseReader(reader);
@@ -48,6 +50,12 @@ public final class ConfigSpec {
             }
         }
         save(path);
+    }
+
+    public synchronized void save() {
+        if (loadedPath != null) {
+            save(loadedPath);
+        }
     }
 
     private void save(Path path) {
@@ -142,6 +150,13 @@ public final class ConfigSpec {
             return value;
         }
 
+        protected final void setValue(T value) {
+            if (!isValid(value)) {
+                throw new IllegalArgumentException("Invalid config value " + value);
+            }
+            this.value = value;
+        }
+
         final List<String> getPath() {
             return path;
         }
@@ -202,6 +217,10 @@ public final class ConfigSpec {
 
         public boolean get() {
             return getValue();
+        }
+
+        public void set(boolean value) {
+            setValue(value);
         }
 
         @Override

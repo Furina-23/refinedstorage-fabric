@@ -53,6 +53,17 @@ public class FluidGridStack implements IGridStack {
         this.zeroed = zeroed;
     }
 
+    @Override
+    public boolean isZeroed() {
+        return zeroed;
+    }
+
+    @Override
+    public boolean isSameType(IGridStack other) {
+        return other instanceof FluidGridStack fluidStack
+            && stack.isFluidEqual(fluidStack.stack);
+    }
+
     public FluidStack getStack() {
         return stack;
     }
@@ -168,6 +179,7 @@ public class FluidGridStack implements IGridStack {
         if (amount <= 0) {
             setZeroed(true);
         } else {
+            setZeroed(false);
             stack.setAmount(amount);
         }
     }

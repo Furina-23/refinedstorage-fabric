@@ -9,19 +9,19 @@
     {
       "model": "refinedstorage:block/controller/nearly_off",
       "predicate": {
-        "refinedstorage:energy_type": 1.0
+        "refinedstorage:energy_type": 0.33333333
       }
     },
     {
       "model": "refinedstorage:block/controller/nearly_on",
       "predicate": {
-        "refinedstorage:energy_type": 2.0
+        "refinedstorage:energy_type": 0.66666667
       }
     },
     {
       "model": "refinedstorage:block/controller/black",
       "predicate": {
-        "refinedstorage:energy_type": 3.0
+        "refinedstorage:energy_type": 1.0
       }
     }
   ]

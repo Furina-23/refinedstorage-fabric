@@ -164,7 +164,6 @@ public class GridViewImpl implements IGridView {
 
         if (existing == null) {
             stack.setQuantity(delta);
-
             map.put(stack.getId(), stack);
             existing = stack;
 
@@ -174,8 +173,17 @@ public class GridViewImpl implements IGridView {
 
             deltaListeners.forEach(consumer -> consumer.accept(stack));
 
-            if (!shouldSort && activeFilters.test(existing)) {
-                // Keep the visible list complete while Shift suppresses reordering.
+            int zeroedIndex = findZeroedStackIndex(stacks, existing);
+            boolean restoredInPlace = zeroedIndex >= 0 && !shouldSort && activeFilters.test(existing);
+            if (zeroedIndex >= 0) {
+                if (restoredInPlace) {
+                    stacks.set(zeroedIndex, existing);
+                } else {
+                    stacks.remove(zeroedIndex);
+                }
+            }
+
+            if (!shouldSort && !restoredInPlace && activeFilters.test(existing)) {
                 stacks.add(existing);
             }
 
@@ -188,8 +196,9 @@ public class GridViewImpl implements IGridView {
                 map.remove(existing.getId());
                 stillExists = false;
 
-                // Removing an entry must not be deferred just because sorting is disabled.
-                stacks.remove(existing);
+                if (shouldSort) {
+                    stacks.remove(existing);
+                }
 
                 if (craftingStack != null && shouldSort && activeFilters.test(existing) && activeFilters.test(craftingStack)) {
                     addStack(craftingStack);
@@ -204,9 +213,17 @@ public class GridViewImpl implements IGridView {
                 addStack(existing);
             }
             this.screen.updateScrollbar();
-        } else if (!stillExists && craftingStack != null && activeFilters.test(craftingStack)) {
-            stacks.add(craftingStack);
         }
+    }
+
+    static int findZeroedStackIndex(List<IGridStack> stacks, IGridStack incoming) {
+        for (int i = 0; i < stacks.size(); ++i) {
+            IGridStack visible = stacks.get(i);
+            if (visible.isZeroed() && visible.isSameType(incoming)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     private void addStack(IGridStack stack) {

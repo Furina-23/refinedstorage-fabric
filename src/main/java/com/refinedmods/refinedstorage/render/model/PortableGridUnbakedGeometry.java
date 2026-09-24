@@ -10,7 +10,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.Collection;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -45,21 +47,23 @@ public class PortableGridUnbakedGeometry implements UnbakedModel {
                            final Function<Material, TextureAtlasSprite> spriteGetter,
                            final ModelState modelState,
                            final ResourceLocation modelLocation) {
+        Function<Direction, BakedModel> baseConnectedModels = bakeModels(BASE_CONNECTED_MODEL, modelState, baker);
         return new PortableGridBakedModel(
-            Objects.requireNonNull(baker.bake(BASE_CONNECTED_MODEL, modelState)),
-            getModelBaker(BASE_CONNECTED_MODEL, modelState, baker),
-            getModelBaker(BASE_DISCONNECTED_MODEL, modelState, baker),
-            getModelBaker(DISK_MODEL, modelState, baker),
-            getModelBaker(DISK_NEAR_CAPACITY_MODEL, modelState, baker),
-            getModelBaker(DISK_FULL_MODEL, modelState, baker),
-            getModelBaker(DISK_DISCONNECTED_MODEL, modelState, baker)
+            Objects.requireNonNull(baseConnectedModels.apply(Direction.NORTH)),
+            baseConnectedModels,
+            bakeModels(BASE_DISCONNECTED_MODEL, modelState, baker),
+            bakeModels(DISK_MODEL, modelState, baker),
+            bakeModels(DISK_NEAR_CAPACITY_MODEL, modelState, baker),
+            bakeModels(DISK_FULL_MODEL, modelState, baker),
+            bakeModels(DISK_DISCONNECTED_MODEL, modelState, baker)
         );
     }
 
-    private Function<Direction, BakedModel> getModelBaker(final ResourceLocation id,
-                                                          final ModelState state,
-                                                          final ModelBaker baker) {
-        return direction -> {
+    private Function<Direction, BakedModel> bakeModels(final ResourceLocation id,
+                                                       final ModelState state,
+                                                       final ModelBaker baker) {
+        Map<Direction, BakedModel> models = new EnumMap<>(Direction.class);
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
             final Transformation rotation = new Transformation(null, RenderUtils.getQuaternion(direction), null, null);
             final ModelState wrappedState = new ModelState() {
                 @Override
@@ -72,8 +76,9 @@ public class PortableGridUnbakedGeometry implements UnbakedModel {
                     return state.isUvLocked();
                 }
             };
-            return baker.bake(id, wrappedState);
-        };
+            models.put(direction, Objects.requireNonNull(baker.bake(id, wrappedState)));
+        }
+        return models::get;
     }
 }
 

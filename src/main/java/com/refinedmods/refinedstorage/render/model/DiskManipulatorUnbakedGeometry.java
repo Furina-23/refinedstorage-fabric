@@ -12,6 +12,7 @@ import net.minecraft.world.item.DyeColor;
 import org.joml.Vector3f;
 
 import java.util.Collection;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,18 +67,26 @@ public class DiskManipulatorUnbakedGeometry implements UnbakedModel {
 
     private Function<Direction, BakedModel> getBaseModelBaker(final ModelState state,
                                                               final ModelBaker baker) {
-        return direction -> {
+        Map<Direction, BakedModel> models = new EnumMap<>(Direction.class);
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
             final Transformation rotation = new Transformation(null, RenderUtils.getQuaternion(direction), null, null);
-            return baker.bake(BASE_MODEL_DISCONNECTED, transformedState(state, rotation));
-        };
+            models.put(direction, baker.bake(BASE_MODEL_DISCONNECTED, transformedState(state, rotation)));
+        }
+        return models::get;
     }
 
     private BiFunction<Direction, DyeColor, BakedModel> getBaseModelBakerConnected(final ModelState state,
                                                                                    final ModelBaker baker) {
-        return (direction, color) -> {
+        Map<Direction, Map<DyeColor, BakedModel>> models = new EnumMap<>(Direction.class);
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            Map<DyeColor, BakedModel> modelsByColor = new EnumMap<>(DyeColor.class);
             final Transformation rotation = new Transformation(null, RenderUtils.getQuaternion(direction), null, null);
-            return baker.bake(BASE_MODEL_CONNECTED.get(color), transformedState(state, rotation));
-        };
+            for (DyeColor color : DyeColor.values()) {
+                modelsByColor.put(color, baker.bake(BASE_MODEL_CONNECTED.get(color), transformedState(state, rotation)));
+            }
+            models.put(direction, modelsByColor);
+        }
+        return (direction, color) -> models.get(direction).get(color);
     }
 
     private BiFunction<Direction, Vector3f, BakedModel> getDiskModelBaker(final ResourceLocation id,

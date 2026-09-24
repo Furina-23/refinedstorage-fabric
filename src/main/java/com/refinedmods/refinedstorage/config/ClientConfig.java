@@ -68,6 +68,11 @@ public class ClientConfig {
             return preventSortingWhileShiftIsDown.get();
         }
 
+        public void setPreventSortingWhileShiftIsDown(boolean value) {
+            preventSortingWhileShiftIsDown.set(value);
+            ClientConfig.this.spec.save();
+        }
+
         public boolean getRememberSearchQuery() {
             return rememberSearchQuery.get();
         }

@@ -10,12 +10,14 @@ import com.refinedmods.refinedstorage.blockentity.grid.portable.PortableGridDisk
 import com.refinedmods.refinedstorage.inventory.player.PlayerSlot;
 import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
@@ -35,6 +37,7 @@ public class PortableGridBakedModel extends ForwardingBakedModel<BakedModel> imp
     private final Function<Direction, BakedModel> diskNearCapacityModelBakery;
     private final Function<Direction, BakedModel> diskFullModelBakery;
     private final Function<Direction, BakedModel> diskDisconnectedModelBakery;
+    private final ItemOverrides itemOverrides = new PortableGridItemOverrides();
 
     private final LoadingCache<CacheKey, List<BakedQuad>> cache = CacheBuilder.newBuilder().build(new CacheLoader<CacheKey, List<BakedQuad>>() {
         @Override
@@ -79,7 +82,7 @@ public class PortableGridBakedModel extends ForwardingBakedModel<BakedModel> imp
 
     @Override
     public ItemOverrides getOverrides() {
-        return ItemOverrides.EMPTY;
+        return itemOverrides;
     }
 
     @Override
@@ -148,6 +151,25 @@ public class PortableGridBakedModel extends ForwardingBakedModel<BakedModel> imp
         @Override
         public int hashCode() {
             return Objects.hash(state, side, random);
+        }
+    }
+
+    private class PortableGridItemOverrides extends ItemOverrides {
+        private PortableGridItemOverrides() {
+            super(null, null, List.of());
+        }
+
+        @Nullable
+        @Override
+        public BakedModel resolve(BakedModel model, ItemStack stack, @Nullable ClientLevel level,
+                                  @Nullable LivingEntity entity, int seed) {
+            PortableGrid portableGrid = new PortableGrid(null, stack, new PlayerSlot(-1));
+            Function<Direction, BakedModel> diskModelBakery = getDiskModelBakery(portableGrid.getDiskState());
+            BakedModel diskModel = diskModelBakery == null ? null : diskModelBakery.apply(Direction.NORTH);
+            BakedModel baseModel = portableGrid.isGridActive()
+                ? baseConnectedModelBakery.apply(Direction.NORTH)
+                : baseDisconnectedModelBakery.apply(Direction.NORTH);
+            return new PortableGridItemBakedModel(baseModel, diskModel);
         }
     }
 

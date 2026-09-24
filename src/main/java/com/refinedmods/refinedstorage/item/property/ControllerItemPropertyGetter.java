@@ -16,15 +16,21 @@ public class ControllerItemPropertyGetter implements ItemPropertyFunction {
     public float call(ItemStack stack, @Nullable ClientLevel level, @Nullable LivingEntity entity, int p) {
         // Fresh items, including creative-tab entries, have no energy tag and are treated as full.
         if (stack.getTag() == null) {
-            return ControllerBlock.EnergyType.ON.ordinal();
+            return toModelValue(ControllerBlock.EnergyType.ON);
         }
 
         IEnergyStorage storage = ItemEnergyStorageFactory.get(stack);
         if (storage != null) {
-            return Network.getEnergyType(storage.getEnergyStored(), storage.getMaxEnergyStored()).ordinal();
+            return toModelValue(Network.getEnergyType(storage.getEnergyStored(), storage.getMaxEnergyStored()));
         }
 
-        return ControllerBlock.EnergyType.ON.ordinal();
+        return toModelValue(ControllerBlock.EnergyType.ON);
+    }
+
+    static float toModelValue(ControllerBlock.EnergyType type) {
+        // ItemProperties.register clamps values to [0, 1]. Keep this scale in sync
+        // with energy_type thresholds in all controller item model overrides.
+        return type.ordinal() / 3.0F;
     }
 }
 

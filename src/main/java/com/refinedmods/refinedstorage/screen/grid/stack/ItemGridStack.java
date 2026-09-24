@@ -61,6 +61,17 @@ public class ItemGridStack implements IGridStack {
         this.zeroed = zeroed;
     }
 
+    @Override
+    public boolean isZeroed() {
+        return zeroed;
+    }
+
+    @Override
+    public boolean isSameType(IGridStack other) {
+        return other instanceof ItemGridStack itemStack
+            && ItemStack.isSameItemSameTags(stack, itemStack.stack);
+    }
+
     public ItemStack getStack() {
         return stack;
     }
@@ -175,6 +186,7 @@ public class ItemGridStack implements IGridStack {
         if (amount <= 0) {
             setZeroed(true);
         } else {
+            setZeroed(false);
             stack.setCount(amount);
         }
     }

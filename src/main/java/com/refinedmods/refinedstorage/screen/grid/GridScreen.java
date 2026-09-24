@@ -70,7 +70,6 @@ public class GridScreen extends BaseScreen<GridContainerMenu> implements IScreen
     private ScrollbarWidget scrollbar;
     private ScrollbarWidget patternScrollbar;
     private boolean wasConnected;
-    private boolean doSort;
     private int slotNumber;
     private int slotNumberX;
     private int slotNumberY;
@@ -122,7 +121,6 @@ public class GridScreen extends BaseScreen<GridContainerMenu> implements IScreen
     @Override
     protected void onPreInit() {
         super.onPreInit();
-        this.doSort = true;
         this.imageHeight = getTopHeight() + getBottomHeight() + (getVisibleRows() * 18);
     }
 
@@ -170,6 +168,7 @@ public class GridScreen extends BaseScreen<GridContainerMenu> implements IScreen
         addSideButton(new GridSortingTypeSideButton(this, grid));
         addSideButton(new GridSearchBoxModeSideButton(this));
         addSideButton(new GridSizeSideButton(this, grid::getSize, grid::onSizeChanged));
+        addSideButton(new GridShiftSortingLockSideButton(this));
 
         if (grid.getGridType() == GridType.PATTERN) {
             patternScrollbar = new ScrollbarWidget(this, 160, getTopHeight() + getVisibleRows() * 18 + 4, 6, 18 * 3 - 2, true);
@@ -533,10 +532,6 @@ public class GridScreen extends BaseScreen<GridContainerMenu> implements IScreen
             setFocused(null);
             return true;
         }
-        if (RS.CLIENT_CONFIG.getGrid().getPreventSortingWhileShiftIsDown()) {
-            doSort = !isOverSlotArea(mouseX - leftPos, mouseY - topPos) && !isOverCraftingOutputArea(mouseX - leftPos, mouseY - topPos);
-        }
-
         boolean clickedClear = clickedButton == 0 && isOverClear(mouseX - leftPos, mouseY - topPos);
         boolean clickedCreatePattern = clickedButton == 0 && isOverCreatePattern(mouseX - leftPos, mouseY - topPos);
 
@@ -631,9 +626,6 @@ public class GridScreen extends BaseScreen<GridContainerMenu> implements IScreen
     @Override
     public boolean mouseScrolled(double x, double y, double delta) {
         if (hasShiftDown() || hasControlDown()) {
-            if (RS.CLIENT_CONFIG.getGrid().getPreventSortingWhileShiftIsDown()) {
-                doSort = !isOverSlotArea(x - leftPos, y - topPos) && !isOverCraftingOutputArea(x - leftPos, y - topPos);
-            }
             if (grid.getGridType() != GridType.FLUID) {
                 if (isOverInventory(x - leftPos, y - topPos) && hoveredSlot != null && hoveredSlot.hasItem() && getMenu().getDisabledSlotNumber() != hoveredSlot.index) {
                     RS.NETWORK_HANDLER.sendToServer(new GridItemInventoryScrollMessage(hoveredSlot.index, hasShiftDown(), delta > 0));
@@ -760,7 +752,15 @@ public class GridScreen extends BaseScreen<GridContainerMenu> implements IScreen
     }
 
     public boolean canSort() {
-        return doSort || (!hasShiftDown() && !hasControlDown());
+        return !RS.CLIENT_CONFIG.getGrid().getPreventSortingWhileShiftIsDown()
+            || (!hasShiftDown() && !hasControlDown());
+    }
+
+    public void setShiftSortingLockEnabled(boolean enabled) {
+        RS.CLIENT_CONFIG.getGrid().setPreventSortingWhileShiftIsDown(enabled);
+        if (!enabled) {
+            view.forceSort();
+        }
     }
 }
 

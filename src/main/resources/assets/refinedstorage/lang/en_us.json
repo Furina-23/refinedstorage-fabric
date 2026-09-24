@@ -184,6 +184,9 @@
   "sidebutton.refinedstorage.grid.size.1": "Small",
   "sidebutton.refinedstorage.grid.size.2": "Medium",
   "sidebutton.refinedstorage.grid.size.3": "Large",
+  "sidebutton.refinedstorage.grid.shift_sorting_lock": "Lock sorting while holding Shift",
+  "sidebutton.refinedstorage.grid.shift_sorting_lock.on": "On",
+  "sidebutton.refinedstorage.grid.shift_sorting_lock.off": "Off",
 
   "sidebutton.refinedstorage.mode": "Mode",
   "sidebutton.refinedstorage.mode.whitelist": "Whitelist",
