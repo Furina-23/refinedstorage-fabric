@@ -3,6 +3,7 @@ package com.refinedmods.refinedstorage.transfer.item.wrapper;
 import com.refinedmods.refinedstorage.MinecraftTestBootstrap;
 import com.refinedmods.refinedstorage.transfer.item.ItemHandlerHelper;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.junit.jupiter.api.BeforeAll;
@@ -51,5 +52,21 @@ class InvWrapperTest {
 
         assertTrue(remainder.isEmpty());
         assertTrue(inventory.getItem(0).isEmpty());
+    }
+
+    @Test
+    void playerMainInventoryDoesNotExposeEquipmentSlots() {
+        Inventory inventory = new Inventory(null);
+        PlayerMainInvWrapper wrapper = new PlayerMainInvWrapper(inventory);
+
+        inventory.items.replaceAll(ignored -> new ItemStack(Items.COBBLESTONE, 64));
+
+        ItemStack remainder = ItemHandlerHelper.insertItemStacked(
+            wrapper, new ItemStack(Items.OAK_LOG, 16), false);
+
+        assertEquals(inventory.items.size(), wrapper.getSlots());
+        assertEquals(16, remainder.getCount());
+        assertTrue(inventory.armor.stream().allMatch(ItemStack::isEmpty));
+        assertTrue(inventory.offhand.stream().allMatch(ItemStack::isEmpty));
     }
 }

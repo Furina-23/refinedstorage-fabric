@@ -569,7 +569,16 @@ public class GridScreen extends BaseScreen<GridContainerMenu> implements IScreen
                 IGridStack stack = view.getStacks().get(slotNumber);
 
                 if (held.isEmpty()) {
-                    if (view.canCraft() && stack.isCraftable()) {
+                    if (clickedButton == GLFW.GLFW_MOUSE_BUTTON_MIDDLE) {
+                        if (view.canCraft()) {
+                            IGridStack craftableStack = getCraftableStack(stack);
+                            if (craftableStack != null) {
+                                minecraft.setScreen(new CraftingSettingsScreen(this, inventory.player, craftableStack));
+                            } else {
+                                inventory.player.sendSystemMessage(Component.translatable("gui.refinedstorage.crafting_preview.no_pattern").withStyle(ChatFormatting.RED));
+                            }
+                        }
+                    } else if (view.canCraft() && stack.isCraftable()) {
                         minecraft.setScreen(new CraftingSettingsScreen(this, inventory.player, stack));
                     } else if (view.canCraft() && !stack.isCraftable() && stack.getOtherId() != null && hasShiftDown() && hasControlDown()) {
                         minecraft.setScreen(new CraftingSettingsScreen(this, inventory.player, view.get(stack.getOtherId())));
@@ -596,6 +605,18 @@ public class GridScreen extends BaseScreen<GridContainerMenu> implements IScreen
         }
 
         return super.mouseClicked(mouseX, mouseY, clickedButton);
+    }
+
+    private IGridStack getCraftableStack(IGridStack stack) {
+        if (stack.isCraftable()) {
+            return stack;
+        }
+        if (stack.getOtherId() == null) {
+            return null;
+        }
+
+        IGridStack otherStack = view.get(stack.getOtherId());
+        return otherStack != null && otherStack.isCraftable() ? otherStack : null;
     }
 
     private boolean isOverCraftingOutputArea(double mouseX, double mouseY) {

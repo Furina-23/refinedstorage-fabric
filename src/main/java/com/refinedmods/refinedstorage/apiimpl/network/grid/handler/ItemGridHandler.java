@@ -16,6 +16,7 @@ import com.refinedmods.refinedstorage.apiimpl.autocrafting.preview.ErrorCrafting
 import com.refinedmods.refinedstorage.container.GridContainerMenu;
 import com.refinedmods.refinedstorage.network.grid.GridCraftingPreviewResponseMessage;
 import com.refinedmods.refinedstorage.network.grid.GridCraftingStartResponseMessage;
+import com.refinedmods.refinedstorage.transfer.item.wrapper.PlayerMainInvWrapper;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -173,7 +174,7 @@ public class ItemGridHandler implements IItemGridHandler {
 
         if (!took.isEmpty()) {
             if ((flags & EXTRACT_SHIFT) == EXTRACT_SHIFT) {
-                Optional<IItemHandler> playerInventory = Optional.of(new com.refinedmods.refinedstorage.transfer.item.wrapper.PlayerInvWrapper(player));
+                Optional<IItemHandler> playerInventory = Optional.of(new PlayerMainInvWrapper(player));
                 if (playerInventory.isPresent()) {
                     if (preferredSlot != -1) {
                         ItemStack remainder = playerInventory.get().insertItem(preferredSlot, took, true);

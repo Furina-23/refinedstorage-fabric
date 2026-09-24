@@ -51,6 +51,7 @@ public class CraftingPreviewScreen extends BaseScreen<AbstractContainerMenu> {
     private final int quantity;
     private final boolean fluids;
     private final IElementDrawers drawers = new CraftingPreviewElementDrawers(this);
+    private Button startButton;
     private ItemStack hoveringStack;
     private FluidStack hoveringFluid;
 
@@ -81,8 +82,8 @@ public class CraftingPreviewScreen extends BaseScreen<AbstractContainerMenu> {
     public void onPostInit(int x, int y) {
         addButton(x + 55, y + 201 - 20 - 7, 50, 20, Component.translatable("gui.cancel"), true, true, btn -> close());
 
-        Button startButton = addButton(x + 129, y + 201 - 20 - 7, 50, 20, Component.translatable("misc.refinedstorage.start"), true, true, btn -> startRequest());
-        startButton.active = elements.stream().noneMatch(ICraftingPreviewElement::doesDisableTaskStarting);
+        startButton = addButton(x + 129, y + 201 - 20 - 7, 50, 20, Component.translatable("misc.refinedstorage.start"), true, true, btn -> startRequest());
+        startButton.active = canStart();
     }
 
     @Override
@@ -275,9 +276,17 @@ public class CraftingPreviewScreen extends BaseScreen<AbstractContainerMenu> {
     }
 
     private void startRequest() {
+        if (!canStart()) {
+            return;
+        }
+
         RS.NETWORK_HANDLER.sendToServer(new GridCraftingStartRequestMessage(id, quantity, fluids));
 
         close();
+    }
+
+    private boolean canStart() {
+        return elements.stream().noneMatch(ICraftingPreviewElement::doesDisableTaskStarting);
     }
 
     private int getRows() {

@@ -60,6 +60,7 @@
     "gui.refinedstorage.crafting_preview.to_craft": "制作：%d",
     "gui.refinedstorage.crafting_preview.available": "可用：%d",
     "gui.refinedstorage.crafting_preview.missing": "缺失：%d",
+    "gui.refinedstorage.crafting_preview.no_pattern": "没有可用于此物品的合成样板",
     "gui.refinedstorage.crafting_preview.error": "请求失败",
     "gui.refinedstorage.crafting_preview.error.recursive.0": "其中一种制作成分最终需要",
     "gui.refinedstorage.crafting_preview.error.recursive.1": "自己.",

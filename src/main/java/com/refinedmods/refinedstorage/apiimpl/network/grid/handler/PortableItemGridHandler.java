@@ -12,6 +12,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import com.refinedmods.refinedstorage.transfer.item.IItemHandler;
 import com.refinedmods.refinedstorage.transfer.item.ItemHandlerHelper;
+import com.refinedmods.refinedstorage.transfer.item.wrapper.PlayerMainInvWrapper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -92,7 +93,7 @@ public class PortableItemGridHandler implements IItemGridHandler {
 
         if (!took.isEmpty()) {
             if ((flags & EXTRACT_SHIFT) == EXTRACT_SHIFT) {
-                IItemHandler playerInventory = new com.refinedmods.refinedstorage.transfer.item.wrapper.PlayerInvWrapper(player);
+                IItemHandler playerInventory = new PlayerMainInvWrapper(player);
                 if (playerInventory != null) {
                     if (preferredSlot != -1) {
                         ItemStack remainder = playerInventory.insertItem(preferredSlot, took, true);

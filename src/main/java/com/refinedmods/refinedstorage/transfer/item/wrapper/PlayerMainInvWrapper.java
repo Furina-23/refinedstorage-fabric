@@ -4,8 +4,21 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
 
 public class PlayerMainInvWrapper extends InvWrapper {
-    public PlayerMainInvWrapper(Player player) { super(player.getInventory()); }
-    public PlayerMainInvWrapper(Inventory inventory) { super(inventory); }
+    private final Inventory inventory;
+
+    public PlayerMainInvWrapper(Player player) {
+        this(player.getInventory());
+    }
+
+    public PlayerMainInvWrapper(Inventory inventory) {
+        super(inventory);
+        this.inventory = inventory;
+    }
+
+    @Override
+    public int getSlots() {
+        return inventory.items.size();
+    }
 }
 
 
